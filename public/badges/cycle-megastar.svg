@@ -1,0 +1,18 @@
+<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+  <defs></defs>
+  <ellipse style="stroke-width: 5px; fill: rgb(43, 50, 69); stroke: rgb(60, 68, 92);" cx="50" cy="50" rx="47.5" ry="47.5"></ellipse>
+  <path style="fill: none; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2px; stroke: rgb(191, 255, 202);" d="M 52.22 13.313 C 74.669 16.995 90.035 32.42 90.504 55.013 L 95.193 46.125" transform="matrix(0.980125, 0.198379, -0.198379, 0.980125, 8.242127, -13.942869)"></path>
+  <path style="fill: none; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2px; stroke: rgb(191, 255, 202);" d="M 31.345 56.925 C 53.794 60.607 69.16 76.032 69.629 98.625 L 74.318 89.737" transform="matrix(-0.666944, 0.745108, -0.745108, -0.666944, 146.01791, 90.281422)"></path>
+  <path style="fill: none; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2px; stroke: rgb(191, 255, 202);" d="M 4.155 17.567 C 26.604 21.249 41.97 36.674 42.439 59.267 L 47.128 50.379" transform="matrix(-0.31818, -0.94803, 0.94803, -0.31818, -2.620385, 74.949423)"></path>
+  <ellipse style="fill: none; stroke-width: 2px; stroke: rgb(0, 121, 242);" cx="50" cy="50" rx="25" ry="25"></ellipse>
+  <ellipse style="fill: none; stroke: rgb(108, 217, 126);" cx="50" cy="50" rx="30" ry="30"></ellipse>
+  <path style="fill: none; stroke: rgb(87, 171, 255); stroke-linecap: round; stroke-linejoin: round; stroke-width: 2px;" d="M 47.425 28.101 C 56.361 27.719 67.658 35.019 68.043 48.14 L 61.429 43.591" transform="matrix(0.976211, -0.216823, 0.216823, 0.976211, -6.890406, 13.424715)"></path>
+  <path style="fill: none; stroke: rgb(87, 171, 255); stroke-linecap: round; stroke-linejoin: round; stroke-width: 2px;" d="M 47.213 51.636 C 56.149 51.254 67.446 58.554 67.831 71.675 L 61.089 65.814" transform="matrix(-0.303325, 0.952887, -0.952887, -0.303325, 133.713797, 25.535876)"></path>
+  <path style="fill: none; stroke: rgb(87, 171, 255); stroke-linecap: round; stroke-linejoin: round; stroke-width: 2px;" d="M 25.854 39.674 C 34.79 39.292 46.087 46.592 46.472 59.713 L 39.652 53.364" transform="matrix(-0.698855, -0.715263, 0.715263, -0.698855, 25.896885, 110.276001)"></path>
+  <path style="fill: none; stroke-linecap: round; stroke: rgb(178, 217, 255);" d="M 57.293 2.848 C 29.593 -1.463 2.531 20.424 2.621 48.791"></path>
+  <path style="fill: none; stroke-linecap: round; stroke: rgb(178, 217, 255);" d="M 108.249 21.585 C 80.549 17.274 53.487 39.161 53.577 67.528" transform="matrix(-0.484377, 0.874859, -0.874859, -0.484377, 158.848141, -5.052177)"></path>
+  <path style="fill: none; stroke-linecap: round; stroke: rgb(178, 217, 255);" d="M 69.554 57.658 C 41.854 53.347 14.792 75.234 14.882 103.601" transform="matrix(-0.584804, -0.811175, 0.811175, -0.584804, 1.722928, 161.5973)"></path>
+  <path style="fill: none; stroke-linecap: round; stroke-linejoin: round; stroke: rgb(87, 171, 255);" d="M 38.061 11.636 C 45.243 10.829 53.567 11.43 62.293 17.703 L 52.72 17.498"></path>
+  <path style="fill: none; stroke-linecap: round; stroke-linejoin: round; stroke: rgb(87, 171, 255);" d="M 69.23 64.766 C 76.412 63.959 84.736 64.56 93.462 70.833 L 83.807 70.588" transform="matrix(-0.580171, 0.814495, -0.814495, -0.580171, 183.900619, 41.146054)"></path>
+  <path style="fill: none; stroke-linecap: round; stroke-linejoin: round; stroke: rgb(87, 171, 255);" d="M 8.137 65.359 C 15.319 64.552 23.643 65.153 32.369 71.426 L 22.741 70.939" transform="matrix(-0.527109, -0.849798, 0.849798, -0.527109, -27.33493, 121.911902)"></path>
+</svg>

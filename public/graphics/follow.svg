@@ -1,0 +1,33 @@
+<svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg" xmlns:bx="https://boxy-svg.com">
+  <defs></defs>
+  <path style="fill: rgb(112, 120, 140);" d="M 92.271 144.651 L 62.031 143.888 C 60.473 132.584 71.007 114.049 92.113 113.906 C 108.136 113.289 123.547 129.009 122.034 145.192 L 92.271 144.651 Z"></path>
+  <ellipse style="fill: rgb(112, 120, 140);" cx="91.88" cy="93.64" rx="15" ry="15"></ellipse>
+  <path style="fill: rgb(112, 120, 140);" d="M 360.663 190.647 L 330.423 189.884 C 328.865 178.58 339.399 160.045 360.505 159.902 C 376.528 159.285 391.939 175.005 390.426 191.188 L 360.663 190.647 Z"></path>
+  <ellipse style="fill: rgb(112, 120, 140);" cx="360.272" cy="139.636" rx="15" ry="15"></ellipse>
+  <path style="fill: rgb(112, 120, 140);" d="M 269.904 84.015 L 239.664 83.252 C 238.106 71.948 248.64 53.413 269.746 53.27 C 285.769 52.653 301.18 68.373 299.667 84.556 L 269.904 84.015 Z"></path>
+  <ellipse style="fill: rgb(112, 120, 140);" cx="269.513" cy="33.004" rx="15" ry="15"></ellipse>
+  <path style="fill: rgb(112, 120, 140);" d="M 209.195 235.398 L 178.955 234.635 C 177.397 223.331 187.931 204.796 209.037 204.653 C 225.06 204.036 240.471 219.756 238.958 235.939 L 209.195 235.398 Z"></path>
+  <ellipse style="fill: rgb(112, 120, 140);" cx="208.804" cy="184.387" rx="15" ry="15"></ellipse>
+  <path style="fill: rgb(112, 120, 140);" d="M 40.835 286.334 L 10.595 285.571 C 9.037 274.267 19.571 255.732 40.677 255.589 C 56.7 254.972 72.111 270.692 70.598 286.875 L 40.835 286.334 Z"></path>
+  <ellipse style="fill: rgb(112, 120, 140);" cx="40.444" cy="235.323" rx="15" ry="15"></ellipse>
+  <line style="fill: rgb(216, 216, 216); stroke-linecap: round; stroke: rgb(95, 103, 122); stroke-width: 5px;" x1="126.35" y1="124.15" x2="213.308" y2="144.338"></line>
+  <line style="fill: rgb(216, 216, 216); stroke-linecap: round; stroke: rgb(95, 103, 122); stroke-width: 5px;" x1="245.192" y1="151.933" x2="325.572" y2="171.596"></line>
+  <line style="fill: rgb(216, 216, 216); stroke-linecap: round; stroke: rgb(95, 103, 122); stroke-width: 5px;" x1="244.74" y1="90.47" x2="130.337" y2="204.715"></line>
+  <line style="fill: rgb(216, 216, 216); stroke-linecap: round; stroke: rgb(95, 103, 122); stroke-width: 5px;" x1="103.265" y1="226.486" x2="69.013" y2="262.138"></line>
+  <line style="fill: rgb(216, 216, 216); stroke-linecap: round; stroke: rgb(95, 103, 122); stroke-width: 5px;" x1="240.089" y1="215.595" x2="268.899" y2="207.51"></line>
+  <line style="fill: rgb(216, 216, 216); stroke-linecap: round; stroke: rgb(95, 103, 122); stroke-width: 5px;" x1="296.767" y1="198.472" x2="323.763" y2="189.456"></line>
+  <line style="fill: rgb(216, 216, 216); stroke-linecap: round; stroke: rgb(95, 103, 122); stroke-width: 5px;" x1="73.495" y1="270.873" x2="131.962" y2="249.168"></line>
+  <line style="fill: rgb(216, 216, 216); stroke-linecap: round; stroke: rgb(95, 103, 122); stroke-width: 5px;" x1="161.674" y1="237.543" x2="172.854" y2="233.729"></line>
+  <line style="fill: rgb(216, 216, 216); stroke-linecap: round; stroke: rgb(95, 103, 122); stroke-width: 5px;" x1="281.234" y1="92.893" x2="281.514" y2="188.998"></line>
+  <line style="fill: rgb(216, 216, 216); stroke-linecap: round; stroke: rgb(95, 103, 122); stroke-width: 5px;" x1="87.655" y1="152.751" x2="104.803" y2="199.734"></line>
+  <path d="M 283.106 196.009 L 284.96 201.617 L 290.606 201.738 L 286.106 205.325 L 287.741 211.008 L 283.106 207.616 L 278.471 211.008 L 280.106 205.325 L 275.606 201.738 L 281.252 201.617 Z" style="stroke-linecap: round; stroke-linejoin: round; stroke: rgb(112, 120, 140); fill: rgb(112, 120, 140);" bx:shape="star 283.106 204.3 7.886 8.291 0.4 5 1@00dbbeca"></path>
+  <path d="M 229.887 136.889 L 232.359 144.367 L 239.887 144.529 L 233.887 149.312 L 236.068 156.889 L 229.887 152.367 L 223.706 156.889 L 225.887 149.312 L 219.887 144.529 L 227.415 144.367 Z" style="stroke-linecap: round; stroke-linejoin: round; stroke: rgb(112, 120, 140); fill: rgb(112, 120, 140);" bx:shape="star 229.887 147.945 10.515 11.056 0.4 5 1@896c9e00"></path>
+  <path d="M 114.438 201.443 L 116.91 208.921 L 124.438 209.083 L 118.438 213.866 L 120.619 221.443 L 114.438 216.921 L 108.257 221.443 L 110.438 213.866 L 104.438 209.083 L 111.966 208.921 Z" style="stroke-linecap: round; stroke-linejoin: round; stroke: rgb(112, 120, 140); fill: rgb(112, 120, 140);" bx:shape="star 114.438 212.499 10.515 11.056 0.4 5 1@d2bc22c9"></path>
+  <path d="M 145.239 233.578 L 147.711 241.056 L 155.239 241.218 L 149.239 246.001 L 151.42 253.578 L 145.239 249.056 L 139.058 253.578 L 141.239 246.001 L 135.239 241.218 L 142.767 241.056 Z" style="stroke-linecap: round; stroke-linejoin: round; stroke: rgb(112, 120, 140); fill: rgb(112, 120, 140);" bx:shape="star 145.239 244.634 10.515 11.056 0.4 5 1@b02cff5a"></path>
+  <text style="font-size: 36px; font-family: Roboto; white-space: pre;" transform="matrix(0.443148, 0, 0, 0.477956, 41.706367, 70.138977)"></text>
+  <text style="font-size: 36px; font-family: Roboto; white-space: pre;" transform="matrix(0.443148, 0, 0, 0.477956, 40.735191, 69.929497)"></text>
+  <text style="font-size: 36px; font-family: Roboto; white-space: pre;" transform="matrix(0.443148, 0, 0, 0.477956, 82.385422, 136.852173)"></text>
+  <text style="font-size: 36px; font-family: Roboto; white-space: pre;" transform="matrix(0.516362, 0, 0, 0.489541, 334.429108, 285.948456)"></text>
+  <text style="font-size: 36px; font-family: Roboto; white-space: pre;" transform="matrix(0.516362, 0, 0, 0.489541, 333.297485, 285.733887)"></text>
+  <text style="font-size: 36px; font-family: Roboto; white-space: pre;" transform="matrix(0.516362, 0, 0, 0.489541, 381.828888, 354.278625)"></text>
+</svg>

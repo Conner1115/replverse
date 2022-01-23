@@ -1,0 +1,75 @@
+.nav{
+  width: 100%;
+  height: 60px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: var(--background-root);
+  border-bottom: solid var(--background-default) 1px;
+  display: flex;
+}
+
+.logoWrapper{
+  display: flex;
+}
+.logoImage{
+  width: 30px;
+  margin: 10px;
+  margin-right: 5px;
+}
+.logoName{
+  display: inline-block;
+  align-self: center;
+}
+.arrow{
+  align-self: center;
+  width: 10px;
+  margin-left: 1px;
+  transform: translatey(1.5px);
+}
+.links{
+  flex-grow: 1;
+  display: flex;
+}
+.links > a{
+  display: block;
+  color: var(--foreground-default);
+  align-self: center;
+  text-decoration: none;
+  font-size: 15px;
+  font-weight: 500;
+  margin: 15px;
+}
+.linksRight{
+  align-self: center;
+  padding: 0 10px;
+}
+@media(max-width: 525px){
+  .logoName, .arrow{
+    display: none;
+  }
+  .links > a{
+    margin: 10px;
+  }
+  .linksRight{
+    padding: 0;
+    padding-right: 5px;
+  }
+  .loginBtn{
+    margin-right: 5px;
+  }
+}
+@media(max-width: 375px){
+  .links > a{
+    margin: 5px;
+    font-size: 11px;
+  }
+  .logoImage{
+    margin-left: 5px;
+    width: 20px;
+  }
+  .loginBtn, .signupButton{
+    font-size: 11px;
+    padding: 5px;
+  }
+}

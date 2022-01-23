@@ -1,0 +1,28 @@
+<svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg" xmlns:bx="https://boxy-svg.com">
+  <defs></defs>
+  <rect style="fill: rgb(43, 50, 69);" x="5" y="5" width="190" height="120" rx="5" ry="5"></rect>
+  <ellipse style="fill: rgb(78, 85, 105);" cx="12.5" cy="137.5" rx="8.476" ry="8.369"></ellipse>
+  <rect style="fill: rgb(78, 85, 105);" x="140" y="130" width="25" height="15.032" rx="2" ry="2"></rect>
+  <rect style="fill: rgb(78, 85, 105);" x="170" y="130" width="25" height="15" rx="2" ry="2"></rect>
+  <text style="font-size: 36; font-family: Roboto; white-space: pre;" transform="matrix(1, 0, 0, 1, 90.291584, 142.108091)"></text>
+  <text style="font-size: 36; font-family: Roboto; white-space: pre;" transform="matrix(1, 0, 0, 1, 88.100045, 141.669794)"></text>
+  <text style="font-size: 36; font-family: Roboto; white-space: pre;" transform="matrix(1, 0, 0, 1, 182.087143, 281.688134)"></text>
+  <rect style="fill: rgb(78, 85, 105);" x="25" y="130" width="75" height="15" rx="2" ry="2"></rect>
+  <rect style="fill: rgb(43, 50, 69);" x="202.976" y="5" width="190" height="120" rx="5" ry="5"></rect>
+  <ellipse style="fill: rgb(78, 85, 105);" cx="210.476" cy="137.5" rx="8.476" ry="8.369"></ellipse>
+  <rect style="fill: rgb(78, 85, 105);" x="337.976" y="130" width="25" height="15.032" rx="2" ry="2"></rect>
+  <rect style="fill: rgb(78, 85, 105);" x="367.976" y="130" width="25" height="15" rx="2" ry="2"></rect>
+  <rect style="fill: rgb(78, 85, 105);" x="222.976" y="130" width="75" height="15" rx="2" ry="2"></rect>
+  <rect style="fill: rgb(43, 50, 69);" x="5.976" y="152" width="190" height="120" rx="5" ry="5"></rect>
+  <ellipse style="fill: rgb(78, 85, 105);" cx="13.476" cy="284.5" rx="8.476" ry="8.369"></ellipse>
+  <rect style="fill: rgb(78, 85, 105);" x="140.976" y="277" width="25" height="15.032" rx="2" ry="2"></rect>
+  <rect style="fill: rgb(78, 85, 105);" x="170.976" y="277" width="25" height="15" rx="2" ry="2"></rect>
+  <rect style="fill: rgb(78, 85, 105);" x="25.976" y="277" width="75" height="15" rx="2" ry="2"></rect>
+  <rect style="fill: rgb(43, 50, 69);" x="202.976" y="152" width="190" height="120" rx="5" ry="5"></rect>
+  <ellipse style="fill: rgb(78, 85, 105);" cx="210.476" cy="284.5" rx="8.476" ry="8.369"></ellipse>
+  <rect style="fill: rgb(78, 85, 105);" x="337.976" y="277" width="25" height="15.032" rx="2" ry="2"></rect>
+  <rect style="fill: rgb(78, 85, 105);" x="367.976" y="277" width="25" height="15" rx="2" ry="2"></rect>
+  <rect style="fill: rgb(78, 85, 105);" x="222.976" y="277" width="75" height="15" rx="2" ry="2"></rect>
+  <ellipse style="fill: none; stroke-width: 10px; stroke-linecap: round; stroke: rgb(112, 120, 140);" cx="220.691" cy="121.228" rx="60" ry="60"></ellipse>
+  <path style="fill: rgb(216, 216, 216); stroke-width: 10px; stroke-linecap: round; stroke: rgb(112, 120, 140);" d="M 178.191 163.728 L 103.191 238.728" bx:origin="-0.133333 -1.533333"></path>
+</svg>

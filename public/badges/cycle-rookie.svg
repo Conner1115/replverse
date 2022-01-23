@@ -1,0 +1,16 @@
+<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient gradientUnits="userSpaceOnUse" x1="50" y1="2.5" x2="50" y2="97.5" id="gradient-0" gradientTransform="matrix(-0.66692, 0.74513, -0.5648, -0.505518, 102.614099, 29.84961)">
+      <stop offset="0" style="stop-color: rgba(146, 91, 46, 1)"></stop>
+      <stop offset="1" style="stop-color: rgba(68, 43, 21, 1)"></stop>
+    </linearGradient>
+    <linearGradient gradientUnits="userSpaceOnUse" x1="50" y1="2.5" x2="50" y2="97.5" id="gradient-1" gradientTransform="matrix(0.687225, -0.726446, 0.723282, 0.68423, -20.361028, 50.882264)">
+      <stop offset="0" style="stop-color: rgba(167, 108, 68, 1)"></stop>
+      <stop offset="1" style="stop-color: rgba(95, 61, 39, 1)"></stop>
+    </linearGradient>
+  </defs>
+  <ellipse style="stroke-width: 5px; fill: rgb(43, 50, 69); stroke: rgb(60, 68, 92);" cx="50" cy="50" rx="47.5" ry="47.5"></ellipse>
+  <path style="fill: none; stroke-width: 3px; stroke-linecap: round; stroke-linejoin: round; stroke: rgb(0, 83, 166);" d="M 52.22 13.313 C 74.669 16.995 90.035 32.42 90.504 55.013 L 95.193 46.125" transform="matrix(0.980125, 0.198379, -0.198379, 0.980125, 8.242127, -13.942869)"></path>
+  <path style="fill: none; stroke-width: 3px; stroke-linecap: round; stroke-linejoin: round; stroke: rgb(0, 83, 166);" d="M 31.345 56.925 C 53.794 60.607 69.16 76.032 69.629 98.625 L 74.318 89.737" transform="matrix(-0.666944, 0.745108, -0.745108, -0.666944, 146.01791, 90.281422)"></path>
+  <path style="fill: none; stroke-width: 3px; stroke-linecap: round; stroke-linejoin: round; stroke: rgb(0, 83, 166);" d="M 4.155 17.567 C 26.604 21.249 41.97 36.674 42.439 59.267 L 47.128 50.379" transform="matrix(-0.31818, -0.94803, 0.94803, -0.31818, -2.620385, 74.949423)"></path>
+</svg>

@@ -1,0 +1,12 @@
+<svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+  <defs></defs>
+  <polygon style="stroke-width: 5px; stroke-linejoin: round; stroke-linecap: round; stroke: rgb(60, 68, 92); fill: rgb(60, 68, 92);" points="75 74.655 190 274.655 140 84.655"></polygon>
+  <polygon style="stroke-width: 5px; stroke-linejoin: round; stroke-linecap: round; fill: rgb(95, 103, 122); stroke: rgb(95, 103, 122);" points="148.656 84.319 250 84.655 200 284.655"></polygon>
+  <polygon style="stroke-width: 5px; stroke-linejoin: round; stroke-linecap: round; fill: rgb(95, 103, 122); stroke: rgb(95, 103, 122);" points="257.648 84.655 323.824 75.999 210 274.655"></polygon>
+  <polygon style="stroke-width: 5px; stroke-linejoin: round; stroke-linecap: round; fill: rgb(78, 85, 105); stroke: rgb(78, 85, 105);" points="79.017 68.253 116.216 31.903 161.176 42.626 142.641 77.547"></polygon>
+  <polygon style="stroke-width: 5px; stroke-linejoin: round; stroke-linecap: round; fill: rgb(95, 103, 122); stroke: rgb(95, 103, 122);" points="169.349 43.99 151.119 77.433 250.504 77.503 238.29 44.646"></polygon>
+  <polygon style="stroke-width: 5px; stroke-linejoin: round; stroke-linecap: round; stroke: rgb(112, 120, 140); fill: rgb(112, 120, 140);" points="245.951 44.741 258.174 76.767 320.436 68.487 292.141 34.002"></polygon>
+  <polygon style="stroke-width: 5px; stroke-linejoin: round; stroke-linecap: round; fill: rgb(95, 103, 122); stroke: rgb(95, 103, 122);" points="121.584 26.543 166.03 36.643 242.516 37.579 286.875 27.692 242.248 15.287 167.232 15"></polygon>
+  <polyline style="fill: none; stroke-width: 10px; stroke-linecap: round; stroke-linejoin: round; stroke: rgb(112, 120, 140);" points="50 50 5 150 50 250"></polyline>
+  <polyline style="fill: none; stroke-width: 10px; stroke-linecap: round; stroke-linejoin: round; stroke: rgb(112, 120, 140);" points="350 50 390 150 350 250"></polyline>
+</svg>

@@ -1,0 +1,28 @@
+.footer{
+  padding: 50px 0;
+  background: var(--background-default);
+}
+.flexGroup{
+  display: flex;
+  justify-self: center;
+  justify-items: center;
+  justify-content: center;
+  max-width: 600px;
+  margin: auto;
+}
+.linkCol{
+  width: 0;
+  flex: 1 1 0;
+}
+.linkCol > div{
+  text-align: left;
+  display: block;
+  margin: 10px 0;
+}
+.linkCol > div > a{
+  color: var(--foreground-dimmest);
+  text-decoration: none;
+}
+.linkCol > div > a:hover{
+  color: var(--accent-primary-stronger);
+}

@@ -1,0 +1,7 @@
+<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+  <defs></defs>
+  <ellipse style="stroke-width: 5px; fill: rgb(43, 50, 69); stroke: rgb(60, 68, 92);" cx="50" cy="50" rx="47.5" ry="47.5"></ellipse>
+  <polyline style="fill: none; stroke: rgb(87, 171, 255); stroke-width: 2px; stroke-linejoin: round; stroke-linecap: round;" points="49.892 86.708 15.812 72.301 16.56 22.471 50.281 37.88 78.603 26.676"></polyline>
+  <polyline style="fill: none; stroke: rgb(87, 171, 255); stroke-width: 2px; stroke-linejoin: round; stroke-linecap: round;" points="20.19 69.127 49.965 81.654 81.335 71.172 81.929 20.774 50.31 32.781"></polyline>
+  <line style="fill: rgb(216, 216, 216); stroke: rgb(87, 171, 255); stroke-width: 2px; stroke-linejoin: round; stroke-linecap: round;" x1="50.373" y1="41.347" x2="50.035" y2="77.632"></line>
+</svg>

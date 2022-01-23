@@ -1,0 +1,7 @@
+<svg viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg">
+  <defs></defs>
+  <rect style="fill: rgb(194, 200, 204);" width="400" height="200"></rect>
+  <rect style="fill: none; stroke-width: 5px; stroke: rgb(157, 162, 166);" x="100" y="40" width="200" height="120" rx="10" ry="10"></rect>
+  <polyline style="fill: none; stroke: rgb(157, 162, 166); stroke-linecap: round; stroke-linejoin: round; stroke-width: 5px;" points="100.871 103.306 152.278 51.878 213.767 108.687 251.043 75.599 298.063 113.991"></polyline>
+  <ellipse style="stroke-width: 5px; stroke: rgb(157, 162, 166); fill: none;" cx="209.408" cy="69.746" rx="13.509" ry="13.101"></ellipse>
+</svg>

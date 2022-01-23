@@ -1,0 +1,12 @@
+<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+  <defs></defs>
+  <ellipse style="stroke-width: 5px; fill: rgb(43, 50, 69); stroke: rgb(60, 68, 92);" cx="50" cy="50" rx="47.5" ry="47.5"></ellipse>
+  <path style="fill: none; stroke-width: 3px; stroke-linecap: round; stroke-linejoin: round; stroke: rgb(108, 217, 126);" d="M 52.22 13.313 C 74.669 16.995 90.035 32.42 90.504 55.013 L 95.193 46.125" transform="matrix(0.980125, 0.198379, -0.198379, 0.980125, 8.242127, -13.942869)"></path>
+  <path style="fill: none; stroke-width: 3px; stroke-linecap: round; stroke-linejoin: round; stroke: rgb(108, 217, 126);" d="M 31.345 56.925 C 53.794 60.607 69.16 76.032 69.629 98.625 L 74.318 89.737" transform="matrix(-0.666944, 0.745108, -0.745108, -0.666944, 146.01791, 90.281422)"></path>
+  <path style="fill: none; stroke-width: 3px; stroke-linecap: round; stroke-linejoin: round; stroke: rgb(108, 217, 126);" d="M 4.155 17.567 C 26.604 21.249 41.97 36.674 42.439 59.267 L 47.128 50.379" transform="matrix(-0.31818, -0.94803, 0.94803, -0.31818, -2.620385, 74.949423)"></path>
+  <ellipse style="fill: none; stroke-width: 2px; stroke: rgb(0, 121, 242);" cx="50" cy="50" rx="25" ry="25"></ellipse>
+  <ellipse style="fill: none; stroke: rgb(0, 121, 242);" cx="50" cy="50" rx="10" ry="10"></ellipse>
+  <path style="fill: none; stroke-width: 3px; stroke: rgb(87, 171, 255); stroke-linecap: round;" d="M 47.425 28.101 C 56.361 27.719 67.658 35.019 68.043 48.14" transform="matrix(0.976211, -0.216823, 0.216823, 0.976211, -6.890406, 13.424715)"></path>
+  <path style="fill: none; stroke-width: 3px; stroke: rgb(87, 171, 255); stroke-linecap: round;" d="M 47.213 51.636 C 56.149 51.254 67.446 58.554 67.831 71.675" transform="matrix(-0.303325, 0.952887, -0.952887, -0.303325, 133.713797, 25.535876)"></path>
+  <path style="fill: none; stroke-width: 3px; stroke: rgb(87, 171, 255); stroke-linecap: round;" d="M 25.854 39.674 C 34.79 39.292 46.087 46.592 46.472 59.713" transform="matrix(-0.698855, -0.715263, 0.715263, -0.698855, 25.896885, 110.276001)"></path>
+</svg>
