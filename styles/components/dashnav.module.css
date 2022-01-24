@@ -163,11 +163,26 @@
   height: 50px;
 }
 .replstatus{
-  background: var(--accent-positive-dimmest);
   flex-grow: 1;
   border-radius: 5px;
   margin-left: 10px;
   vertical-align: 'middle';
   padding: 5px 15px;
   display: flex;
+}
+.replLoader{
+  border-radius: 100%;
+  border: solid var(--accent-primary-default) 3px;
+  width: 30px;
+  height: 30px;
+  padding: 10px;
+  margin: 10px;
+  border-top: solid transparent 3px;
+  animation: spin 0.5s infinite ease-in;
+}
+
+@keyframes spin{
+  100%{
+    transform: rotate(360deg);
+  }
 }

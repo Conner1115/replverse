@@ -2,7 +2,7 @@
 export default function Replicon(props){
   return (
     <span>
-      <img src="/replit.svg" width={props.fontSize||18} height={props.fontSize||18} style={{transform: 'translatey(4px)'}}/>
+      <img src="/replit.svg" width={props.fontSize||14} height={props.fontSize||14} style={{transform: 'translatey(2px)'}}/>
     </span>
   );
 }

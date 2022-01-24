@@ -37,6 +37,7 @@
     --accent-grey-default: #808080;
     --accent-grey-stronger: #A6A6A6;
     --accent-grey-strongest: #D4D4D4;
+    --accent-warning-dimmest: rgba(225, 200, 0, 0.45);
     --font-family-default: 'IBM Plex Sans',sans-serif;
 }
 

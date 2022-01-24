@@ -11,7 +11,10 @@ export default class DashNav extends Component {
       icon: "",
       visible: false,
       replname: "",
-      showModal: false
+      showModal: false,
+      replstatus: 2,
+      langicon: "/blank.svg",
+      loading: false
     }
     this.toggle = this.toggle.bind(this);
     this.updateInput = this.updateInput.bind(this);
@@ -27,12 +30,47 @@ export default class DashNav extends Component {
     })
   }
   submitRepl(){
-    alert("Submit Repl")
+    this.setState({
+      loading: true
+    })
+    if(this.state.replstatus === 0){
+      fetch("/api/publish", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "accept": "* /*"
+        },
+        body: JSON.stringify({
+          repl: this.state.replname
+        })
+      }).then(r => r.json()).then(res => {
+        if(res.success){
+          this.setState({
+            loading: false
+          })
+          location.href = "/repl/" + res.user + "/" + res.slug
+        } else {
+          alert(res.message || "Internal Server Error.  Check browser console for details.")
+          console.log(res.err)
+          this.setState({
+            loading: false
+          })
+        }     
+      })
+    }
   }
   updateInput(e){
     this.setState({
       replname: e.target.value
-    })
+    });
+    fetch("/api/findrepl?q=" + e.target.value)
+      .then(r => r.json())
+      .then(res => {
+        this.setState({
+          replstatus: res.status,
+          langicon: res.lang || "/blank.svg"
+        })
+      })
   }
   toggle(b){
     localStorage.setItem("nav", b);
@@ -106,12 +144,15 @@ export default class DashNav extends Component {
         }}></div>
         <div className={styles.publishModal + " " + ui.boxDimDefault}>
           <h3 style={{padding: 0, fontSize: '1.5em', textAlign: 'center'}}>Share a Repl</h3>
-          <div className={ui.formLabel} style={{marginTop: 15}}>Repl Title</div>
+          <div className={ui.formLabel} style={{marginTop: 15}}>Repl Title (Case-Sensitive!)</div>
           <input className={ui.input + " " + styles.replName} value={this.state.replname} onChange={this.updateInput} style={{background: 'var(--background-higher)'}}/>
             <div className={styles.verifyFlex}>
-              <img className={styles.replIcon} src="https://replit.com/public/images/languages/nodejs.svg"/>
-              <div className={styles.replstatus}>
-            <span style={{verticalAlign: 'middle', alignSelf: 'center'}}>{this.state.replname} is available</span>
+              <img className={styles.replIcon} src={this.state.langicon}/>
+              <div className={styles.replstatus} style={{
+                background: this.state.replstatus === 0 ? `var(--accent-positive-dimmest)` : (this.state.replstatus === 1 ? `var(--accent-negative-dimmest)` : `var(--background-root)`)
+              }}>
+            <span style={{verticalAlign: 'middle', alignSelf: 'center'}}>{this.state.replstatus === 0 ? `${this.state.replname} is available` : (this.state.replstatus === 1 ? `Repl Not Found` : ``)}</span>
+            <div className={styles.replLoader} style={{display: this.state.loading ? "block" : "none"}}></div>
               </div>
             </div>
           <button onClick={this.submitRepl} className={ui.uiButton} style={{width: '100%'}}>Publish</button>

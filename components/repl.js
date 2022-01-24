@@ -1,6 +1,7 @@
 import ui from '../styles/ui.module.css';
 import styles from '../styles/components/repl.module.css'
 import Link from 'next/link'
+
 export default function Repl(props){
   return (<Link href={"/repl/" + props.slug} passHref><div className={styles.repl + " " + ui.boxDimSpaced}>
     <div className={styles.rstats}>

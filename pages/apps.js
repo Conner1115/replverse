@@ -2,6 +2,7 @@ import DashNav from '../components/dashnav'
 import styles from '../styles/pages/apps.module.css'
 import Repl from '../components/repl'
 import ui from '../styles/ui.module.css'
+import Head from 'next/head'
 import { useState, useEffect } from 'react';
 export default function Apps(props){
   let [pick, setPick] = useState(0);
@@ -36,7 +37,22 @@ export default function Apps(props){
       }
     })
   }, [])
+  useEffect(() => {
+      setDisplay(4);
+      if(window.innerWidth <= 1450){
+        setDisplay(3);
+      }
+      if(window.innerWidth <= 1150){
+        setDisplay(2);
+      }
+      if(window.innerWidth <= 800){
+        setDisplay(1);
+      }
+  })
   return (<div>
+    <Head>
+        <title>Explore | Replverse</title>
+    </Head>
     <DashNav>
     <div className={styles.bodyCont}>
       <h2 className={styles.staffHeader}>Staff Picks</h2>

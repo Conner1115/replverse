@@ -8,7 +8,7 @@ export default function Dashboard(props){
   return (
     <div>
     <Head>
-      <title>Dashboard</title>
+      <title>Dashboard | Replverse</title>
     </Head>
       <DashNav>
       <div className={styles.container}>

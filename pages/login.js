@@ -2,6 +2,7 @@ import ui from '../styles/ui.module.css';
 import pos from '../styles/pos.module.css';
 import Link from 'next/link';
 import Nav from '../components/nav';
+import Head from 'next/head'
 import { useState, useRef, useEffect } from 'react'
 export default function Login(props) {
   const [error, setError] = useState("")
@@ -50,6 +51,9 @@ export default function Login(props) {
   })
   return (
     <div className={pos.relcont}>
+    <Head>
+        <title>Log In | Replverse</title>
+      </Head>
       <form onSubmit={submit} style={{borderColor: 'var(--outline-dimmer)', width: 350, padding: 20, position: 'absolute', top: '50vh', left: '50vw', transform: 'translate(-50%, -50%)' }}>
         <h4 style={{ marginTop: 0, marginBottom: 10, paddingTop: 0 }}>Log In</h4>
         <button className={ui.uiButtonDark + " " + ui.blockEl} onClick={authenticate}>Authorize Replverse</button>

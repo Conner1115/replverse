@@ -6,7 +6,8 @@ const appSchema = new mongoose.Schema({
   views: { type: Number, index: true, default: 0 },
   likes: { type: Number, index: true, default: 0 },
   comments: { type: Array, index: true, default: [] },
-  slug: { type: String, index: true }
+  slug: { type: String, index: true },
+  cover: { type: String, index: true, default: "/graphics/image.svg" }
 })
 
 const userSchema = new mongoose.Schema({
