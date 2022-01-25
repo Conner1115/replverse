@@ -7,7 +7,12 @@ const appSchema = new mongoose.Schema({
   likes: { type: Number, index: true, default: 0 },
   comments: { type: Array, index: true, default: [] },
   slug: { type: String, index: true },
-  cover: { type: String, index: true, default: "/graphics/image.svg" }
+  cover: { type: String, index: true, default: "/graphics/image.svg" },
+  tags: { type: Array, index: true, default: [] },
+  avatar: { type: String, index: true },
+  desc: { type: String, index: true },
+  z: { type: Number, index: true, default: 10 }, //z-score
+  po: { type: Array, index: true, default: [[0, 0], [0, 0]]} // popularity over time [views, likes]
 })
 
 const userSchema = new mongoose.Schema({

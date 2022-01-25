@@ -3,6 +3,7 @@
   max-width: 400px;
   transition: 0.25s;
   align-self: center;
+  width: 1fr;
 }
 .repl:hover{
   border: solid var(--accent-primary-dimmer) 1px;

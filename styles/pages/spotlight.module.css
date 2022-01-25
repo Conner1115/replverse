@@ -1,3 +1,12 @@
+.flexFrame{
+  width: 100%;
+  height: calc(100vh - 100px);
+  max-height: 800px;
+  min-height: 300px;
+  margin-right: 20px;
+  flex-grow: 1;
+  paddingBottom: 50px;
+}
 .replFrame{
   width: 100%;
   height: calc(100vh - 100px);
@@ -5,10 +14,9 @@
   min-height: 300px;
   border: solid var(--outline-dimmest) 1px !important;
   border-radius: 10px;
-  margin-right: 20px;
-  flex-grow: 1;
 }
 .replOptions{
+  width: 300px;
   min-width: 300px;
 }
 .flexBody{
@@ -17,4 +25,119 @@
   padding: 20px 0;
   max-width: 1400px;
   margin: 0 auto;
+  flex-direction: row-reverse;
+}
+.userBox{
+  border-radius: 5px;
+  padding: 10px;
+  background: var(--background-default);
+  border: solid var(--outline-dimmest) 1px;
+}
+.flexUser{
+  display: flex;
+}
+.userAvatar{
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: solid var(--background-highest) 3px;
+}
+.userName{
+  font-size: 20px;
+  font-weight: 500;
+  vertical-align: center;
+  align-self: center;
+  margin-left: 10px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.blockFollowBtn{
+  width: 100%;
+  display: block;
+  margin: 10px 0;
+}
+.authorBio {
+  padding: 0 2px;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  font-size: 14px;
+  line-height: 20px;
+  width: 100%;
+}
+.commentForm{
+  padding: 20px 0;
+}
+.blockTA{
+  width: 100%;
+}
+.comment{
+  margin: 30px 0;
+  padding: 5px;
+}
+.commentUserFlex{
+  display: flex;
+}
+.commentUserAvatar{
+  width: 25px;
+  height: 25px;
+}
+.commentUserName{
+  font-size: 17px;
+  font-weight: 500;
+  margin-left: 5px;
+}
+.commentValue{
+  margin: 0;
+  padding: 0;
+  font-weight: 300;
+  color: white;
+  font-size: 15px;
+  line-height: 20px;
+  margin: 5px;
+  width: 100%;
+}
+.comments{
+  max-width: 600px;
+  padding-bottom: 50px;
+}
+.comment:first-of-type{
+  margin-top: 0;
+}
+.tag:first-of-type{
+  margin-left: 0;
+}
+.tag{
+  margin: 0 10px;
+  color: var(--accent-primary-strongest);
+  background: var(--accent-primary-dimmest);
+  border-radius: 20px;
+  padding: 5px 15px;
+  font-size: 14px;
+  margin-top: 10px;
+}
+@media(max-width: 840px){
+  .flexBody{
+    display: block;
+  }
+  .replOptions{
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+}
+.loader{
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: solid var(--accent-primary-strongest) 3px;
+  border-top: solid transparent 3px;
+  animation: spin 0.4s infinite;
+  display: inline;
+}
+
+@keyframes spin{
+  100%{
+    transform: rotate(360deg);
+  }
 }

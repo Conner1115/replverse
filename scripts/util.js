@@ -1,22 +1,10 @@
 import md5 from 'md5'
 import requestIp from 'request-ip'
 import rateLimit from 'express-rate-limit'
+import { User } from './mongo.js'
+import fs from 'fs'
 
 const admins = JSON.parse((process.env.ADMINS).replace(/\'/g, '"'))
-
-//t is an object with fields "likes" and "views" for the current state.
-//y is an object with the same fields for a past state in the last cron update
-function testTrend(t, y) {
-  let T = (t.likes / (t.views + 1) * (t.likes + 5));
-  let Y = (y.likes / (y.views + 1) * (y.likes + 5));
-  let Z = 10;
-  if (T - Y <= 0) {
-    Z -= Math.abs(T - Y);
-  } else {
-    Z += Math.abs(T - Y) / 2;
-  }
-  return (Number(Z.toFixed(2)))
-}
 
 const limiter = (time, max, handler) => {
   return rateLimit({
@@ -34,5 +22,24 @@ const limiter = (time, max, handler) => {
   })
 };
 
+async function authUser(req, res, callback){
+  let __user = await User.findOne({ token: req.cookies.sid, name: req.headers["x-replit-user-name"] });
+  if(__user){
+    callback(__user);
+  } else {
+    res.status(401).json({
+      success: false,
+      message: "Unauthorized Attempt",
+      err: "Unauthorized Attempt"
+    })
+  }
+}
 
-export { md5, admins, testTrend, limiter }
+function saveJSON(path, json){
+  fs.writeFile(process.cwd() + path, JSON.stringify(json), (err) => {
+    if (err) throw err;
+  });
+}
+
+
+export { md5, admins, limiter, authUser, saveJSON }

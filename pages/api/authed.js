@@ -11,7 +11,7 @@ app.post(async (req, res) => {
     if(u.verified){
       u.addr = md5(requestIp.getClientIp(req));
       u.save();
-      res.setHeader('Set-Cookie', `sid=${u.token}; path=/; Max-Age:${1000 * 60 * 60 * 24 * 365 * 10}`);
+      res.setHeader('Set-Cookie', `sid=${u.token}; path=/; Max-Age=${1000 * 60 * 60 * 24 * 365 * 10}`);
       res.json({ success: true });
     }else{
       res.json({ success: false, message: "Please verify your email before you log in." })

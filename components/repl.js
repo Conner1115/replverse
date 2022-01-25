@@ -3,7 +3,7 @@ import styles from '../styles/components/repl.module.css'
 import Link from 'next/link'
 
 export default function Repl(props){
-  return (<Link href={"/repl/" + props.slug} passHref><div className={styles.repl + " " + ui.boxDimSpaced}>
+  return (<Link href={"/repl/" + props.username + "/" + props.slug} passHref><div className={styles.repl + " " + ui.boxDimSpaced}>
     <div className={styles.rstats}>
     <Link href={"/user/"+props.username} passHref>
       <div className={styles.userInfo}>
@@ -16,6 +16,8 @@ export default function Repl(props){
         <span>{props.comments}{" "}<ion-icon name="chatbox-outline"></ion-icon></span>
   
         <span>{props.likes}{" "}<ion-icon name="heart-outline"></ion-icon></span>
+
+        <span>{props.views}{" "}<ion-icon name="eye-outline"></ion-icon></span>
       </div>
     </div>
 
@@ -27,7 +29,7 @@ export default function Repl(props){
 
     <div className={styles.replInfo}>
       <h3 className={styles.title}>{props.title}</h3>
-      <p className={styles.desc}>Lorem Ipsum Dolor Sit Amet This Is A Test Bunch Of Text And I Forgot The Rest Of Lorem Ipsum Dolor Sit Amet This Is A Test Bunch Of Text And I Forgot The Rest Of Lorem Ipsum Dolor Sit Amet This Is A Test Bunch Of Text And I Forgot The Rest Of Lorem Ipsum Dolor Sit Amet This Is A Test Bunch Of Text And I Forgot The Rest Of Lorem Ipsum Dolor Sit Amet This Is A Test Bunch Of Text And I Forgot The Rest Of Lorem Ipsum</p>
+      <p className={styles.desc}><span>{props.desc || "This repl has no description"}<span style={{color: 'transparent'}}>{". ".repeat(100)}</span></span></p>
     <div className={styles.replTags}>
       {props.tags.map(tag => <span className={styles.tag} key={tag}>#{tag}</span>)}
     </div>

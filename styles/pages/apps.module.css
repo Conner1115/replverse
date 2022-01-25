@@ -66,6 +66,7 @@
   width: 100%;
   justify-items: center;
   justify-content: center;
+  max-height: 70px;
 }
 .searchInput{
   max-width: 300px;
@@ -86,9 +87,13 @@
   border: solid var(--outline-dimmer) 1px;
   border-radius: 5px;
   padding: 5px;
+  max-height: 50px;
+  max-width: 50vw;
+  overflow-x: auto;
 }
 .tags{
   display: flex;
+  max-height: 30px;
 }
 .tag{
   border-radius: 50px;
@@ -99,6 +104,8 @@
   margin: 0 5px;
   padding-left: 5px;
   transition: 0.25s;
+  white-space: nowrap;
+  max-height: 30px;
 }
 .tag:first-of-type{
   margin-left: 0;
@@ -131,6 +138,9 @@
   font-size: 15px;
   margin-left: 5px;
   flex-grow: 1;
+}
+.flexIntrude{
+  display: flex;
 }
 .staffHeader{
     padding-top: 0;

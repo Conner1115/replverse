@@ -5,7 +5,8 @@ const app = nc();
 
 app.get(async (req, res) => {
   let token = req.query.token;
-  let findUser = await User.findOne({ token });
+  let findUser = await User.findOne({ token: token });
+  console.log(token, findUser)
   if(findUser){
     findUser.verified = true;
     findUser.save();

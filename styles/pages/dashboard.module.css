@@ -27,6 +27,8 @@
   padding: 20px;
 }
 .avatar > img{
+  width: 100%;
+  height: 100%;
   border-radius: 50%;
   border: solid var(--outline-dimmer) 3px;
 }
@@ -54,6 +56,9 @@
 }
 .gridUser > img{
   border-radius: 50%;
+  width: 100%;
+  height: 100%;
+  border: solid var(--outline-dimmest) 2px;
 }
 .gridUser:hover{
   background: var(--background-higher);

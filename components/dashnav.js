@@ -2,7 +2,28 @@
 import styles from '../styles/components/dashnav.module.css'
 import ui from '../styles/ui.module.css'
 import Link from 'next/link';
-import { useState, Component } from 'react';
+import { useState, Component, useRef } from 'react';
+
+function TagInput(props){
+  let inputRef = useRef(null);
+  return (<div className={styles.tagWrapper} ref={inputRef}>
+          <div className={styles.tags}>
+            {props.tags.map(x => <div onClick={() => {props.setTags(props.tags.filter(y => y !== x))}} className={styles.tag} key={x}>{x}</div>)} 
+          </div>
+          <input placeholder={props.tags.length < 5 ? "Add Tags" : "Max Tags Added"} minLength={3} maxLength={25} className={styles.tagInput} onKeyUp={(e) => {
+            if((e.key === 'Enter' || e.key === ',') && props.tag.length > 0 && props.tags.length < 5){
+              props.setTags([...new Set([...props.tags, props.tag])]);
+              props.setTag("");
+            }
+              setTimeout(() => {
+                 inputRef.current.scrollTo(5000, 0)
+              }, 2)
+          }} onChange={(e) => {
+              inputRef.current.scrollTo(5000, 0)
+              props.setTag(e.target.value.replace(/\s/g,"-").replace(/[^a-z0-9\-]/g,""))
+          }} value={props.tags.length < 5 ? props.tag : ""}/>
+        </div>);
+}
 
 export default class DashNav extends Component {
   constructor(props){
@@ -14,36 +35,66 @@ export default class DashNav extends Component {
       showModal: false,
       replstatus: 2,
       langicon: "/blank.svg",
-      loading: false
+      loading: false,
+      tag: "",
+      tags: []
     }
     this.toggle = this.toggle.bind(this);
     this.updateInput = this.updateInput.bind(this);
     this.publish = this.publish.bind(this);
     this.submitRepl = this.submitRepl.bind(this);
+    this.setTags = this.setTags.bind(this);
+    this.setTag = this.setTag.bind(this);
+  }
+  setTags(v){
+    this.setState({
+      tags: v
+    })
+  }
+  setTag(v){
+    this.setState({
+      tag: v
+    })
   }
   async componentDidMount(){
     const data = await fetch("/api/user/__me__").then(r => r.json())
-    this.setState({
-      icon: data.icon.url,
-      username: data.username,
-      visible: localStorage.getItem("nav") ? JSON.parse(localStorage.getItem("nav")) : true
-    })
+    if(data){
+      this.setState({
+        icon: data.icon.url,
+        username: data.username,
+        visible: localStorage.getItem("nav") ? JSON.parse(localStorage.getItem("nav")) : true
+      })
+    } else {
+      this.setState({
+        icon: "/user.svg",
+        username: "Guest",
+        visible: true
+      })
+    }
   }
-  submitRepl(){
+  async submitRepl(){
     this.setState({
       loading: true
     })
     if(this.state.replstatus === 0){
-      fetch("/api/publish", {
+      let ft = await fetch("/api/publish", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
           "accept": "* /*"
         },
         body: JSON.stringify({
-          repl: this.state.replname
+          repl: this.state.replname,
+          tags: this.state.tags
         })
-      }).then(r => r.json()).then(res => {
+      })
+        let res = await ft.json()
+        if(ft.status !== 200){
+          this.setState({
+            loading: false,
+          })
+          alert("Please make sure your repl is running so replverse can get a screenshot.")
+        }
         if(res.success){
           this.setState({
             loading: false
@@ -56,6 +107,9 @@ export default class DashNav extends Component {
             loading: false
           })
         }     
+    }else{
+      this.setState({
+        loading: false
       })
     }
   }
@@ -96,8 +150,9 @@ export default class DashNav extends Component {
           </div>
           <img src={this.state.icon} className={styles.avatar}/>
           <span className={styles.username}>@{this.state.username}</span>
+        <Link href="/notifs" passHref>
           <div className={styles.notif}>
-            <ion-icon name="notifications-outline"></ion-icon>                </div>
+            <ion-icon name="notifications-outline"></ion-icon>                </div></Link>
         </div>
 
           <button onClick={this.publish} style={{marginBottom: 5}} className={ui.uiButtonMed + " " + ui.blockEl}>
@@ -130,7 +185,7 @@ export default class DashNav extends Component {
         </a>
 
         <div className={styles.navFoot}>
-          <a href="/discord">Discord</a>
+          <a href="https://discord.gg/s79rCUpxsa" target="_blank" rel="noreferrer">Discord</a>
         </div>
         
         </div>}
@@ -155,6 +210,9 @@ export default class DashNav extends Component {
             <div className={styles.replLoader} style={{display: this.state.loading ? "block" : "none"}}></div>
               </div>
             </div>
+
+            <TagInput tag={this.state.tag} tags={this.state.tags} setTag={this.setTag} setTags={this.setTags}/>
+          
           <button onClick={this.submitRepl} className={ui.uiButton} style={{width: '100%'}}>Publish</button>
         </div>
         </div>
