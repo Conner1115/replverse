@@ -1,7 +1,7 @@
 import nc from 'next-connect';
 import superagent from 'superagent'
 import { App, User } from '../../scripts/mongo.js'
-import { limiter, authUser, saveJSON } from '../../scripts/util.js'
+import { limiter, authUser, saveJSON, writeNotif } from '../../scripts/util.js'
 import follows from '../../data/follows.json'
 let fls = [...follows];
 
@@ -28,6 +28,13 @@ app.post(async (req, res) => {
       }else{
         fls.push({ user: usr.name, follow, avatar: userData.icon.url, userAvatar: myData.icon.url });
         saveJSON("/data/follows.json", fls);
+        writeNotif({
+          title: `${usr.name} followed you`,
+          link: "#",
+          cont: "You now have " + fls.filter(x => x.follow === follow).length + " followers",
+          icon: myData.icon.url,
+          userFor: follow
+        })
         res.json({
           success: true,
           message: "Congrats!  You now follow " + follow + "!",

@@ -59,7 +59,7 @@ export default function Signup() {
     
       {!verify && <form onSubmit={submit} style={{borderColor: 'var(--outline-dimmer)', maxWidth: 350, width: 350, padding: 20, position: 'absolute', top: '50vh', left: '50vw', transform: 'translate(-50%, -50%)' }}>
         <h4 style={{ marginTop: 0, marginBottom: 10, paddingTop: 0 }}>Sign Up</h4>
-        <div className={ui.formLabel}>Email Address (same as replit account)</div>
+        <div className={ui.formLabel}>Email Address (email verification is <strong>required</strong>)</div>
         <input autoComplete="off" className={ui.inputSmall + " " + ui.blockEl} placeholder="you@email.com" value={email} onChange={(v) => setEmail(v.target.value)} name="email" />
         <button className={ui.uiButtonDark + " " + ui.blockEl} onClick={authenticate}>Sign Up</button>
         <div className={ui.errorText + " " + ui.formLabel}>{error}</div>

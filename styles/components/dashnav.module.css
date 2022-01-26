@@ -63,14 +63,14 @@
   z-index: 5;
 }
 
-.notif{
+.notifBtn{
   flex-grow: 1;
   display: flex;
   align-content: center;
   justify-content: center;
   align-items: center;
 }
-.notif > ion-icon{
+.notifBtn > ion-icon{
   font-size: 20px;
   transform: translatey(0) !important;
   color: var(--foreground-dimmer);
@@ -79,8 +79,9 @@
   background: var(--background-default);
   transition: 0.25s;
 }
-.notif > ion-icon:hover, .menuBtn > ion-icon:hover{
+.notifBtn > ion-icon:hover, .menuBtn > ion-icon:hover{
   background: var(--background-higher);
+  cursor: pointer;
 }
 .navLink{
   background: var(--background-default);
@@ -254,4 +255,82 @@
   .navBody{
     box-shadow: 0 0 0 100vw rgba(0,0,0,0.5);
   }
+}
+
+.notifModal{
+  position: fixed;
+  top: 50px;
+  left: 200px;
+  z-index: 40;
+  width: 360px;
+  height: auto;
+  min-height: 300px;
+  padding: 0 !important;
+}
+.notifsBody{
+  overflow-y: auto;
+  max-height: 360px;
+}
+.notif{
+  border-bottom: solid var(--outline-dimmest) 1px;
+  padding: 20px 10px;
+  display: block;
+  transition: 0.25s;
+}
+.notif:last-of-type{
+  border-bottom: none;
+}
+.notifTop{
+  display: flex;
+  width: 100%;
+}
+.notifIcon{
+  width: 25px;
+  height: 25px;
+  border: solid var(--outline-dimmest) 1px;
+  border-radius: 50%;
+  align-self: center;
+}
+.notifHeader{
+  font-weight: 500;
+  margin-left: 10px;
+  font-size: 15px;
+  align-self: center;
+  flex-grow: 1;
+}
+.notifContent{
+  margin-top: 10px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  font-size: 14px;
+  line-height: 20px;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+}
+.unread{
+  background: var(--accent-primary-dimmest);
+}
+.notif:hover{
+  cursor: pointer;
+  background: var(--background-higher);
+}
+.notif.unread:hover{
+  cursor: pointer;
+  background: var(--accent-primary-dimmer);
+}
+.notifMarker{
+  background: var(--accent-negative-dimmer);
+  padding: 2px 4px;
+  font-size: 13px;
+  border-radius: 10px;
+  z-index: 10;
+  transform: translate(-12px, -10px)
+}
+.menuNotif{
+  background: var(--accent-negative-dimmer);
+  padding: 4px;
+  border-radius: 50%;
+  width: 10px;
+  height: 10px;
+  transform: translate(-10px, 10px)
 }

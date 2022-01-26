@@ -29,7 +29,6 @@ app.post(async (req, res) => {
         findApp.save();
         rec.push({type: "like", user, repl, author: req.body.author});
         saveJSON('/data/records.json', rec);
-        
         res.json({
           success: true,
           count: 1

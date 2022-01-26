@@ -3,6 +3,8 @@ import styles from '../styles/components/dashnav.module.css'
 import ui from '../styles/ui.module.css'
 import Link from 'next/link';
 import { useState, Component, useRef } from 'react';
+import __ntfs from '../data/notifs.json'
+let notifs = [...__ntfs]
 
 function TagInput(props){
   let inputRef = useRef(null);
@@ -25,6 +27,8 @@ function TagInput(props){
         </div>);
 }
 
+//title, link, cont, icon, userFor, r
+
 export default class DashNav extends Component {
   constructor(props){
     super(props);
@@ -37,7 +41,9 @@ export default class DashNav extends Component {
       langicon: "/blank.svg",
       loading: false,
       tag: "",
-      tags: []
+      tags: [],
+      notifModal: false,
+      notifs: []
     }
     this.toggle = this.toggle.bind(this);
     this.updateInput = this.updateInput.bind(this);
@@ -45,6 +51,32 @@ export default class DashNav extends Component {
     this.submitRepl = this.submitRepl.bind(this);
     this.setTags = this.setTags.bind(this);
     this.setTag = this.setTag.bind(this);
+    this.toggleNotifModal = this.toggleNotifModal.bind(this);
+    this.readNotifs = this.readNotifs.bind(this);
+  }
+  readNotifs(){
+    fetch("/api/readnotifs", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "accept": "*/*"
+      },
+      body: ""
+    }).then(r => r.json()).then(res => {
+      if(res.success){
+        this.setState({
+          notifs: res.data
+        })
+      }else{
+        alert(res.message || "Internal Error.  Read the browser console for more information.");
+        console.log(res.err);
+      }
+    })
+  }
+  toggleNotifModal(v){
+    this.setState({
+      notifModal: v
+    })
   }
   setTags(v){
     this.setState({
@@ -62,7 +94,9 @@ export default class DashNav extends Component {
       this.setState({
         icon: data.icon.url,
         username: data.username,
-        visible: localStorage.getItem("nav") ? JSON.parse(localStorage.getItem("nav")) : true
+        visible: localStorage.getItem("nav") ? JSON.parse(localStorage.getItem("nav")) : true,
+        notifs: notifs.filter(x => x.userFor === data.username).reverse(),
+        unreads: notifs.filter(x => x.userFor === data.username).filter(y => !y.r).length
       })
     } else {
       this.setState({
@@ -137,11 +171,13 @@ export default class DashNav extends Component {
       showModal: true
     })
   }
+  
   render(){
     return (
       <div className={styles.nav}>
       {!this.state.visible && <div onClick={() => {this.toggle(true)}} className={styles.navButtonVis}>
         <ion-icon name="menu-outline"></ion-icon>
+        {this.state.unreads > 0 && <span className={styles.menuNotif}></span>}
       </div>}
       {this.state.visible && <div className={styles.navBody}>
           <div className={styles.navHeadFixed}>
@@ -150,9 +186,9 @@ export default class DashNav extends Component {
           </div>
           <img src={this.state.icon} className={styles.avatar}/>
           <span className={styles.username}>@{this.state.username}</span>
-        <Link href="/notifs" passHref>
-          <div className={styles.notif}>
-            <ion-icon name="notifications-outline"></ion-icon>                </div></Link>
+          <div className={styles.notifBtn} onClick={() => this.toggleNotifModal(!this.state.notifModal)}>
+            <ion-icon name="notifications-outline"></ion-icon>  {this.state.unreads > 0 && <span className={styles.notifMarker}>{this.state.unreads}</span> }               
+          </div>
         </div>
 
           <button onClick={this.publish} style={{marginBottom: 5}} className={ui.uiButtonMed + " " + ui.blockEl}>
@@ -189,6 +225,23 @@ export default class DashNav extends Component {
         </div>
         
         </div>}
+
+        {(this.state.visible && this.state.notifModal) && <div className={styles.notifModal + " " + ui.boxDimDefault}>
+          <div>
+            <button className={ui.uiButtonDark} onClick={this.readNotifs} style={{display: 'block', width: 'calc(100% - 20px)', margin: '10px'}}>Mark as Read</button>
+          </div>
+          <div className={styles.notifsBody}>
+            {this.state.notifs.length === 0 && <div style={{textAlign: 'center', color: 'var(--foreground-dimmer)', fontStyle: 'italic'}}>No notifications yet</div>}
+            {this.state.notifs
+            .map(x => <Link key={Math.random()} href={x.link}><div className={styles.notif + " " + (!x.r && styles.unread)}>
+              <div className={styles.notifTop}>
+                  <img src={x.icon} className={styles.notifIcon}/>
+                  <span className={styles.notifHeader}>{x.title}</span>
+              </div>
+              <div className={styles.notifContent}>{x.cont}</div>
+            </div></Link>)}</div>
+        </div>}
+        
         <div className={styles.mainBody} style={{width: this.state.visible ? "calc(100vw - 240px)" : '100vw', left: this.state.visible ? 240 : 0}}>{this.props.children}</div>
 
         <div style={{display: this.state.showModal ? "block" : "none"}}>

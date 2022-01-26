@@ -3,6 +3,11 @@ import requestIp from 'request-ip'
 import rateLimit from 'express-rate-limit'
 import { User } from './mongo.js'
 import fs from 'fs'
+import notifs from '../data/notifs.json';
+
+//['IroncladDev', 'amasad', 'replitfaris', 'cnnd', 'TheDrone7', '21natzil', 'connorbrewster', 'Bookie0', 'Coder100', 'CoolCoderSJ', 'Nayoar', 'Dart', 'frissyn', 'CodingCactus', 'SixBeeps', 'LenaAtReplit', 'JDOG787', 'lilykhan', 'AllAwesome497', 'masfrost', 'JDOG787']
+
+
 
 const admins = JSON.parse((process.env.ADMINS).replace(/\'/g, '"'))
 
@@ -41,5 +46,26 @@ function saveJSON(path, json){
   });
 }
 
+//title, link, cont, icon, userFor, r
+function writeNotif(stats){
+  let ntfs = [...notifs, {
+    title: stats.title,
+    link: stats.link,
+    cont: stats.cont,
+    icon: stats.icon,
+    userFor: stats.userFor,
+    r: false
+  }];
+  if(!stats.title)throw new Error("'title' field is Required")
+  if(!stats.link)throw new Error("'link' field is Required")
+  if(!stats.cont)throw new Error("'cont' field is Required")
+  if(!stats.icon)throw new Error("'icon' field is Required")
+  if(!stats.userFor)throw new Error("'userFor' field is Required")
+  while(ntfs.length > 5000){
+    ntfs.shift();
+  }
+  saveJSON("/data/notifs.json", ntfs);
+}
 
-export { md5, admins, limiter, authUser, saveJSON }
+
+export { md5, admins, limiter, authUser, saveJSON, writeNotif }

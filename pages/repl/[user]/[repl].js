@@ -7,8 +7,10 @@ import ui from '../../../styles/ui.module.css'
 import Replicon from '../../../components/replicon.js'
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import records from '../../../data/records.json'
-import follows from '../../../data/follows.json'
+import rcs from '../../../data/records.json'
+import fls from '../../../data/follows.json'
+let follows = [...fls];
+let records = [...rcs];
 
 function Comment(props){
   const deleteComment = () => {
@@ -198,7 +200,7 @@ export default function Spotlight(props) {
     </Head>
     {props.lost && <Error />}
     {!props.lost && <DashNav>
-      <div style={{ padding: '50px 20px' }}>
+      <div style={{ padding: '50px 40px' }}>
         <div className={styles.flexBody}>
             
           <div className={styles.replOptions}>

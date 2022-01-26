@@ -1,7 +1,7 @@
 import nc from 'next-connect';
 import superagent from 'superagent'
 import { App } from '../../scripts/mongo.js'
-import { limiter, authUser } from '../../scripts/util.js'
+import { limiter, authUser, writeNotif } from '../../scripts/util.js'
 
 const app = nc();
 
@@ -27,6 +27,13 @@ app.post(async (req, res) => {
       id: Math.random().toString(36).slice(2)
     })
     findApp.save();
+    writeNotif({
+      title: `${user} commented on ${req.body.repl}`,
+      link: `/repl/${req.body.author}/${req.body.repl}`,
+      cont: req.body.value,
+      icon: userData.icon.url,
+      userFor: req.body.author
+    });
     res.json({
       success: true,
       data: findApp.comments

@@ -24,15 +24,37 @@ export default function Dashboard(props){
       if(res.success){
         updateF(res.data);
       } else{
-        alert(res.message || "Internal Error.  Read the browser consold for more information.");
+        alert(res.message || "Internal Error.  Read the browser console for more information.");
         console.log(res.error);
       }
     })
   }
+  const deleteAccount = () => {
+    let question = prompt("Warning!  Deleting your account will also remove all your published repls on this site! Are you sure you would like to continue?\n\nIf so, enter your email.  We will send you a verification link.  Once you click and verify the link, your account, all your repls, and comments will be deleted.");
+    if(question){
+      fetch("/api/deleteacc", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "accept": "*/*"
+        },
+        body: JSON.stringify({
+          email: question
+        })
+      }).then(r => r.json()).then(res => {
+        if(res.success){
+          alert("Email Sent.")
+        } else{
+          alert(res.message || "Internal Error.  Read the browser console for more information.");
+          console.log(res.error);
+        }
+      })
+    }
+  }
   return (
     <div>
     <Head>
-      <title>Dashboard | Replverse</title>
+      <title>{props.own ? "Dashboard" : props.username} | Replverse</title>
     </Head>
       <DashNav>
       <div className={styles.container}>
@@ -46,7 +68,9 @@ export default function Dashboard(props){
               <p style={{textAlign: 'center'}}>{props.bio}</p>
             </div>
             <div>
-              <button onClick={followUser} className={(fd.filter(x => x.user+x.follow === props.me+props.username)[0] ? ui.actionButtonDark : ui.actionButton) + " " + ui.block + " " + styles.followBtn}>{fd.filter(x => x.user+x.follow === props.me+props.username)[0] ? "Unfollow" : "Follow"}</button>
+              {props.own ? <div>
+                <button onClick={deleteAccount} style={{width: '100%'}} className={ui.uiButtonDark + " " + ui.block}>Delete Account</button>
+              </div> : <button onClick={followUser} className={(fd.filter(x => x.user+x.follow === props.me+props.username)[0] ? ui.actionButtonDark : ui.actionButton) + " " + ui.block + " " + styles.followBtn}>{fd.filter(x => x.user+x.follow === props.me+props.username)[0] ? "Unfollow" : "Follow"}</button>}
             </div>
 {props.followers.length > 0 && <div><h3 style={{marginBottom: 15}}>Followers ({props.followers.length})</h3>
             <div className={ui.boxDimDefault + " " + styles.userGrid}>
@@ -86,7 +110,7 @@ export default function Dashboard(props){
 
 
           <div className={styles.replGrid}>
-                {props.repls.map(r => <Repl key={Math.random()} desc={r.desc} username={r.creator} avatar={r.avatar} comments={r.comments} likes={r.likes} cover={r.cover} title={r.title} slug={r.slug} tags={r.tags}/>)}
+                {props.repls.map(r => <Repl key={Math.random()} desc={r.desc} username={r.creator} avatar={r.avatar} comments={r.comments} likes={r.likes} cover={r.cover} title={r.title} slug={r.slug} views={r.views} tags={r.tags}/>)}
           </div>      
         </div>
       </div>
@@ -102,11 +126,12 @@ export async function getServerSideProps({ params, req, res }){
     let repls = await App.find({ user: params.username })
     return {
       props: {
+        own: req.headers["x-replit-user-name"] === data.username,
         me: req.headers["x-replit-user-name"],
         lost: false,
         bio: data.bio,
         avatar: data.icon.url,
-        following: follows.filter(x => x.user === data.username),
+        following: follows.filter(x => x.user === data.username) || [],
         followers: follows.filter(x => x.follow === data.username),
         badges: [],
         username: data.username,
@@ -117,6 +142,7 @@ export async function getServerSideProps({ params, req, res }){
           likes: x.likes,
           cover: x.cover,
           title: x.repl,
+          views: x.views,
           tags: x.tags,
           slug: x.slug,
           desc: x.desc

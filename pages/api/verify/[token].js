@@ -10,7 +10,7 @@ app.get(async (req, res) => {
   if(findUser){
     findUser.verified = true;
     findUser.save();
-    res.setHeader('Set-Cookie', serialize('sid', JSON.stringify(findUser.token), { path: '/', maxAge: 1000 * 3600 * 24 * 365 * 10 })).redirect("/dashboard")
+    res.setHeader('Set-Cookie', serialize('sid', findUser.token, { path: '/', maxAge: 1000 * 3600 * 24 * 365 * 10 })).redirect("/dashboard")
   }else{
     res.redirect("/signup")
   }

@@ -21,10 +21,9 @@ app.post(async (req, res) => {
     res.json({ success: false, message: "Account creation is limited to one per device / IP." });
   }else{
     
-    let __data = await superagent.get("https://replit.com/data/profiles/" + req.headers["x-replit-user-name"])
-    let data = JSON.parse(__data.text);
+    let __data = await fetch("https://" + req.headers.host + "/api/user/" + req.headers["x-replit-user-name"])
+    let data = await __data.json()
     let hashedEmail = md5(req.body.email);
-    if(data.emailHash === hashedEmail){
       
       let usr = new User({
         token: uuidv4(),
@@ -43,7 +42,7 @@ app.post(async (req, res) => {
           auth: process.env.ADMSS,
           to: req.body.email,
           subject: "Verify your Email Address",
-          body: `Hello, ${req.headers["x-replit-user-name"]}!  Before you can start using Replverse, please <a href="https://replverse.ironcladdev.repl.co/api/verify/${usr.token}">verify your email address</a>.`
+          body: `Hello, ${req.headers["x-replit-user-name"]}!  Before you can start using Replverse, please <a href="https://${req.headers.host}/api/verify/${usr.token}">verify your email address</a>.`
         })
       })
       .then(r => r.json()).then(sent => {
@@ -54,10 +53,6 @@ app.post(async (req, res) => {
           res.json({ success: false, message: sent.message })
         }
       })
-  
-    }else{
-      res.json({ success: false, message: "Email does not match replit account" })
-    }
   }
 })
 
