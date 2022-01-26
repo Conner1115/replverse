@@ -209,8 +209,7 @@ export default function Spotlight(props) {
     }
   }
 
-  useEffect(() => {
-    fetch("/api/view", {
+  fetch("/api/view", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -220,8 +219,7 @@ export default function Spotlight(props) {
         author: props.user,
         repl: props.repl
       })
-    }).then(r=>r.json()).then(res => console.log(res.success ? "View operation successful" : "Failed to apply View Operation"))
-  }, [])
+    })
   
   return (<div>
     <Head>

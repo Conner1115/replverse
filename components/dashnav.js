@@ -274,4 +274,3 @@ export default class DashNav extends Component {
     );
   }
 }
-
