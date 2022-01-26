@@ -2,9 +2,21 @@
 
 # dependencies
 .replit
-/data
-data/**
-plans.md
+/data/*
+data/*
+data/awards.json
+data/blacklist.json
+data/follows.json
+data/notifs.json
+data/records.json
+data/reports.json
+/data/awards.json
+/data/blacklist.json
+/data/follows.json
+/data/notifs.json
+/data/records.json
+/data/reports.json
+/plans.md
 .env
 /node_modules
 /.pnp
