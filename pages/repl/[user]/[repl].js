@@ -209,7 +209,8 @@ export default function Spotlight(props) {
     }
   }
 
-  fetch("/api/view", {
+  useEffect(() => {
+     fetch("/api/view", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -219,7 +220,8 @@ export default function Spotlight(props) {
         author: props.user,
         repl: props.repl
       })
-    })
+    }).then(r => r.json()).then(console.log)
+  }, [])
   
   return (<div>
     <Head>
