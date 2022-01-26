@@ -1,4 +1,5 @@
 import nc from 'next-connect'
+import {User} from '../../../scripts/mongo.js'
 const app = nc();
 
 const headers = {
@@ -14,6 +15,7 @@ const headers = {
 };
 
 app.get(async (req, res) => {
+  let findUser = await User.findOne({ name: req.query.username })
   const query = JSON.stringify({
   query: `{userByUsername(username: "${req.query.username}") {karma, firstName, lastName, bio, id, image}}`,
   variables: {
@@ -33,7 +35,8 @@ app.get(async (req, res) => {
         username: req.query.username,
         icon: {
           url: data.data.userByUsername.image
-        }
+        },
+        exists: findUser ? true : false
       };
       delete d.image;
       res.json(d);

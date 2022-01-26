@@ -9,6 +9,7 @@ import { App } from '../../scripts/mongo.js'
 import follows from '../../data/follows.json'
 import { useState } from 'react'
 import reports from '../../data/reports.json'
+import Error from '../../components/404.js'
 
 let badgeTitles = {
   "ancient": "Be in the first million users of replit",
@@ -216,7 +217,8 @@ export default function Dashboard(props){
     <Head>
       <title>{props.own ? "Dashboard" : props.username} | Replverse</title>
     </Head>
-      <DashNav>
+      {props.lost && <Error/>}
+      {!props.lost && <DashNav>
       <div className={styles.container}>
           <div className={styles.columnLeft}>
           <div className={styles.userSec}>
@@ -316,7 +318,7 @@ export default function Dashboard(props){
           {props.repls.length === 0 && <div style={{textAlign: 'center', marginTop: 20, fontSize: 25, fontStyle: 'italic', color: 'var(--foreground-dimmer)'}}>No repls yet.  {props.own && "Let's change that!"}</div>}
         </div>
       </div>
-       </DashNav>
+       </DashNav>}
     </div>
   )
 }
@@ -326,7 +328,8 @@ export async function getServerSideProps({ params, req, res }){
     let rs = await fetch("https://" + req.headers.host + "/api/user/" + params.username)
   let badges = await fetch("https://" + req.headers.host + "/api/badges/" + params.username).then(r => r.json());
   let data = await rs.json()
-  if(data){
+    console.log(data.exists)
+  if(data.exists){
     let repls = await App.find({ user: params.username })
     return {
       props: {
