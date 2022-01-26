@@ -57,7 +57,9 @@ export default function Apps(props){
     fetch(datastr).then(r => r.json()).then(setRepls)
   }
 
-  useEffect(() => setData({}), [])
+  useEffect(() => {
+    setData({})
+  }, [])
   
   return (<div>
     <Head>

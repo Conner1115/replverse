@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import DashNav from '../../components/dashnav'
 import styles from '../../styles/pages/dashboard.module.css'
 import ui from '../../styles/ui.module.css'
@@ -198,7 +199,7 @@ export default function Dashboard(props){
           <div className={styles.userSec}>
             <h2 style={{paddingTop: 0, textAlign: 'center'}}>{props.username}</h2>
             <div className={styles.avatar}>
-              <img src={props.avatar}/>
+              <img src={props.avatar} alt="User Avatar"/>
             </div>
             <div className={styles.bio}>
               <p style={{textAlign: 'center'}}>{props.bio}</p>
@@ -230,7 +231,7 @@ export default function Dashboard(props){
             <div className={ui.boxDimDefault + " " + styles.userGrid}>
               {props.followers.slice(0, 20).map(x => <div key={Math.random()} className={styles.gridUser}>
                 <Link href={"/user/"+x.user} passHref>
-                <img src={x.userAvatar}/>
+                <img src={x.userAvatar} alt="User Avatar"/>
                 </Link>
               </div>)}
               <div style={{width:50,height:50,verticalAlign: 'middle',textAlign: 'center',fontSize:18,paddingTop: 12}}>{props.followers.length > 20 &&`+${props.followers.length - 20}`}</div>
@@ -240,7 +241,7 @@ export default function Dashboard(props){
             <div className={ui.boxDimDefault + " " + styles.userGrid}>
               {props.following.slice(0, 20).map(x => <div key={Math.random()} className={styles.gridUser}>
                 <Link href={"/user/"+x.follow} passHref>
-                <img src={x.avatar}/>
+                <img src={x.avatar} alt="User Avatar"/>
                 </Link>
               </div>)}
               <div style={{width:50,height:50,verticalAlign: 'middle',textAlign: 'center',fontSize:18,paddingTop: 12}}>{props.following.length > 20 &&`+${props.following.length - 20}`}</div>
@@ -257,7 +258,7 @@ export default function Dashboard(props){
             <h3 style={{padding: 0, marginBottom: 20}}>Badges</h3>
             <div className={styles.badgeGrid}>
               {props.badges.map(x => <div key={Math.random()} className={styles.gridBadge} onClick={() => {alert(badgeTitles[x[1]])}}>
-              <img src={"/badges/" + x[1] + ".svg"}/>
+              <img alt={x[0] + " badge"} src={"/badges/" + x[1] + ".svg"}/>
               <div>{x[0]}</div>
             </div>)}
           </div></div>}

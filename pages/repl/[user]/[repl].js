@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import DashNav from '../../../components/dashnav.js';
 import Head from 'next/head';
 import { App } from '../../../scripts/mongo.js'
@@ -42,7 +43,7 @@ function Comment(props){
   }
   return (<div className={styles.comment}>
       <div className={styles.commentUserFlex}>
-        <Link href={"/user/"+props.user} passHref><img className={styles.commentUserAvatar} src={props.userAvatar}/></Link>
+        <Link href={"/user/"+props.user} passHref><img className={styles.commentUserAvatar} alt="User Avatar" src={props.userAvatar}/></Link>
         <div>
           <Link href={"/user/"+props.user} passHref><span className={styles.commentUserName}>{props.user}</span></Link>
           <p className={styles.commentValue}>{props.value}</p>
@@ -238,8 +239,8 @@ export default function Spotlight(props) {
             </div>
 
             <div className={styles.userBox}>
-              <Link href={"/user/" + author.username}><div className={styles.flexUser}>
-                <img src={author.icon.url} className={styles.userAvatar}/>
+              <Link href={"/user/" + author.username} passHref><div className={styles.flexUser}>
+                <img src={author.icon.url} alt="User Avatar" className={styles.userAvatar}/>
                 <span className={styles.userName}>{author.username}</span>
               </div></Link>
               <p className={styles.authorBio}>{author.bio}</p>

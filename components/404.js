@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import Nav from './nav';
 import styles from '../styles/pages/Home.module.css'
 import Head from 'next/head'

@@ -185,7 +185,7 @@ export default class DashNav extends Component {
           <div className={styles.menuBtn} onClick={() => this.toggle(false)}>
             <ion-icon name="menu-outline"></ion-icon>
           </div>
-          <img src={this.state.icon} className={styles.avatar}/>
+          <img alt="User Avatar" src={this.state.icon} className={styles.avatar}/>
           <span className={styles.username}>@{this.state.username}</span>
           <div className={styles.notifBtn} onClick={() => this.toggleNotifModal(!this.state.notifModal)}>
             <ion-icon name="notifications-outline"></ion-icon>  {this.state.unreads > 0 && <span className={styles.notifMarker}>{this.state.unreads}</span> }               
@@ -234,9 +234,9 @@ export default class DashNav extends Component {
           <div className={styles.notifsBody}>
             {this.state.notifs.length === 0 && <div style={{textAlign: 'center', color: 'var(--foreground-dimmer)', fontStyle: 'italic'}}>No notifications yet</div>}
             {this.state.notifs
-            .map(x => <Link key={Math.random()} href={x.link}><div className={styles.notif + " " + (!x.r && styles.unread)}>
+            .map(x => <Link key={Math.random()} href={x.link} passHref><div className={styles.notif + " " + (!x.r && styles.unread)}>
               <div className={styles.notifTop}>
-                  <img src={x.icon} className={styles.notifIcon}/>
+                  <img alt="Notification Icon" src={x.icon} className={styles.notifIcon}/>
                   <span className={styles.notifHeader}>{x.title}</span>
               </div>
               <div className={styles.notifContent}>{x.cont}</div>
@@ -256,7 +256,7 @@ export default class DashNav extends Component {
           <div className={ui.formLabel} style={{marginTop: 15}}>Repl Title (Case-Sensitive!)</div>
           <input className={ui.input + " " + styles.replName} value={this.state.replname} onChange={this.updateInput} style={{background: 'var(--background-higher)'}}/>
             <div className={styles.verifyFlex}>
-              <img className={styles.replIcon} src={this.state.langicon}/>
+              <img alt="Language Icon" className={styles.replIcon} src={this.state.langicon}/>
               <div className={styles.replstatus} style={{
                 background: this.state.replstatus === 0 ? `var(--accent-positive-dimmest)` : (this.state.replstatus === 1 ? `var(--accent-negative-dimmest)` : `var(--background-root)`)
               }}>

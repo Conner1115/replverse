@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import ui from '../styles/ui.module.css';
 import styles from '../styles/components/repl.module.css'
 import Link from 'next/link'
@@ -7,7 +8,7 @@ export default function Repl(props){
     <div className={styles.rstats}>
     <Link href={"/user/"+props.username} passHref>
       <div className={styles.userInfo}>
-        <img src={props.avatar} className={styles.avatar}/>
+        <img alt="User Avatar" src={props.avatar} className={styles.avatar}/>
         <div className={styles.username}>{props.username}</div>
       </div>
     </Link>
