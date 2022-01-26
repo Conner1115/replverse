@@ -5,7 +5,6 @@ import { App } from '../../../scripts/mongo.js'
 import Error from '../../../components/404.js';
 import styles from '../../../styles/pages/spotlight.module.css'
 import ui from '../../../styles/ui.module.css'
-import Replicon from '../../../components/replicon.js'
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import rcs from '../../../data/records.json'
@@ -62,7 +61,32 @@ export default function Spotlight(props) {
   const [load, toggleLoad] = useState(false);
   const author = JSON.parse(props.author);
   const reportRepl = () => {
-    alert("Report Action")
+    let conf = confirm("Are you sure you would like to report this?");
+    if(conf){
+      let reason = prompt("How does this break the rules?  Please provide an explanation.")
+    fetch("/api/report", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "accept": "*/*"
+      },
+      body: JSON.stringify({
+        repl: props.repl,
+        author: props.user,
+        reason: reason
+      })
+    }).then(r => r.json())
+    .then(res => {
+      if(res.success){
+        alert("Reported");
+      }else{
+        if(res.err){
+          alert(res.message || "Internal Error.  Check the browser console for details.");
+          console.log(res.err)
+        }
+      }
+    })
+    }
   }
   const applyLike = () => {
     fetch("/api/like", {
@@ -237,7 +261,7 @@ export default function Spotlight(props) {
       
             <div>
               <a href={`https://replit.com/@${props.user}/${props.repl}?embed=true`} target="_blank" rel="noreferrer"><button className={ui.uiButtonDark}>Fullscreen <ion-icon style={{ width: 15, height: 15, verticalAlign: 'middle', transform: 'translatey(-2px)' }} name="open-outline"></ion-icon></button></a>
-              <a href={`https://replit.com/@${props.user}/${props.repl}`} target="_blank" rel="noreferrer"><button style={{ margin: '0 10px' }} className={ui.uiButtonDark}>Open in Replit <Replicon /></button></a>
+              <a href={`https://replit.com/@${props.user}/${props.repl}`} target="_blank" rel="noreferrer"><button style={{ margin: '0 10px' }} className={ui.uiButtonDark}>Open in Replit</button></a>
               <button onClick={applyLike} className={ui.uiButton}>{likes} <ion-icon style={{ width: 15, height: 15, verticalAlign: 'middle', transform: 'translatey(-2px)' }} name="heart-outline"></ion-icon></button>
               <div>
                 <button onClick={reportRepl} className={ui.uiButtonDark + " " + styles.blockFollowBtn} style={{marginTop: 0}}>Report</button>
@@ -257,7 +281,7 @@ export default function Spotlight(props) {
             {props.owner && <div className={ui.boxDimDefault} style={{margin: '10px 0'}}>
               <h4>Options</h4>
               <button onClick={updateRepl} className={ui.uiButton + " " + styles.blockFollowBtn} style={{display: 'flex', alignContent: 'center', alignItems: 'center'}}><span style={{flexGrow: 1}}>Reroll Repl</span> <span style={{display: load ? "block" : "none"}} className={styles.loader}></span></button>
-              <button onClick={deleteRepl} className={ui.uiButtonDark + " " + styles.blockFollowBtn}>Delete Repl</button>
+              <button onClick={deleteRepl} className={ui.uiButtonDanger + " " + styles.blockFollowBtn}>Delete Repl</button>
             </div>}
 
 

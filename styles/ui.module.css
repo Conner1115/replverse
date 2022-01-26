@@ -47,7 +47,7 @@
 .uiButton{
   padding: 7.5px;
   font-size: 14px;
-  background: var(--accent-primary-default);
+  background: var(--accent-primary-dimmer);
   border: none;
   border-radius: 4px;
   color: var(--foreground-default);
@@ -81,10 +81,29 @@
   transition: 0.25s;
   margin: 10px 0;
 }
+.uiButtonDanger{
+  padding: 7.5px;
+  font-size: 14px;
+  background: var(--accent-negative-dimmest);
+  border: solid var(--accent-negative-dimmer) 1px;
+  border-radius: 4px;
+  color: var(--foreground-default);
+  font-family: var(--font-family-default);
+  font-weight: 500;
+  transition: 0.25s;
+  margin: 10px 0;
+}
+.uiButtonDanger:hover{
+  background: var(--accent-negative-default);
+  color: var(--foreground-default);
+  border-color: var(--accent-negative-stronger);
+  cursor: pointer;
+}
 .uiButtonDark:hover, .actionButtonDark:hover{
   background: var(--accent-primary-stronger);
   color: var(--foreground-default);
-  border-color: var(--accent-primary-stronger);
+  border-color: var(--accent-primary-default);
+  cursor: pointer;
 }
 .actionButton:hover, .uiButton:hover{
   background: var(--accent-primary-stronger);

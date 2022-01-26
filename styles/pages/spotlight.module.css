@@ -40,7 +40,7 @@
   width: 50px;
   height: 50px;
   border-radius: 50%;
-  border: solid var(--background-highest) 3px;
+  border: solid var(--background-highest) 1px;
 }
 .userName{
   font-size: 20px;

@@ -8,6 +8,7 @@ import Head from 'next/head'
 import { App } from '../../scripts/mongo.js'
 import follows from '../../data/follows.json'
 import { useState } from 'react'
+import reports from '../../data/reports.json'
 
 let badgeTitles = {
   "ancient": "Be in the first million users of replit",
@@ -27,6 +28,26 @@ let badgeTitles = {
 
 export default function Dashboard(props){
   const [fd, updateF] = useState(follows)
+  const [reps, setReports] = useState(reports);
+  const dismissReport = (link) => {
+    fetch("/api/dismissrepl", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "accept": "*/*"
+      },
+      body: JSON.stringify({
+        link: link
+      })
+    }).then(r => r.json()).then(res => {
+      if(res.success){
+        setReports(res.data)
+      } else{
+        alert(res.message || "Internal Error.  Read the browser console for more information.");
+        console.log(res.error);
+      }
+    })
+  }
   const followUser = () => {
     fetch("/api/follow", {
       method: "POST",
@@ -208,7 +229,7 @@ export default function Dashboard(props){
             </div>
             <div>
               {props.own ? <div>
-                <button onClick={deleteAccount} style={{width: '100%'}} className={ui.uiButtonDark + " " + ui.block}>Delete Account</button>
+                <button onClick={deleteAccount} style={{width: '100%'}} className={ui.uiButtonDanger + " " + ui.block}>Delete Account</button>
               </div> : <button onClick={followUser} className={(fd.filter(x => x.user+x.follow === props.me+props.username)[0] ? ui.actionButtonDark : ui.actionButton) + " " + ui.block + " " + styles.followBtn}>{fd.filter(x => x.user+x.follow === props.me+props.username)[0] ? "Unfollow" : "Follow"}</button>}
 
               {(props.admin) && <details style={{
@@ -223,10 +244,10 @@ export default function Dashboard(props){
                 <summary>Admin Options</summary>
                 <div>
                 {props.daddy && <button onClick={giveBadge} style={{width: '100%'}} className={ui.uiButton + " " + ui.block}>Give Badge</button>}
-                <button onClick={warnUser} style={{width: '100%'}} className={ui.uiButtonDark + " " + ui.block}>Warn User</button>
-                <button onClick={purgeUser} style={{width: '100%'}} className={ui.uiButtonDark + " " + ui.block}>Purge Repls</button>
-                <button onClick={disableUser} style={{width: '100%'}} className={ui.uiButtonDark + " " + ui.block}>Disable Account (Token)</button>
-                <button onClick={banUser} style={{width: '100%'}} className={ui.uiButtonDark + " " + ui.block}>IP ban + Disable account</button>
+                <button onClick={warnUser} style={{width: '100%'}} className={ui.uiButtonDanger + " " + ui.block}>Warn User</button>
+                <button onClick={purgeUser} style={{width: '100%'}} className={ui.uiButtonDanger + " " + ui.block}>Purge Repls</button>
+                <button onClick={disableUser} style={{width: '100%'}} className={ui.uiButtonDanger + " " + ui.block}>Disable Account (Token)</button>
+                <button onClick={banUser} style={{width: '100%'}} className={ui.uiButtonDanger + " " + ui.block}>IP ban + Disable account</button>
               </div></details>}
             </div>
 {props.followers.length > 0 && <div><h3 style={{marginBottom: 15, fontSize: '1.75em'}}>Followers ({props.followers.length})</h3>
@@ -248,6 +269,28 @@ export default function Dashboard(props){
               </div>)}
               <div style={{width:50,height:50,verticalAlign: 'middle',textAlign: 'center',fontSize:18,paddingTop: 12}}>{props.following.length > 20 &&`+${props.following.length - 20}`}</div>
             </div></div>}
+
+                {props.admin && <div>
+                  <h3 style={{fontSize: '1.75em'}}>Reported Repls</h3>
+
+                 {reps.map(x => <div key={Math.random()} className={styles.report}>
+                    <div style={{display: 'flex'}}>
+                    <span style={{alignSelf: 'center'}}><strong>{x[2]}</strong></span>
+                              
+                      <div style={{alignSelf: 'center', flexGrow: 1, marginLeft: 'auto'}}>
+                              <div style={{width:'100%'}}>
+                              <div style={{display: 'flex', float: 'right'}}>
+                        <a href={x[0]} target="_blank" rel="noreferrer">
+                         <button className={ui.uiButton} style={{margin: 0, marginRight: 10, flexGrow: 1}}>View</button>
+                       </a>
+                   <button style={{margin: 0}} className={ui.uiButtonDark} onClick={() => dismissReport(x[0])}>Dismiss</button></div>
+                   </div>
+                   </div>
+                   
+                   </div>
+                   <div style={{marginTop: 10}}><strong>Reason</strong> - {x[1]}</div>
+                </div>)}
+                </div>}
           </div>
         </div>
 
