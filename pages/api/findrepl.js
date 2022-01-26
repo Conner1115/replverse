@@ -44,19 +44,224 @@ import superagent from 'superagent'
 
 const app = nc();
 
+//some thingies people shouldn't have in repls
+let words = [
+  "nuker",
+  "nuke",
+  "selfbot",
+  "raid",
+  "token",
+  "nitro",
+  "sniper",
+  "dank",
+  "unblock",
+  "browser",
+  "firefox",
+  "chrome",
+  "nsfw",
+  "shit",
+  "fuck",
+  "ass",
+  "rickroll",
+  "pussy"
+]
+
+function alphaPurge(sentence, words){
+  /*
+    alphaPurge function made by LeviathanProgramming (@LeviathanCoding at Replit)
+  */
+  if(typeof sentence !== "string") throw new Error("alphaPurge parameter 'sentence' must be a string");
+  if(!Array.isArray(words)) throw new Error("alphaPurge paramater 'words' must be an array")
+  const glyphs = {
+    "a": [
+      "a",
+      "å",
+      "@",
+      "\u0430",
+      "\u00e0",
+      "\u00e1",
+      "\u1ea1",
+      "\u0105"
+    ],
+    "b": [
+      'b'
+    ],
+    "c": [
+      "c",
+      "\u0441",
+      "\u0188",
+      "\u010b"
+    ],
+    "d": [
+      "∂",
+      "d",
+      "\u0501",
+      "\u0257"
+    ],
+    "e": [
+      "e",
+      "\u0435",
+      "\u1eb9",
+      "\u0117",
+      "\u0117",
+      "\u00e9",
+      "\u00e8",
+      "3"
+    ],
+    "f": [
+      'f'
+    ],
+    "g": [
+      "g",
+      "\u0121"
+    ],
+    "h": [
+      "h",
+      "\u04bb"
+    ],
+    "i": [
+      "i",
+      "î",
+      "¡",
+      "!",
+      "\u0456",
+      "\u00ed",
+      "\u00ec",
+      "\u00ef"
+    ],
+    "j": [
+      "j",
+      "\u0458",
+      "\u029d"
+    ],
+    "k": [
+      "k",
+      "\u03ba"
+    ],
+    "l": [
+      "l",
+      "\u04cf",
+      "\u1e37"
+    ],
+    "m": ["m"],
+    "n": [
+      "n",
+      "\u0578"
+    ],
+    "o": [
+      "o",
+      "ø",
+      "\u043e",
+      "\u03bf",
+      "\u0585",
+      "\u022f",
+      "\u1ecd",
+      "\u1ecf",
+      "\u01a1",
+      "\u00f6",
+      "\u00f3",
+      "\u00f2"
+    ],
+    "p": [
+      "p",
+      "\u0440"
+    ],
+    "q": [
+      "q",
+      "\u0566"
+    ],
+    "r": ["r"],
+    "s": [
+      "s",
+      "$",
+      "\u0282"
+    ],
+    "t": ["t", "†"],
+    "u": [
+      "u",
+      "\u03c5",
+      "\u057d",
+      "\u00fc",
+      "\u00fa",
+      "\u00f9"
+    ],
+    "v": [
+      "v",
+      "\u03bd",
+      "\u0475"
+    ],
+    "w": ['w'],
+    "x": [
+      "x",
+      "\u0445",
+      "\u04b3"
+    ],
+    "y": [
+      "y",
+      "\u0443",
+      "\u00fd"
+    ],
+    "z": [
+      "z",
+      "\u0290",
+      "\u017c"
+    ]
+  }
+  let contains = false,
+  s = sentence.toLowerCase(),
+  antiGlyph = "",
+  wds = [],
+  glyphKeys = Object.keys(glyphs);
+  for(var j = 0; j < s.length; j++){
+    let char = s[j];
+    for(var i = Object.values(glyphs).length; i--;){
+      let arr = Object.values(glyphs)[i];
+      if(arr.includes(s[j]))char = glyphKeys[i];
+    }
+    antiGlyph += char;
+  }
+  let filters = [
+    antiGlyph.replace(/\u200b/g, ""),
+    antiGlyph.replace(/[\-\_]/g, ""),
+  ]
+  for(let i = filters.length; i--;){
+    let arr = filters[i].split(/[\s\,\!\?]/)
+    for(var j = arr.length; j--;){
+      if(words.includes(arr[j])){
+        contains = true;
+        wds.push(arr[j])
+      }
+    }
+  }
+  return {
+    contains: contains,
+    words: [...new Set(wds)],
+  }
+}
+
 app.get((req, res) => {
   let repl = req.query.q;
   let user = req.headers["x-replit-user-name"];
   superagent.get("https://replit.com/data/repls/@" + user + "/" + repl).end((err, rs) => {
-    if(rs.status === 200){
+    let detect = alphaPurge(repl, words)
+    if(detect.contains){
+      res.json({
+        status: 1,
+        message: `Found ${detect.words.map(x => `"${x}"`).join(', ')}.  Please follow ToS and keep things clean.`
+      })
+    }else{
+      if(rs.status === 200){
         res.json({
           status: 0,
-          lang: convert[rs.body.language]
+          lang: convert[rs.body.language],
+          message: `${repl} is available`
         })
-    }else{
-      res.json({
-        status: 1
-      })
+      }else{
+        res.json({
+          status: 1,
+          message: "Repl Not Found"
+        })
+      }
     }
   })
 })

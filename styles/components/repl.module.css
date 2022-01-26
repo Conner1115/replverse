@@ -1,8 +1,9 @@
 .repl{
   min-width: 200px;
-  max-width: 400px;
+  max-width: 600px;
   transition: 0.25s;
-  align-self: center;
+  align-self: stretch;
+  justify-self: stretch;
   width: 1fr;
 }
 .repl:hover{
@@ -53,6 +54,9 @@
   font-size: 1.25em;
   margin-top: 0;
   padding-top: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .desc{
   width: 100%;

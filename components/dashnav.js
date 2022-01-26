@@ -156,7 +156,8 @@ export default class DashNav extends Component {
       .then(res => {
         this.setState({
           replstatus: res.status,
-          langicon: res.lang || "/blank.svg"
+          langicon: res.lang || "/blank.svg",
+          replmessage: res.message
         })
       })
   }
@@ -259,7 +260,7 @@ export default class DashNav extends Component {
               <div className={styles.replstatus} style={{
                 background: this.state.replstatus === 0 ? `var(--accent-positive-dimmest)` : (this.state.replstatus === 1 ? `var(--accent-negative-dimmest)` : `var(--background-root)`)
               }}>
-            <span style={{verticalAlign: 'middle', alignSelf: 'center'}}>{this.state.replstatus === 0 ? `${this.state.replname} is available` : (this.state.replstatus === 1 ? `Repl Not Found` : ``)}</span>
+            <span style={{verticalAlign: 'middle', alignSelf: 'center'}}>{this.state.replmessage}</span>
             <div className={styles.replLoader} style={{display: this.state.loading ? "block" : "none"}}></div>
               </div>
             </div>

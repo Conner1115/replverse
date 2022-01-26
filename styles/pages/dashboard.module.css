@@ -64,12 +64,22 @@
   background: var(--background-higher);
 }
 
+.badgeGrid{
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  grid-gap: 5px;
+}
 .gridBadge{
-  background: var(--background-higher);
-  display: inline-block;
-  margin: 0 10px;
+  background: var(--background-root);
   border-radius: 5px;
-  padding: 5px 10px;
+  padding: 10px 10px;
+  min-width: 100px;
+  transition: 0.25s;
+  border: solid transparent 1px;
+}
+.gridBadge:hover{
+  cursor: pointer;
+  border: solid var(--accent-primary-default) 1px;
 }
 .gridBadge:first-of-type{
   margin-left: 0;
@@ -78,14 +88,19 @@
   margin-right: 0;
 }
 .gridBadge > img{
-  width: 100px;
-  height: 100px;
-  dislay: block;
+  width: 90px;
+  height: 90px;
+  position: relative;
+  left: 50%;
+  margin-bottom: 5px;
+  transform: translatex(-50%);
 }
 .gridBadge > div{
   text-align: center;
   width: 100%;
   dislay: block;
+  vertical-align: bottom;
+  font-weight: 500;
 }
 
 @media(max-width: 900px){

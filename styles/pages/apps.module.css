@@ -60,7 +60,7 @@
   padding: 0 65px;
 }
 .searchEngine{
-  padding: 10px 65px;
+  padding: 10px 0;
   margin: 20px 0;
   display: flex;
   width: 100%;
@@ -152,14 +152,19 @@
   }
   .searchEngine{
     display: block;
+    max-height: 200px;
+    padding: 10px 20px;
   }
   .tagWrapper{
-    width: 100%;
+    width: 100% !important;
+    flex-grow: 1;
     margin-top: 10px;
+    display: block;
+    max-width: 100vw;
   }
   .selectTopic{
     flex-grow: 1;
-    margin-right: 0;
+    margin-right: 0 !important;
   }
   .searchInput{
     flex-grow: 1;
@@ -179,6 +184,9 @@
     padding: 5px;
     font-size: 10px;
     margin: 5px;
+  }
+  .appsCore{
+    padding: 20px;
   }
 }
 @media(max-width: 400px){

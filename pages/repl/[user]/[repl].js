@@ -126,6 +126,32 @@ export default function Spotlight(props) {
     })
   }
 
+  const removeRepl = (props.adminView) ? () => {
+    let confirmWarn = confirm("Are you sure you would like to remove this repl?")
+    if(confirmWarn){
+      let warning = prompt("Please provide a reason of why this breaks the rules and why you are removing it.")
+      fetch("/api/admin/remrepl", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "accept": "*/*"
+        },
+        body: JSON.stringify({
+          user: props.user,
+          repl: props.repl,
+          message: warning
+        })
+      }).then(r => r.json()).then(res => {
+        if(res.success){
+          location.href = "/apps"
+        } else{
+          alert(res.message || "Internal Error.  Read the browser console for more information.");
+          console.log(res.error);
+        }
+      })
+    }
+  } : () => {}
+
   const updateRepl = () => {
     toggleLoad(true);
     try{
@@ -154,7 +180,6 @@ export default function Spotlight(props) {
       toggleLoad(false);
     }
   }
-  
   const deleteRepl = () => {
     let q = confirm("Are you really absolutely assuredly sure that you would like to delete this repl from Replverse? (this won't effect your actual replit account.   It will just be unpublished from here)");
     if(q){
@@ -213,10 +238,10 @@ export default function Spotlight(props) {
             </div>
 
             <div className={styles.userBox}>
-              <div className={styles.flexUser}>
+              <Link href={"/user/" + author.username}><div className={styles.flexUser}>
                 <img src={author.icon.url} className={styles.userAvatar}/>
                 <span className={styles.userName}>{author.username}</span>
-              </div>
+              </div></Link>
               <p className={styles.authorBio}>{author.bio}</p>
               <button onClick={followUser} className={(fd.filter(x => x.user+x.follow === props.me+props.user)[0] ? ui.uiButtonDark : ui.uiButton) + " " + ui.block + " " + styles.blockFollowBtn}>{fd.filter(x => x.user+x.follow === props.me+props.user)[0] ? "Unfollow" : "Follow"}</button>
             </div>
@@ -227,6 +252,23 @@ export default function Spotlight(props) {
               <button onClick={deleteRepl} className={ui.uiButtonDark + " " + styles.blockFollowBtn}>Delete Repl</button>
             </div>}
 
+
+
+
+
+
+
+            {props.adminView && <div className={ui.boxDimDefault} style={{margin: '10px 0'}}>
+              <h4>Admin Options</h4>
+              <button onClick={removeRepl} className={ui.uiButtonDark + " " + styles.blockFollowBtn}>Remove Repl</button>
+            </div>}
+
+
+
+
+
+
+              
             <div className={styles.commentForm}>
               <h4 style={{marginBottom: 5}}>Write a Comment</h4>
               <textarea value={comment} onChange={e => updateComment(e.target.value)} className={ui.input + " " + styles.blockTA} rows="3" placeholder="..."></textarea>
@@ -253,11 +295,13 @@ export default function Spotlight(props) {
 }
 
 export async function getServerSideProps(ctx) {
+  //if(ctx.req.headers["x-replit-user-name"] && ctx.req.cookies.sid){
   let app = await App.findOne({ user: ctx.params.user, repl: ctx.params.repl });
   let author = await fetch("https://" + ctx.req.headers.host + "/api/user/" + ctx.params.user).then(r => r.json());
   if (app) {
     return {
       props: {
+        adminView: JSON.parse(process.env.ADMINS).includes(ctx.req.headers["x-replit-user-name"]),
         me: ctx.req.headers["x-replit-user-name"],
         owner: ctx.params.user === ctx.req.headers["x-replit-user-name"],
         user: ctx.params.user,

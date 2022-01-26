@@ -4,12 +4,13 @@ import rateLimit from 'express-rate-limit'
 import { User } from './mongo.js'
 import fs from 'fs'
 import notifs from '../data/notifs.json';
-
-//['IroncladDev', 'amasad', 'replitfaris', 'cnnd', 'TheDrone7', '21natzil', 'connorbrewster', 'Bookie0', 'Coder100', 'CoolCoderSJ', 'Nayoar', 'Dart', 'frissyn', 'CodingCactus', 'SixBeeps', 'LenaAtReplit', 'JDOG787', 'lilykhan', 'AllAwesome497', 'masfrost', 'JDOG787']
-
-
+import bl from '../data/blacklist.json';
+let blacklist = [...bl];
 
 const admins = JSON.parse((process.env.ADMINS).replace(/\'/g, '"'))
+const isAdmin = (username) => {
+  return admins.includes(username);
+}
 
 const limiter = (time, max, handler) => {
   return rateLimit({
@@ -29,14 +30,24 @@ const limiter = (time, max, handler) => {
 
 async function authUser(req, res, callback){
   let __user = await User.findOne({ token: req.cookies.sid, name: req.headers["x-replit-user-name"] });
-  if(__user){
-    callback(__user);
-  } else {
-    res.status(401).json({
+  let banned = blacklist.filter(x => x.token === md5(__user.token))[0];
+  let banned2 = [...blacklist].filter(x => x.banKey === md5(__user.addr))[0];
+  if(banned || banned2){
+    res.status(403).json({
       success: false,
-      message: "Unauthorized Attempt",
-      err: "Unauthorized Attempt"
+      message: "Your account has been disabled.  You are no longer permitted to perform any actions on the site.",
+      err: "Your account has been disabled.  You are no longer permitted to perform any actions on the site."
     })
+  }else{
+    if(__user){
+      callback(__user);
+    } else {
+      res.status(401).json({
+        success: false,
+        message: "Unauthorized Attempt",
+        err: "Unauthorized Attempt"
+      })
+    }
   }
 }
 
@@ -68,4 +79,4 @@ function writeNotif(stats){
 }
 
 
-export { md5, admins, limiter, authUser, saveJSON, writeNotif }
+export { md5, admins, limiter, authUser, saveJSON, writeNotif, isAdmin }
