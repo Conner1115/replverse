@@ -61,6 +61,9 @@ export default function Spotlight(props) {
   const [likes, updateLikes] = useState(app.likes);
   const [load, toggleLoad] = useState(false);
   const author = JSON.parse(props.author);
+  const reportRepl = () => {
+    alert("Report Action")
+  }
   const applyLike = () => {
     fetch("/api/like", {
       method: "POST",
@@ -236,7 +239,11 @@ export default function Spotlight(props) {
               <a href={`https://replit.com/@${props.user}/${props.repl}?embed=true`} target="_blank" rel="noreferrer"><button className={ui.uiButtonDark}>Fullscreen <ion-icon style={{ width: 15, height: 15, verticalAlign: 'middle', transform: 'translatey(-2px)' }} name="open-outline"></ion-icon></button></a>
               <a href={`https://replit.com/@${props.user}/${props.repl}`} target="_blank" rel="noreferrer"><button style={{ margin: '0 10px' }} className={ui.uiButtonDark}>Open in Replit <Replicon /></button></a>
               <button onClick={applyLike} className={ui.uiButton}>{likes} <ion-icon style={{ width: 15, height: 15, verticalAlign: 'middle', transform: 'translatey(-2px)' }} name="heart-outline"></ion-icon></button>
+              <div>
+                <button onClick={reportRepl} className={ui.uiButtonDark + " " + styles.blockFollowBtn} style={{marginTop: 0}}>Report</button>
+              </div>
             </div>
+            
 
             <div className={styles.userBox}>
               <Link href={"/user/" + author.username} passHref><div className={styles.flexUser}>

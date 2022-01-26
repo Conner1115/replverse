@@ -14,7 +14,7 @@ const app = nc();
 
 app.post(async (req, res) => {
   authUser(req, res, async (usr) => {
-    if(JSON.parse(process.env.ADMINS).includes(req.body.user)){
+    if(JSON.parse(process.env.ADMINS).includes(req.body.user) && !JSON.parse(process.env.SUPERIOR_ADMINS).includes(req.headers["x-replit-user-name"])){
       res.status(403).json({
         success: false,
         message: "You can't disable another administrator!",
@@ -28,27 +28,12 @@ app.post(async (req, res) => {
         let adminData = await fetch("https://" + req.headers.host + "/api/user/" + usr.name).then(r => r.json());
         let email = findUser.email;
         writeNotif({
-          title: `Moderator Strike`,
+          title: `Your account has been disabled`,
           link: `javascript:alert('${message || "Your account has been disabled for breaking the rules."}')`,
           cont: message || "Your account has been disabled for breaking the rules.",
           icon: adminData.icon.url,
           userFor: findUser.name
         });
-        fetch("https://replverse-api.ironcladdev.repl.co/api/email", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            "accept": "* /*"
-          },
-          body: JSON.stringify({
-            auth: process.env.ADMSS,
-            to: findUser.email,
-            subject: "Replverse Moderator Strike",
-            body: `Hello, ${user}, your replverse account has been disabled indefinitely.  This means we've removed all your published repls on the site, all your followers, and made your account completely non-functional.<br><br>${message || "“We have disabled your replverse account.”"}`
-          })
-        })
-        .then(r => r.json()).then(sent => {
-          if(sent.success){
             App.remove({ user }, (e, d) => {
               let filtered = rcs.filter(x => x.user !== user);
               saveJSON("/data/records.json", filtered);
@@ -71,10 +56,6 @@ app.post(async (req, res) => {
               saveJSON("/data/follows.json", fls)
               res.json({ success: true });
             });
-          }else{
-            res.json({ success: false, message: sent.message })
-          }
-        })
       }else{
         res.json({
           success: false,

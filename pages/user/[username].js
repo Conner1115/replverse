@@ -167,8 +167,8 @@ export default function Dashboard(props){
     }
   } : () => {};
   const deleteAccount = () => {
-    let question = prompt("Warning!  Deleting your account will also remove all your published repls on this site! Are you sure you would like to continue?\n\nIf so, enter your email.  We will send you a verification link.  Once you click and verify the link, your account, all your repls, and comments will be deleted.");
-    if(question){
+    let question = prompt("Warning!  Deleting your account will also remove all your published repls on this site! Are you sure you would like to continue?\n\nIf so, please type 'DELETE_MY_REPLVERSE_ACCOUNT'");
+    if(question === "DELETE_MY_REPLVERSE_ACCOUNT"){
       fetch("/api/deleteacc", {
         method: "POST",
         headers: {
@@ -176,16 +176,18 @@ export default function Dashboard(props){
           "accept": "*/*"
         },
         body: JSON.stringify({
-          email: question
+          question
         })
       }).then(r => r.json()).then(res => {
         if(res.success){
-          alert("Email Sent.")
+          location.href = "/"
         } else{
           alert(res.message || "Internal Error.  Read the browser console for more information.");
           console.log(res.error);
         }
       })
+    }else{
+      alert("Incorrectly typed.  Your account lives for another day!")
     }
   }
   return (
@@ -268,7 +270,7 @@ export default function Dashboard(props){
           {props.repls.length > 0 && <div className={styles.replGrid}>
                 {props.repls.map(r => <Repl key={Math.random()} desc={r.desc} username={r.creator} avatar={r.avatar} comments={r.comments} likes={r.likes} cover={r.cover} title={r.title} slug={r.slug} views={r.views} tags={r.tags}/>)}
           </div> }    
-          {props.repls.length === 0 && <div style={{textAlign: 'center', marginTop: 20, fontSize: 25, fontStyle: 'italic', color: 'var(--foreground-dimmer)'}}>No repls yet.  {props.own && "Let&apos;s change that!"}</div>}
+          {props.repls.length === 0 && <div style={{textAlign: 'center', marginTop: 20, fontSize: 25, fontStyle: 'italic', color: 'var(--foreground-dimmer)'}}>No repls yet.  {props.own && "Let's change that!"}</div>}
         </div>
       </div>
        </DashNav>

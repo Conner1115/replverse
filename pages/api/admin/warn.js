@@ -22,32 +22,13 @@ app.post(async (req, res) => {
         let email = findUser.email;
         writeNotif({
           title: `Moderator Warning`,
-          link: `/repl/${req.body.author}/${req.body.repl}`,
+          link: `alert('${message}')`,
           cont: message || "Please follow the rules.",
           icon: adminData.icon.url,
           userFor: findUser.name
         });
-        fetch("https://replverse-api.ironcladdev.repl.co/api/email", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            "accept": "* /*"
-          },
-          body: JSON.stringify({
-            auth: process.env.ADMSS,
-            to: findUser.email,
-            subject: "Replverse Moderator Warning",
-            body: `Hello, ${user}, you have been given a warning by a moderator.<br><br>${message}`
-          })
-        })
-        .then(r => r.json()).then(sent => {
-          if(sent.success){
             res.json({ success: true })
             usr.save();
-          }else{
-            res.json({ success: false, message: sent.message })
-          }
-        })
       }else{
         res.json({
           success: false,

@@ -17,9 +17,7 @@ const appSchema = new mongoose.Schema({
 
 const userSchema = new mongoose.Schema({
   token: { type: String, index: true },
-  verified: { type: Boolean, index: true, default: false },
   name: { type: String, index: true },
-  email: { type: String, index: true },
   addr: { type: String, index: true }
 })
 

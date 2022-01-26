@@ -41,7 +41,7 @@ export default function Signup() {
       .then(r => r.json())
       .then(data => {
         if(data.success){
-          setVf(true);
+          location.href = "/dashboard"
         }else{
           setError(data.message)
         }
@@ -57,19 +57,12 @@ export default function Signup() {
         <title>Sign Up | Replverse</title>
       </Head>
     
-      {!verify && <form onSubmit={submit} style={{borderColor: 'var(--outline-dimmer)', maxWidth: 350, width: 350, padding: 20, position: 'absolute', top: '50vh', left: '50vw', transform: 'translate(-50%, -50%)' }}>
+      <form onSubmit={submit} style={{borderColor: 'var(--outline-dimmer)', maxWidth: 350, width: 350, padding: 20, position: 'absolute', top: '50vh', left: '50vw', transform: 'translate(-50%, -50%)' }}>
         <h4 style={{ marginTop: 0, marginBottom: 10, paddingTop: 0 }}>Sign Up</h4>
-        <div className={ui.formLabel}>Email Address (email verification is <strong>required</strong>)</div>
-        <input autoComplete="off" className={ui.inputSmall + " " + ui.blockEl} placeholder="you@email.com" value={email} onChange={(v) => setEmail(v.target.value)} name="email" />
-        <button className={ui.uiButtonDark + " " + ui.blockEl} onClick={authenticate}>Sign Up</button>
+        <button className={ui.uiButtonDark + " " + ui.blockEl} onClick={authenticate}>Authorize Replverse</button>
         <div className={ui.errorText + " " + ui.formLabel}>{error}</div>
         <div className={ui.formLabel} style={{marginTop: 15}}>Already have an account?  <Link href="/login">Log In</Link></div>
-      </form>}
-
-      {verify && <div style={{borderColor: 'var(--outline-dimmer)', maxWidth: 300, padding: 20, position: 'absolute', top: '50vh', left: '50vw', transform: 'translate(-50%, -50%)' }}>
-              <h4 style={{marginBottom: 10}}>Check your Email</h4>
-              <div className={ui.formLabel}>For security reasons, email verification is required before you can use replverse.  Please click the activation link sent to your inbox and be sure to check the spam folder.</div>
-      </div>}
+      </form>
 
       <Nav/>
     </div>

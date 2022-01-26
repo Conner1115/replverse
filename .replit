@@ -1,4 +1,5 @@
-run = 'npx nodemon -x "sh main.sh || touch main.sh"'
+run = 'npm run dev'
+#'npx nodemon -x "sh main.sh || touch main.sh"'
 audio = true
 
 [packager]

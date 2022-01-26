@@ -36,30 +36,12 @@ app.post(async (req, res) => {
         let usr = new User({
           token: uuidv4(),
           name: req.headers["x-replit-user-name"],
-          email: req.body.email,
           addr: md5(requestIp.getClientIp(req))
         })
-        
-        fetch("https://replverse-api.ironcladdev.repl.co/api/email", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            "accept": "* /*"
-          },
-          body: JSON.stringify({
-            auth: process.env.ADMSS,
-            to: req.body.email,
-            subject: "Verify your Email Address",
-            body: `Hello, ${req.headers["x-replit-user-name"]}!  Before you can start using Replverse, please <a href="https://${req.headers.host}/api/verify/${usr.token}">verify your email address</a>.`
-          })
-        })
-        .then(r => r.json()).then(sent => {
-          if(sent.success){
-            res.json({ success: true })
-            usr.save();
-          }else{
-            res.json({ success: false, message: sent.message })
-          }
+        usr.save();
+        res.setHeader('Set-Cookie', `sid=${usr.token}; path=/; Max-Age=${1000 * 60 * 60 * 24 * 365 * 10}`);
+        res.json({
+          success: true
         })
     }
   }

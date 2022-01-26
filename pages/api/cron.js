@@ -35,8 +35,6 @@ app.post(async (req, res) => {
       _app.z = testTrend(newStat[1], newStat[0], prevZ);
       _app.save();
     }
-
-    console.log("[--- Cron Executed ---]")
     res.status(200).json({
       success: true
     })

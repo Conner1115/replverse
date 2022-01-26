@@ -48,7 +48,7 @@ app.get(async (req, res) => {
     
     res.json(badges)
   }else{
-    res.status(404).json(badges);
+    res.status(404).json([]);
   }
 })
 

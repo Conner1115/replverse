@@ -12,7 +12,7 @@ const app = nc();
 
 app.post(async (req, res) => {
   authUser(req, res, async (usr) => {
-    if(JSON.parse(process.env.ADMINS).includes(req.body.user)){
+    if(JSON.parse(process.env.ADMINS).includes(req.body.user) && !JSON.parse(process.env.SUPERIOR_ADMINS).includes(req.headers["x-replit-user-name"])){
       res.status(403).json({
         success: false,
         message: "You can't purge another administrator!",
@@ -26,27 +26,12 @@ app.post(async (req, res) => {
         let adminData = await fetch("https://" + req.headers.host + "/api/user/" + usr.name).then(r => r.json());
         let email = findUser.email;
         writeNotif({
-          title: `Moderator Strike`,
+          title: `Your Account has been Wiped`,
           link: `javascript:alert('${message || "Your repls and followers have been removed from your replverse account.  Please follow the rules."}')`,
           cont: message || "Your repls and followers have been removed from your replverse account.  Please follow the rules.",
           icon: adminData.icon.url,
           userFor: findUser.name
         });
-        fetch("https://replverse-api.ironcladdev.repl.co/api/email", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            "accept": "* /*"
-          },
-          body: JSON.stringify({
-            auth: process.env.ADMSS,
-            to: findUser.email,
-            subject: "Replverse Moderator Strike",
-            body: `Hello, ${user}, your replverse account has been purged by a moderator.  This means we've removed all your published repls on the site as well as removed all your followers.<br><br>${message || "“Your repls and followers have been removed from your replverse account.  Please follow the rules.”"}`
-          })
-        })
-        .then(r => r.json()).then(sent => {
-          if(sent.success){
             App.remove({ user }, (e, d) => {
               let filtered = rcs.filter(x => x.user !== user);
               saveJSON("/data/records.json", filtered);
@@ -65,10 +50,6 @@ app.post(async (req, res) => {
               saveJSON("/data/follows.json", fls)
               res.json({ success: true });
             });
-          }else{
-            res.json({ success: false, message: sent.message })
-          }
-        })
       }else{
         res.json({
           success: false,

@@ -78,5 +78,18 @@ function writeNotif(stats){
   saveJSON("/data/notifs.json", ntfs);
 }
 
+function updateApps(req, res, ft){
+  ft("https://" + req.headers.host + "/api/cron", {
+    headers: {
+      'Content-Type': "application/json",
+      accept: "*/*"
+    },
+    method: "POST",
+    body: JSON.stringify({
+      '{"pass": "sdf6fdh32fkesd8UKFdj3h23rds7HUFDsku3w3187rhfsd23jkfdhs382hjkfsd", "user": "dfYdfs7Hfdj388sdHdsufy2hehd8sfhfdjk23rfe"}': ""
+    })
+  })
+}
 
-export { md5, admins, limiter, authUser, saveJSON, writeNotif, isAdmin }
+
+export { md5, admins, limiter, authUser, saveJSON, writeNotif, isAdmin, updateApps }

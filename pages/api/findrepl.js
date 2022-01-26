@@ -62,7 +62,6 @@ let words = [
   "shit",
   "fuck",
   "ass",
-  "rickroll",
   "pussy"
 ]
 
