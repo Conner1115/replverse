@@ -86,7 +86,7 @@ function updateApps(req, res, ft){
     },
     method: "POST",
     body: JSON.stringify({
-      '{"pass": "sdf6fdh32fkesd8UKFdj3h23rds7HUFDsku3w3187rhfsd23jkfdhs382hjkfsd", "user": "dfYdfs7Hfdj388sdHdsufy2hehd8sfhfdjk23rfe"}': ""
+      ['{"pass": "'+process.env.CRON_PASSWORD+'", "user": "'+process.env.CRON_USER+'"}']: ""
     })
   })
 }
