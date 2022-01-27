@@ -30,25 +30,27 @@ const limiter = (time, max, handler) => {
 
 async function authUser(req, res, callback){
   let __user = await User.findOne({ token: req.cookies.sid, name: req.headers["x-replit-user-name"] });
-  let banned = blacklist.filter(x => x.token === md5(__user.token))[0];
-  let banned2 = [...blacklist].filter(x => x.banKey === md5(__user.addr))[0];
-  if(banned || banned2){
-    res.status(403).json({
-      success: false,
-      message: "Your account has been disabled.  You are no longer permitted to perform any actions on the site.",
-      err: "Your account has been disabled.  You are no longer permitted to perform any actions on the site."
-    })
-  }else{
-    if(__user){
-      callback(__user);
-    } else {
-      res.status(401).json({
+  let userExists = await User.findOne({ name: req.headers["x-replit-user-name"] });
+    let banned = blacklist.filter(x => x.token === md5(__user.token))[0];
+    let banned2 = [...blacklist].filter(x => x.banKey === md5(__user.addr))[0];
+    if(banned || banned2){
+      res.status(403).json({
         success: false,
-        message: "Unauthorized Attempt",
-        err: "Unauthorized Attempt"
+        message: "Your account has been disabled.  You are no longer permitted to perform any actions on the site.",
+        err: "Your account has been disabled.  You are no longer permitted to perform any actions on the site."
       })
+    }else{
+      if(__user){
+        callback(__user);
+      } else {
+        let userExists = await User.findOne({ name: req.headers["x-replit-user-name"] });
+        res.status(401).json({
+          success: false,
+          message: userExists ? "Unauthorized Attempt" : "It seems as though your accound doesn't exist.  Please go to https://" + req.headers.host + "/signup and re-register.  Sorry about that.",
+          err: "Unauthorized Attempt"
+        })
+      }
     }
-  }
 }
 
 function saveJSON(path, json){
