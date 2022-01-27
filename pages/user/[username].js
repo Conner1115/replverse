@@ -328,7 +328,6 @@ export async function getServerSideProps({ params, req, res }){
     let rs = await fetch("https://" + req.headers.host + "/api/user/" + params.username)
   let badges = await fetch("https://" + req.headers.host + "/api/badges/" + params.username).then(r => r.json());
   let data = await rs.json()
-    console.log(data.exists)
   if(data.exists){
     let repls = await App.find({ user: params.username })
     return {
