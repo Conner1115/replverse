@@ -14,22 +14,30 @@ app.post(async (req, res) => {
   if(req.body.question === "DELETE_MY_REPLVERSE_ACCOUNT"){
   authUser(req, res, async (usr) => {
     let findUser = await User.findOne({ name: usr.name });
-    let apps = await App.find({ user: findUser.name }, "_id");
-    let recs = records.filter(x => (x.user !== findUser.name && x.author !== findUser.name));
-    let ntfs = notifs.filter(x => x.userFor !== findUser.name);
-    let flls = follows.filter(x => x.user !== findUser.name && x.follow !== findUser.name)
-    saveJSON("/data/notifs.json", ntfs)
-    saveJSON("/data/follows.json", flls)
-    saveJSON("/data/records.json", recs)
-    for(var i of apps){
-      let a = await App.findOne({ _id: i });
-      a.remove();
+    if(findUser.name === usr.name === req.headers["x-replit-user-name"]){
+      let apps = await App.find({ user: findUser.name }, "_id");
+      let recs = records.filter(x => (x.user !== findUser.name && x.author !== findUser.name));
+      let ntfs = notifs.filter(x => x.userFor !== findUser.name);
+      let flls = follows.filter(x => x.user !== findUser.name && x.follow !== findUser.name)
+      saveJSON("/data/notifs.json", ntfs)
+      saveJSON("/data/follows.json", flls)
+      saveJSON("/data/records.json", recs)
+      for(var i of apps){
+        let a = await App.findOne({ _id: i });
+        a.remove();
+      }
+      res.setHeader('Set-Cookie', `sid=0; path=/; Max-Age=${1}`);
+      findUser.remove();
+      res.json({
+        success: true
+      });
+    }else{
+      res.status(401).json({
+        success: false,
+        message: "Unauthorized",
+        err: "Unauthorized"
+      })
     }
-    res.setHeader('Set-Cookie', `sid=0; path=/; Max-Age=${1}`);
-    findUser.remove();
-    res.json({
-      success: true
-    });
   })
   }else{
     res.json({

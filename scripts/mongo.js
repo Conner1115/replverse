@@ -21,10 +21,7 @@ const userSchema = new mongoose.Schema({
   addr: { type: String, index: true }
 })
 
-mongoose.connect(process.env.MONGO_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
+mongoose.connect(process.env.MONGO_URI);
 
 const App = mongoose.models.App || mongoose.model("App", appSchema);
 const User = mongoose.models.User || mongoose.model("User", userSchema);
