@@ -222,7 +222,6 @@ export default class DashNav extends Component {
         </a>
 
         <div className={styles.navFoot}>
-          <a href="https://discord.gg/s79rCUpxsa" target="_blank" rel="noreferrer">Discord</a>
         </div>
         
         </div>}
