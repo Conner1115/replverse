@@ -73,7 +73,12 @@ app.post(async (req, res) => {
     let findApp = await App.findOne({
       user, repl
     });
-    if(!findApp){
+    if(findApp){
+      res.json({
+        success: false,
+        message: "Repl Already Exists"
+      })
+    }else{
   	  superagent.get("https://replit.com/data/repls/@" + user + "/" + repl).end(async (err, rs) => {
   		if (rs.status === 200) {
   			let json = rs.body;
@@ -156,11 +161,6 @@ app.post(async (req, res) => {
   			}
       }
   	})
-    }else{
-      res.json({
-        success: false,
-        message: "Repl Already Exists"
-      })
     }
   });
 })

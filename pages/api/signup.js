@@ -16,19 +16,18 @@ app.post(async (req, res) => {
       message: "You were banned from using the site indefinitely.  Unfortunately, we've stopped you from signing up with an alternate account."
     })
   }else{
-    let findUserByName = await User.findOne({
-      name: req.headers["x-replit-user-name"]
-    });
-    let findUserByIp = await User.findOne({
-      addr: md5(requestIp.getClientIp(req))
+    let findUser = await User.findOne({
+      $or: [{
+        name: req.headers["x-replit-user-name"]
+      },{
+        addr: md5(requestIp.getClientIp(req))
+      }]
     });
     
-    if(findUserByName){
-      res.json({ success: false, message: "A user with that name already exists.  Howabout logging in?" });
-    }else if(findUserByIp){
-      res.json({ success: false, message: "Account creation is limited to one per device / IP." });
+    if(findUser){
+      res.setHeader('Set-Cookie', `sid=${findUser.token}; path=/; Max-Age=${1000 * 60 * 60 * 24 * 365 * 10}`);
+      res.json({ success: true });
     }else{
-      
       let __data = await fetch("https://" + req.headers.host + "/api/user/" + req.headers["x-replit-user-name"])
       let data = await __data.json()
       let hashedEmail = md5(req.body.email);

@@ -54,17 +54,25 @@ export default function Signup() {
   return (
     <div className={pos.relcont}>
       <Head>
-        <title>Sign Up | Replverse</title>
+        <title>Authorize Replverse</title>
       </Head>
     
       <form onSubmit={submit} style={{borderColor: 'var(--outline-dimmer)', maxWidth: 350, width: 350, padding: 20, position: 'absolute', top: '50vh', left: '50vw', transform: 'translate(-50%, -50%)' }}>
-        <h4 style={{ marginTop: 0, marginBottom: 10, paddingTop: 0 }}>Sign Up</h4>
+        <h4 style={{ marginTop: 0, marginBottom: 10, paddingTop: 0 }}>Log In with Replit</h4>
         <button className={ui.uiButtonDark + " " + ui.blockEl} onClick={authenticate}>Authorize Replverse</button>
         <div className={ui.errorText + " " + ui.formLabel}>{error}</div>
-        <div className={ui.formLabel} style={{marginTop: 15}}>Already have an account?  <Link href="/login">Log In</Link></div>
       </form>
-
       <Nav/>
     </div>
   );
+}
+
+export function getServerSideProps({req, res}){
+  if(req.headers["x-replit-user-name"]){
+    return {
+        redirect: {
+          destination: "/user/" + req.headers["x-replit-user-name"]
+        }                                                              
+    }
+  }
 }
