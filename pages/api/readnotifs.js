@@ -21,7 +21,7 @@ app.post(async (req, res) => {
     saveJSON("/data/notifs.json", nts);
     res.json({
       success: true,
-      data: nts
+      data: nts.filter(x => x.userFor === usr.name).reverse()
     })
   });
 })

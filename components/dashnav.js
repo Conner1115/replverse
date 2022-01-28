@@ -3,8 +3,10 @@ import styles from '../styles/components/dashnav.module.css'
 import ui from '../styles/ui.module.css'
 import Link from 'next/link';
 import { useState, Component, useRef } from 'react';
-import __ntfs from '../data/notifs.json'
-let notifs = [...__ntfs]
+//import __ntfs from '../data/notifs.json'
+//let notifs = [...__ntfs]
+
+import { getNotifs, getUnreadsCount } from '../scripts/json.js';
 
 function TagInput(props){
   let inputRef = useRef(null);
@@ -95,9 +97,11 @@ export default class DashNav extends Component {
         icon: data.icon.url,
         username: data.username,
         visible: localStorage.getItem("nav") ? JSON.parse(localStorage.getItem("nav")) : true,
-        notifs: notifs.filter(x => x.userFor === data.username).reverse(),
-        unreads: notifs.filter(x => x.userFor === data.username).filter(y => !y.r).length
+        notifs: getNotifs(data.username),
+        unreads: getUnreadsCount(data.username)
       })
+      console.log(getNotifs(data.username));
+      console.log(getUnreadsCount(data.username))
     } else {
       this.setState({
         icon: "/user.svg",

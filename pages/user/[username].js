@@ -10,6 +10,7 @@ import follows from '../../data/follows.json'
 import { useState } from 'react'
 import reports from '../../data/reports.json'
 import Error from '../../components/404.js'
+import { getFollowing, getFollowers } from '../../scripts/json.js';
 
 let badgeTitles = {
   "ancient": "Be in the first million users of replit",
@@ -340,8 +341,8 @@ export async function getServerSideProps({ params, req, res }){
         lost: false,
         bio: data.bio,
         avatar: data.icon.url,
-        following: follows.filter(x => x.user === data.username) || [],
-        followers: follows.filter(x => x.follow === data.username),
+        following: getFollowing(data.username) || [],
+        followers: getFollowers(data.username) || [],
         badges,
         username: data.username,
         repls: repls.map(x => ({
