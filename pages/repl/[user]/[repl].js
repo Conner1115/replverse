@@ -29,10 +29,8 @@ function Comment(props){
         if(res.success){
           props.updateComments(res.data);
         }else{
-          if(res.err){
             alert(res.message || "Internal Error.  Check the browser console for details.");
             console.log(res.err)
-          }
         }
       })
     }
@@ -77,10 +75,8 @@ export default function Spotlight(props) {
       if(res.success){
         alert("Reported");
       }else{
-        if(res.err){
           alert(res.message || "Internal Error.  Check the browser console for details.");
           console.log(res.err)
-        }
       }
     })
     }
@@ -101,10 +97,8 @@ export default function Spotlight(props) {
       if(res.success){
         updateLikes(likes + res.count);
       }else{
-        if(res.err){
           alert(res.message || "Internal Error.  Check the browser console for details.");
           console.log(res.err)
-        }
       }
     })
   }

@@ -45,7 +45,7 @@ async function authUser(req, res, callback){
         let userExists = await User.findOne({ name: req.headers["x-replit-user-name"] });
         res.status(401).json({
           success: false,
-          message: userExists ? "Unauthorized Attempt" : "It seems as though your accound doesn't exist.  Please go to https://" + req.headers.host + "/signup and re-register.  Sorry about that.",
+          message: userExists ? "Unauthorized Attempt" : "It seems as though your account doesn't exist.  Please clear cookies and go to https://" + req.headers.host + "/signup and re-register.  Sorry about that.",
           err: "Unauthorized Attempt"
         })
       }
@@ -54,7 +54,7 @@ async function authUser(req, res, callback){
   else{
     res.status(401).json({
       success: false,
-      message: "Failed to perform operation - Not logged in."
+      message: "Please log in/sign up before you perform this action."
     })
   }
 }
