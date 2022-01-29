@@ -96,7 +96,7 @@ export default class DashNav extends Component {
       this.setState({
         icon: data.icon.url,
         username: data.username,
-        visible: localStorage.getItem("nav") ? JSON.parse(localStorage.getItem("nav")) : true,
+        visible: this.props.close ? false : (localStorage.getItem("nav") ? JSON.parse(localStorage.getItem("nav")) : true),
         notifs: rev,
         unreads: rev.filter(x => !x.r).length
       })
@@ -178,11 +178,11 @@ export default class DashNav extends Component {
   render(){
     return (
       <div className={styles.nav}>
-      {!this.state.visible && <div onClick={() => {this.toggle(true)}} className={styles.navButtonVis}>
+      {!this.state.visible && !this.props.close && <div onClick={() => {this.toggle(true)}} className={styles.navButtonVis}>
         <ion-icon name="menu-outline"></ion-icon>
         {this.state.unreads > 0 && <span className={styles.menuNotif}></span>}
       </div>}
-      {this.state.visible && <div className={styles.navBody}>
+      {this.state.visible && !this.props.close && <div className={styles.navBody}>
           <div className={styles.navHeadFixed}>
           <div className={styles.menuBtn} onClick={() => this.toggle(false)}>
             <ion-icon name="menu-outline"></ion-icon>
@@ -228,7 +228,7 @@ export default class DashNav extends Component {
         
         </div>}
 
-        {(this.state.visible && this.state.notifModal) && <div className={styles.notifModal + " " + ui.boxDimDefault}>
+        {(this.state.visible && !this.props.close && this.state.notifModal) && <div className={styles.notifModal + " " + ui.boxDimDefault}>
           <div>
             <button className={ui.uiButtonDark} onClick={this.readNotifs} style={{display: 'block', width: 'calc(100% - 20px)', margin: '10px'}}>Mark as Read</button>
           </div>
@@ -244,9 +244,9 @@ export default class DashNav extends Component {
             </div></Link>)}</div>
         </div>}
         
-        <div className={styles.mainBody} style={{width: this.state.visible ? "calc(100vw - 240px)" : '100vw', left: this.state.visible ? 240 : 0}}>{this.props.children}</div>
+        <div className={styles.mainBody} style={{width: this.props.close ? '100vw' : (this.state.visible ? "calc(100vw - 240px)" : '100vw'), left: this.props.close ? 0 : (this.state.visible ? 240 : 0)}}>{this.props.children}</div>
 
-        <div style={{display: this.state.showModal ? "block" : "none"}}>
+        <div style={{display: (this.state.showModal && !this.props.close) ? "block" : "none"}}>
         <div className={styles.blockCurtain} onClick={() => {
             this.setState({
               showModal: false

@@ -1,6 +1,6 @@
 import nc from 'next-connect';
 import { App, User } from '../../scripts/mongo.js'
-import { authUser, saveJSON } from '../../scripts/util.js'
+import { authUser, saveJSON, updateApp } from '../../scripts/util.js'
 import {getData} from '../../scripts/json.js'
 
 const app = nc();
@@ -17,7 +17,7 @@ app.post(async (req, res) => {
         saveJSON('/data/records.json', rec);
         findApp.likes--;
         findApp.save();
-        //updateApps(req, res, fetch);
+        updateApp(findApp._id);
         res.json({
           success: true,
           count: -1
@@ -27,7 +27,7 @@ app.post(async (req, res) => {
         findApp.save();
         rec.push({type: "like", user, repl, author: req.body.author});
         saveJSON('/data/records.json', rec);
-        //updateApps(req, res, fetch);
+        updateApp(findApp._id);
         res.json({
           success: true,
           count: 1

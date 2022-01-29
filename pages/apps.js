@@ -149,42 +149,6 @@ export async function getServerSideProps({req, res}){
         title: "Repl Title " + Math.floor(Math.random() * 500),
         tags: ["javascript", "console", "game", "apps", "fun"],
         slug: "testslug"
-      },{
-        creator: "Username",
-        avatar: "/user.svg",
-        comments: Math.floor(Math.random() * 500),
-        likes: Math.floor(Math.random() * 500),
-        cover: "/graphics/image.svg",
-        title: "Repl Title " + Math.floor(Math.random() * 500),
-        tags: ["javascript", "console", "game", "apps", "fun"],
-        slug: "testslug"
-      },{
-        creator: "Username",
-        avatar: "/user.svg",
-        comments: Math.floor(Math.random() * 500),
-        likes: Math.floor(Math.random() * 500),
-        cover: "/graphics/image.svg",
-        title: "Repl Title " + Math.floor(Math.random() * 500),
-        tags: ["javascript", "console", "game", "apps", "fun"],
-        slug: "testslug"
-      },{
-        creator: "Username",
-        avatar: "/user.svg",
-        comments: Math.floor(Math.random() * 500),
-        likes: Math.floor(Math.random() * 500),
-        cover: "/graphics/image.svg",
-        title: "Repl Title " + Math.floor(Math.random() * 500),
-        tags: ["javascript", "console", "game", "apps", "fun"],
-        slug: "testslug"
-      },{
-        creator: "Username",
-        avatar: "/user.svg",
-        comments: Math.floor(Math.random() * 500),
-        likes: Math.floor(Math.random() * 500),
-        cover: "/graphics/image.svg",
-        title: "Repl Title " + Math.floor(Math.random() * 500),
-        tags: ["javascript", "console", "game", "apps", "fun"],
-        slug: "testslug"
       }]
     }
   }

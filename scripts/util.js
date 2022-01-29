@@ -1,7 +1,7 @@
 import md5 from 'md5'
 import requestIp from 'request-ip'
 import rateLimit from 'express-rate-limit'
-import { User } from './mongo.js'
+import { User, App } from './mongo.js'
 import {getData} from './json.js'
 
 const admins = JSON.parse((process.env.ADMINS).replace(/\'/g, '"'))
@@ -108,5 +108,31 @@ function updateApps(req, res, ft){
   })
 }
 
+function testTrend(t, y, z) {
+  let T = (t[1] / (t[0] + 1) * (t[1] + 5)) + 1;
+  let Y = (y[1] / (y[0] + 1) * (y[1] + 5));
+  let Z = z||10;
+  if (T - Y <= 0) {
+    Z -= Math.abs(T - Y);
+  } else {
+    Z += Math.abs(T - Y) / 2;
+  }
+  return (Number(Z.toFixed(2)));
+}
 
-export { md5, admins, limiter, authUser, saveJSON, writeNotif, isAdmin, updateApps }
+async function updateApp(id){
+  let _app = await App.findOne({_id: id});
+  console.log(_app.z, _app.po)
+  let appStats = _app.po[1];
+  let viewsToday = _app.views - appStats[0];
+  let likesToday = _app.likes - appStats[1];
+  let newStat = [appStats, [_app.views, _app.likes]];
+  console.log(newStat, viewsToday, likesToday, _app.views, _app.likes)
+  _app.po = newStat;
+  let prevZ = _app.z;
+  _app.z = testTrend(newStat[0], newStat[1], prevZ);
+  _app.save();
+}
+
+
+export { md5, admins, limiter, authUser, saveJSON, writeNotif, isAdmin, testTrend, updateApp }

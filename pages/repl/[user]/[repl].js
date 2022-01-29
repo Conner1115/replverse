@@ -1,5 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 import DashNav from '../../../components/dashnav.js';
+import Nav from '../../../components/nav.js';
 import Head from 'next/head';
 import { App } from '../../../scripts/mongo.js'
 import Error from '../../../components/404.js';
@@ -243,7 +244,8 @@ export default function Spotlight(props) {
       <title>{props.lost ? "Not Found" : `${props.repl} by ${props.user}`}</title>
     </Head>
     {props.lost && <Error />}
-    {!props.lost && <DashNav>
+    {!props.lost && <DashNav close={!props.me}>
+      {!props.me && <Nav/>}
       <div style={{ padding: '50px 40px' }}>
         <div className={styles.flexBody}>
             
