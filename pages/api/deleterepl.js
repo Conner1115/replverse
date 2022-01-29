@@ -1,13 +1,12 @@
 import nc from 'next-connect';
-import superagent from 'superagent'
 import { App } from '../../scripts/mongo.js'
 import { limiter, authUser, saveJSON } from '../../scripts/util.js'
-import records from '../../data/records.json'
-let rec = [...records];
+import {getData} from '../../scripts/json.js'
 
 const app = nc();
 
 app.post(async (req, res) => {
+  let rec = await getData("records.json", {})
   authUser(req, res, async (usr) => {
     let repl = req.body.repl;
     let author = req.body.author;

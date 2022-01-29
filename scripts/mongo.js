@@ -12,14 +12,14 @@ const appSchema = new mongoose.Schema({
   avatar: { type: String, index: true },
   desc: { type: String, index: true },
   z: { type: Number, index: true, default: 10 }, //z-score
-  po: { type: Array, index: true, default: [[0, 0], [0, 0]]} // popularity over time [views, likes]
-})
+  po: { type: Array, index: true, default: [[0, 0], [0, 0]]}
+},{ versionKey: false })
 
 const userSchema = new mongoose.Schema({
   token: { type: String, index: true },
   name: { type: String, index: true },
   addr: { type: String, index: true }
-})
+},{ versionKey: false })
 
 mongoose.connect(process.env.MONGO_URI);
 

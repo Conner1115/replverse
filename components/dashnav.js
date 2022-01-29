@@ -3,10 +3,7 @@ import styles from '../styles/components/dashnav.module.css'
 import ui from '../styles/ui.module.css'
 import Link from 'next/link';
 import { useState, Component, useRef } from 'react';
-//import __ntfs from '../data/notifs.json'
-//let notifs = [...__ntfs]
-
-import { getNotifs, getUnreadsCount } from '../scripts/json.js';
+import {getData} from '../scripts/json.js'
 
 function TagInput(props){
   let inputRef = useRef(null);
@@ -67,7 +64,8 @@ export default class DashNav extends Component {
     }).then(r => r.json()).then(res => {
       if(res.success){
         this.setState({
-          notifs: res.data
+          notifs: res.data,
+          unreads: 0
         })
       }else{
         alert(res.message || "Internal Error.  Read the browser console for more information.");
@@ -93,15 +91,15 @@ export default class DashNav extends Component {
   async componentDidMount(){
     const data = await fetch("/api/user/__me__").then(r => r.json())
     if(data){
+      let __notifications = await getData("notifs.json", {userFor: data.username});
+      let rev = __notifications.reverse()
       this.setState({
         icon: data.icon.url,
         username: data.username,
         visible: localStorage.getItem("nav") ? JSON.parse(localStorage.getItem("nav")) : true,
-        notifs: getNotifs(data.username),
-        unreads: getUnreadsCount(data.username)
+        notifs: rev,
+        unreads: rev.filter(x => !x.r).length
       })
-      console.log(getNotifs(data.username));
-      console.log(getUnreadsCount(data.username))
     } else {
       this.setState({
         icon: "/user.svg",

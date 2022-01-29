@@ -1,10 +1,11 @@
 import nc from 'next-connect';
 import { User } from '../../../scripts/mongo.js';
-import awards from '../../../data/awards.json';
+import {getData} from '../../../scripts/json.js'
 
 const app = nc();
 
 app.get(async (req, res) => {
+  let awards = await getData("awards.json", {})
   let user = req.query.user;
   let userData = await fetch("https://" + req.headers.host + "/api/user/" + user).then(r => r.json());
   let userSch = await User.findOne({ name: user })

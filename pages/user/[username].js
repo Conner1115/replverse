@@ -6,11 +6,9 @@ import Link from 'next/link'
 import Repl from '../../components/repl'
 import Head from 'next/head'
 import { App } from '../../scripts/mongo.js'
-import follows from '../../data/follows.json'
 import { useState } from 'react'
-import reports from '../../data/reports.json'
 import Error from '../../components/404.js'
-import { getFollowing, getFollowers } from '../../scripts/json.js';
+import { getData } from '../../scripts/json.js'
 
 let badgeTitles = {
   "ancient": "Be in the first million users of replit",
@@ -29,8 +27,8 @@ let badgeTitles = {
 }
 
 export default function Dashboard(props){
-  const [fd, updateF] = useState(follows)
-  const [reps, setReports] = useState(reports);
+  const [fd, updateF] = useState(props.following)
+  const [reps, setReports] = useState(props.reports);
   const dismissReport = (link) => {
     fetch("/api/dismissrepl", {
       method: "POST",
@@ -341,8 +339,9 @@ export async function getServerSideProps({ params, req, res }){
         lost: false,
         bio: data.bio,
         avatar: data.icon.url,
-        following: getFollowing(data.username) || [],
-        followers: getFollowers(data.username) || [],
+        reports: JSON.parse(process.env.ADMINS).includes(req.headers["x-replit-user-name"]) ? (await getData("reports.json", {}) || []) : [],
+        following: await getData("follows.json", { user: data.username }) || [],
+        followers: await getData("follows.json", { follow: data.username }) || [],
         badges,
         username: data.username,
         repls: repls.map(x => ({

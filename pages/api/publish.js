@@ -53,8 +53,7 @@ import nc from 'next-connect';
 import superagent from 'superagent'
 import { App } from '../../scripts/mongo.js'
 import { limiter, authUser, writeNotif } from '../../scripts/util.js'
-import follows from '../../data/follows.json'
-
+import {getData} from '../../scripts/json.js'
 const app = nc();
 
 app.use(limiter(1000 * 60 * 30, 6, function(req, res){
@@ -66,6 +65,7 @@ app.use(limiter(1000 * 60 * 30, 6, function(req, res){
 }))
 
 app.post(async (req, res) => {
+  let follows = await getData("follows.json", {})
   authUser(req, res, async (usr) => {
     let repl = req.body.repl;
   	let user = usr.name;

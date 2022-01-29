@@ -1,15 +1,12 @@
 import nc from 'next-connect';
-import superagent from 'superagent'
 import { App, User } from '../../scripts/mongo.js'
-import { limiter, authUser, saveJSON, updateApps } from '../../scripts/util.js'
-import fs from 'fs'
-
-import records from '../../data/records.json'
-let rec = [...records];
+import { authUser, saveJSON } from '../../scripts/util.js'
+import {getData} from '../../scripts/json.js'
 
 const app = nc();
 
 app.post(async (req, res) => {
+  let rec = await getData("records.json", {});
   authUser(req, res, async (usr) => {
       let repl = req.body.repl;
       let user = usr.name;
@@ -20,7 +17,7 @@ app.post(async (req, res) => {
         saveJSON('/data/records.json', rec);
         findApp.likes--;
         findApp.save();
-        updateApps(req, res, fetch);
+        //updateApps(req, res, fetch);
         res.json({
           success: true,
           count: -1
@@ -30,7 +27,7 @@ app.post(async (req, res) => {
         findApp.save();
         rec.push({type: "like", user, repl, author: req.body.author});
         saveJSON('/data/records.json', rec);
-        updateApps(req, res, fetch);
+        //updateApps(req, res, fetch);
         res.json({
           success: true,
           count: 1

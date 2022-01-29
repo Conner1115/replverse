@@ -74,5 +74,11 @@ export function getServerSideProps({req, res}){
           destination: "/user/" + req.headers["x-replit-user-name"]
         }                                                              
     }
+  }else{
+    return {
+      props: {
+        
+      }
+    }
   }
 }

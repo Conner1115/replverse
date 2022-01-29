@@ -1,20 +1,17 @@
-import notifs from '../data/notifs.json';
-import follows from '../data/follows.json';
-
-function getNotifs(user){
-  return notifs.filter(x => x.userFor === user).reverse();
+async function getData(file, filter){
+  try{
+  return await fetch("https://replverse-data.ironcladdev.repl.co/json/" + file, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "accept": "*/*"
+    },
+    body: JSON.stringify(filter)
+  }).then(r => r.json())
+  }catch(e){
+    console.log(e)
+    return [];
+  }
 }
 
-function getFollowing(user){
-  return follows.filter(x => x.user === user)
-}
-
-function getFollowers(user){
-  return follows.filter(x => x.follow === user)
-}
-
-function getUnreadsCount(user){
-  return notifs.filter(x => x.userFor === user).filter(x => !x.r).length;
-}
-
-export { getNotifs, getFollowing, getFollowers, getUnreadsCount };
+export {getData}

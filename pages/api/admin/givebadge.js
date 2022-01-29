@@ -1,9 +1,7 @@
 import nc from 'next-connect';
-import superagent from 'superagent'
 import { User } from '../../../scripts/mongo.js'
-import { limiter, authUser, writeNotif, saveJSON } from '../../../scripts/util.js'
-import awards from '../../../data/awards.json'
-let aw = [...awards];
+import { authUser, writeNotif, saveJSON } from '../../../scripts/util.js'
+import {getData} from '../../../scripts/json.js'
 
 const app = nc();
 
@@ -15,6 +13,7 @@ let bds = [
 ];
 
 app.post(async (req, res) => {
+  let aw = await getData("awards.json", {});
   authUser(req, res, async (usr) => {
       if(JSON.parse(process.env.SUPERIOR_ADMINS).includes(usr.name)){
         let user = req.body.user;

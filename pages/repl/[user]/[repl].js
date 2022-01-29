@@ -7,10 +7,7 @@ import styles from '../../../styles/pages/spotlight.module.css'
 import ui from '../../../styles/ui.module.css'
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import rcs from '../../../data/records.json'
-import fls from '../../../data/follows.json'
-let follows = [...fls];
-let records = [...rcs];
+import {getData} from '../../../scripts/json.js'
 
 function Comment(props){
   const deleteComment = () => {
@@ -53,7 +50,7 @@ function Comment(props){
 }
 
 export default function Spotlight(props) {
-  const [fd, updateF] = useState(follows)
+  const [fd, updateF] = useState(props.follows)
   const [comment, updateComment] = useState("");
   const app = JSON.parse(props.app);
   const [comments, updateComments] = useState(app.comments);
@@ -275,7 +272,7 @@ export default function Spotlight(props) {
                 <span className={styles.userName}>{author.username}</span>
               </div></Link>
               <p className={styles.authorBio}>{author.bio}</p>
-              <button onClick={followUser} className={(fd.filter(x => x.user+x.follow === props.me+props.user)[0] ? ui.uiButtonDark : ui.uiButton) + " " + ui.block + " " + styles.blockFollowBtn}>{fd.filter(x => x.user+x.follow === props.me+props.user)[0] ? "Unfollow" : "Follow"}</button>
+              {!props.owner && <button onClick={followUser} className={(fd.filter(x => x.user+x.follow === props.me+props.user)[0] ? ui.uiButtonDark : ui.uiButton) + " " + ui.block + " " + styles.blockFollowBtn}>{fd.filter(x => x.user+x.follow === props.me+props.user)[0] ? "Unfollow" : "Follow"}</button>}
             </div>
 
             {props.owner && <div className={ui.boxDimDefault} style={{margin: '10px 0'}}>
@@ -333,6 +330,7 @@ export async function getServerSideProps(ctx) {
   if (app) {
     return {
       props: {
+        follows: await getData("follows.json", { follow: ctx.params.user }) || [],
         adminView: JSON.parse(process.env.ADMINS).includes(ctx.req.headers["x-replit-user-name"]),
         me: ctx.req.headers["x-replit-user-name"],
         owner: ctx.params.user === ctx.req.headers["x-replit-user-name"],

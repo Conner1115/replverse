@@ -1,5 +1,4 @@
 import nc from 'next-connect';
-import superagent from 'superagent'
 import { App } from '../../scripts/mongo.js'
 
 const app = nc();
@@ -27,8 +26,8 @@ app.post(async (req, res) => {
       let id = apps[i]._id;
       let _app = await App.findOne({_id: id});
       let appStats = _app.po[1];
-      let viewsToday = _app.views + appStats[0];
-      let likesToday = _app.likes + appStats[1];
+      let viewsToday = _app.views - appStats[0];
+      let likesToday = _app.likes - appStats[1];
       let newStat = [appStats, [viewsToday, likesToday]];
       _app.po = newStat;
       let prevZ = _app.z;

@@ -1,18 +1,15 @@
 import nc from 'next-connect';
-import superagent from 'superagent'
 import { User, App } from '../../../scripts/mongo.js'
-import { limiter, authUser, writeNotif, saveJSON } from '../../../scripts/util.js'
-import records from '../../../data/records.json'
-import follows from '../../../data/follows.json'
-import blacklist from '../../../data/blacklist.json'
+import { authUser, writeNotif, saveJSON } from '../../../scripts/util.js'
+import {getData} from '../../../scripts/json.js'
 import md5 from 'md5';
-let rcs = [...records];
-let fls = [...follows];
-
 
 const app = nc();
 
 app.post(async (req, res) => {
+  let rcs = await getData("records.json", {})
+  let fls = await getData("follows.json", {})
+  let blacklist = await getData("blacklist.json", {})
   authUser(req, res, async (usr) => {
     if(JSON.parse(process.env.ADMINS).includes(req.body.user) && !JSON.parse(process.env.SUPERIOR_ADMINS).includes(req.headers["x-replit-user-name"])){
       res.status(403).json({

@@ -1,15 +1,13 @@
 import nc from 'next-connect';
-import superagent from 'superagent'
 import { App, User } from '../../scripts/mongo.js'
 import { limiter, authUser, saveJSON, writeNotif } from '../../scripts/util.js'
-import follows from '../../data/follows.json'
-let fls = [...follows];
-
+import {getData} from '../../scripts/json.js'
 const app = nc();
 
 //add userAvatar field to json!!!!!!!
 
 app.post(async (req, res) => {
+  let fls = await getData("follows.json", {})
   authUser(req, res, async (usr) => {
     let follow = req.body.follow;
     let findUser = await User.findOne({user: follow});

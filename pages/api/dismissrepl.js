@@ -1,13 +1,12 @@
 import nc from 'next-connect';
-import superagent from 'superagent'
 import { App, User } from '../../scripts/mongo.js'
 import { limiter, authUser, saveJSON } from '../../scripts/util.js'
-import reports from '../../data/reports.json';
-let rep = [...reports];
+import {getData} from '../../scripts/json.js'
 
 const app = nc();
 
 app.post(async (req, res) => {
+  let rep = await getData("reports.json", {})
   authUser(req, res, async (usr) => {
     let findRepl = rep.filter(x => x[0] === req.body.link)[0];
     if(JSON.parse(process.env.ADMINS).includes(usr.name)){

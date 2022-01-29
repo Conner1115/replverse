@@ -1,7 +1,6 @@
 import nc from 'next-connect';
-import superagent from 'superagent'
 import { User, App } from '../../../scripts/mongo.js'
-import { limiter, authUser, writeNotif } from '../../../scripts/util.js'
+import { authUser, writeNotif } from '../../../scripts/util.js'
 
 const app = nc();
 

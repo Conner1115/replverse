@@ -1,16 +1,16 @@
 import nc from 'next-connect'
 import md5 from 'md5'
-import superagent from 'superagent'
 import { User, App } from '../../scripts/mongo.js'
 import requestIp from 'request-ip'
 import { authUser, saveJSON } from '../../scripts/util.js'
-import records from '../../data/records.json'
-import notifs from '../../data/notifs.json'
-import follows from '../../data/follows.json'
+import {getData} from '../../scripts/json.js'
 
 const app = nc();
 
 app.post(async (req, res) => {
+  let records = await getData("records.json", {})
+  let notifs = await getData("follows.json", {})
+  let follows = await getData("follows.json", {})
   if(req.body.question === "DELETE_MY_REPLVERSE_ACCOUNT"){
   authUser(req, res, async (usr) => {
     let findUser = await User.findOne({ name: usr.name });

@@ -2,10 +2,7 @@ import md5 from 'md5'
 import requestIp from 'request-ip'
 import rateLimit from 'express-rate-limit'
 import { User } from './mongo.js'
-import fs from 'fs'
-import notifs from '../data/notifs.json';
-import bl from '../data/blacklist.json';
-let blacklist = [...bl];
+import {getData} from './json.js'
 
 const admins = JSON.parse((process.env.ADMINS).replace(/\'/g, '"'))
 const isAdmin = (username) => {
@@ -29,8 +26,10 @@ const limiter = (time, max, handler) => {
 };
 
 async function authUser(req, res, callback){
-  let __user = await User.findOne({ token: req.cookies.sid, name: req.headers["x-replit-user-name"] });
-  let userExists = await User.findOne({ name: req.headers["x-replit-user-name"] });
+  if(req.headers["x-replit-user-name"]){
+    let blacklist = await getData("blacklist.json", {})
+    let __user = await User.findOne({ token: req.cookies.sid, name: req.headers["x-replit-user-name"] });
+    let userExists = await User.findOne({ name: req.headers["x-replit-user-name"] });
     let banned = blacklist.filter(x => x.token === md5(__user.token))[0];
     let banned2 = [...blacklist].filter(x => x.banKey === md5(__user.addr))[0];
     if(banned || banned2){
@@ -51,16 +50,32 @@ async function authUser(req, res, callback){
         })
       }
     }
+  }
+  else{
+    res.status(401).json({
+      success: false,
+      message: "Failed to perform operation - Not logged in."
+    })
+  }
 }
 
 function saveJSON(path, json){
-  fs.writeFile(process.cwd() + path, JSON.stringify(json), (err) => {
-    if (err) throw err;
-  });
+  fetch("https://replverse-data.ironcladdev.repl.co/save/" + path.split`/`[2], {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "accept": "*/*"
+    },
+    body: JSON.stringify({
+      auth: process.env.ADMSS,
+      json
+    })
+  })
 }
 
 //title, link, cont, icon, userFor, r
-function writeNotif(stats){
+async function writeNotif(stats){
+  let notifs = await getData("notifs.json", {})
   let ntfs = [...notifs, {
     title: stats.title,
     link: stats.link,

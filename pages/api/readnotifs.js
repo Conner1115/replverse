@@ -1,13 +1,12 @@
 import nc from 'next-connect';
-import superagent from 'superagent'
 import { App, User } from '../../scripts/mongo.js'
 import { limiter, authUser, saveJSON } from '../../scripts/util.js'
-import notifs from '../../data/notifs.json'
-let ntfs = [...notifs];
+import {getData} from '../../scripts/json.js'
 
 const app = nc();
 
 app.post(async (req, res) => {
+  let ntfs = await getData("notifs.json", {})
   authUser(req, res, async (usr) => {
     let nts = ntfs.map(x => {
       if(x.userFor === usr.name && !x.r){

@@ -1,4 +1,5 @@
 import nc from 'next-connect'
+import { User } from '../../../scripts/mongo.js'
 const app = nc();
 
 const headers = {
@@ -14,6 +15,8 @@ const headers = {
 };
 
 app.get(async (req, res) => {
+  let findUser = await User.findOne({ name: req.headers["x-replit-user-name"] });
+  if(findUser && req.headers["x-replit-user-name"]){
   const query = JSON.stringify({
   query: `{userByUsername(username: "${req.headers["x-replit-user-name"]}") {karma, firstName, lastName, bio, id, image}}`,
   variables: {
@@ -40,6 +43,9 @@ app.get(async (req, res) => {
     }else{
       res.json(false)
     }
+  }else{
+    res.json(false)
+  }
 })
 
 export default app;
