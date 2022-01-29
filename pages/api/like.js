@@ -17,7 +17,7 @@ app.post(async (req, res) => {
         saveJSON('/data/records.json', rec);
         findApp.likes--;
         findApp.save();
-        updateApp(findApp._id);
+        //updateApp(findApp._id);
         res.json({
           success: true,
           count: -1
@@ -27,7 +27,7 @@ app.post(async (req, res) => {
         findApp.save();
         rec.push({type: "like", user, repl, author: req.body.author});
         saveJSON('/data/records.json', rec);
-        updateApp(findApp._id);
+        //updateApp(findApp._id);
         res.json({
           success: true,
           count: 1
