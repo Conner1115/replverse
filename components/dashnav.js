@@ -194,7 +194,7 @@ export default class DashNav extends Component {
           </div>
         </div>
 
-          <button onClick={this.publish} style={{marginBottom: 5}} className={ui.uiButtonMed + " " + ui.blockEl}>
+          <button onClick={this.publish} style={{marginBottom: 5, padding: '5px', borderRadius: '8px'}} className={ui.uiButtonMed + " " + ui.blockEl}>
           <svg preserveAspectRatio="xMidYMin" width="16" height="16" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2" fill="transparent" style={{verticalAlign: 'middle', transform: 'translatey(-2px)'}}><path d="M12 4V20M4 12H20" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"></path></svg>
     {'  '}Share a Repl</button>
 
@@ -268,7 +268,7 @@ export default class DashNav extends Component {
 
             <TagInput tag={this.state.tag} tags={this.state.tags} setTag={this.setTag} setTags={this.setTags}/>
           
-          <button onClick={this.submitRepl} className={ui.uiButton} style={{width: '100%'}}>Publish</button>
+          <button onClick={this.submitRepl} className={ui.uiButton} style={{width: '100%'}}>Share</button>
         </div>
         </div>
       </div>

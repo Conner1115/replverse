@@ -122,12 +122,10 @@ function testTrend(t, y, z) {
 
 async function updateApp(id){
   let _app = await App.findOne({_id: id});
-  console.log(_app.z, _app.po)
   let appStats = _app.po[1];
   let viewsToday = _app.views - appStats[0];
   let likesToday = _app.likes - appStats[1];
   let newStat = [appStats, [_app.views, _app.likes]];
-  console.log(newStat, viewsToday, likesToday, _app.views, _app.likes)
   _app.po = newStat;
   let prevZ = _app.z;
   _app.z = testTrend(newStat[0], newStat[1], prevZ);

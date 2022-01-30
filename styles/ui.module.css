@@ -45,9 +45,9 @@
   margin: 20px 0;
 }
 .uiButton{
-  padding: 7.5px;
+  padding: 7px 7px;
   font-size: 14px;
-  background: var(--accent-primary-dimmer);
+  background: var(--accent-primary-default);
   border: none;
   border-radius: 4px;
   color: var(--foreground-default);
@@ -70,7 +70,7 @@
   margin: 10px 0;
 }
 .uiButtonDark{
-  padding: 7.5px;
+  padding: 7px;
   font-size: 14px;
   background: var(--background-higher);
   border: solid var(--outline-dimmest) 1px;
