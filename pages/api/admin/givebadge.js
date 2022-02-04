@@ -7,8 +7,6 @@ const app = nc();
 
 let bds = [
   ["Loyal Repler", "loyal-repler"],
-  ["Replverse Developer", "dev"],
-  ["Repldigest Author", "digest"],
   ["Replit Team", "replit-team"]
 ];
 
@@ -20,7 +18,7 @@ app.post(async (req, res) => {
         let num = req.body.badge;
         let parseNum = +num;
         if(parseNum){
-          if(parseNum && +parseNum > 0 && +parseNum < 5){
+          if(parseNum && +parseNum > 0 && +parseNum < 3){
             let findUser = await User.findOne({ name: user });
             let adminData = await fetch("https://" + req.headers.host + "/api/user/" + usr.name).then(r => r.json());
             writeNotif({

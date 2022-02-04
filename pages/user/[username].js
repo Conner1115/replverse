@@ -194,7 +194,7 @@ export default function Dashboard(props){
   const giveBadge = (props.admin && props.daddy) ? () => {
     let question = confirm("Are you sure you would like to give this user a badge?");
     if(question){
-      let badgeNum = prompt("Choose a number for the corresponding badge\n1. Loyal Repler\n2. Replverse Developer\n3. ReplDigest Author\n4. Replit Team")
+      let badgeNum = prompt("Choose a number for the corresponding badge\n1. Loyal Repler\n2. Replverse Developer\n3. Replit Team")
       fetch("/api/admin/givebadge", {
         method: "POST",
         headers: {

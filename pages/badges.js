@@ -57,10 +57,6 @@ export default function Badges(props){
   <Badge name="Replit Team" desc="Be an employee or intern of replit" slug="replit-team"/>
   <Badge name="Loyal Repler" desc="Be a loyal repler in the replit discord." slug="loyal-repler"/>
   <Badge name="Replverse Admin" desc="Be an administrator of Replverse" slug="replverse-admin"/>
-  <Badge name="Digest Writer" desc="Be a tutorial writer on digest.repl.co" slug="digest"/>
-  <Badge name="Developer" desc="Be a developer of Replverse" slug="dev"/>
-  
-  
       </div>
     </DashNav>
   </div>)
