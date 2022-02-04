@@ -1,0 +1,8 @@
+<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+  <defs></defs>
+  <ellipse style="stroke-width: 5px; stroke: rgb(43, 50, 69); fill: rgb(60, 68, 92);" cx="50" cy="50" rx="47.5" ry="47.5"></ellipse>
+  <ellipse style="stroke-width: 3px; stroke: rgb(28, 35, 51); fill: none;" cx="50" cy="50" rx="40" ry="40"></ellipse>
+  <path style="fill: none; stroke-linecap: round; stroke-width: 2px; stroke: rgb(0, 83, 166); stroke-linejoin: round;" d="M 49.376 10.041 C 60.12 10.041 70.433 14.265 78.09 21.802"></path>
+  <line style="fill: none; stroke-linecap: round; stroke-linejoin: round; stroke: rgb(255, 255, 255); paint-order: stroke; stroke-width: 3px;" x1="48.943" y1="75.57" x2="50.191" y2="22.569"></line>
+  <polyline style="fill: none; stroke-linecap: round; stroke-linejoin: round; stroke: rgb(255, 255, 255); paint-order: stroke; stroke-width: 3px;" points="28.948 37.922 50.192 22.566 71.413 38.23"></polyline>
+</svg>

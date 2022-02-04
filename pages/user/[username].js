@@ -12,6 +12,13 @@ import { getData } from '../../scripts/json.js'
 
 let badgeTitles = {
   "ancient": "Be in the first million users of replit",
+  "olden": "Be in the first 2.5 million users of replit",
+  "early": "Be in the first 5 million users of replit",
+  "modern": "Join replit after the 5-millionth user",
+
+  "hacker": "Be subscribed to replit's hacker plan",
+  "explorer": "Be an explorer in replit",
+  
   "cycle-rookie": "Get 100 cycles on replit account",
   "cycle-respected": "Get 500 cycles on replit account",
   "cycle-celebrity": "Get 1000 cycles on replit account",
@@ -23,7 +30,28 @@ let badgeTitles = {
   "digest": "Be a writer on digest.repl.co",
   "loyal-repler": "Loyal Repler is a specific role only given to some who have been active in the community and using replit for a while.",
   "replit-team": "Be a worker at replit",
-  "replverse-admin": "Be an administrator in replverse"
+  "replverse-admin": "Be an administrator in replverse",
+
+  "p25":"Get 25 upvotes on a post or shared repl",
+  "p50":"Get 50 upvotes on a post or shared repl",
+  "p100":"Get 100 upvotes on a post or shared repl",
+  "p250":"Get 250 upvotes on a post or shared repl",
+  "p500":"Get 500 upvotes on a post or shared repl",
+  "p750":"Get 750 upvotes on a post or shared repl",
+  "p1000":"Get 1000 upvotes on a post or shared repl",
+  "p2000":"Get 2000 upvotes on a post or shared repl",
+    
+  "r10":"Have 10 public repls on your replit account",
+  "r25":"Have 25 public repls on your replit account",
+  "r50":"Have 50 public repls on your replit account",
+  "r100":"Have 100 public repls on your replit account",
+  "r200":"Have 200 public repls on your replit account",
+    
+  "social":"Post five things to ReplTalk/Community",
+  "active":"Post ten things to ReplTalk/Community",
+  "enthusiastic":"Post twenty things to ReplTalk/Community",
+  "community-dude":"Post fifty things to ReplTalk/Community",
+
 }
 
 export default function Dashboard(props){
@@ -303,8 +331,8 @@ export default function Dashboard(props){
           {props.badges.length > 0 && <div className={ui.boxDimDefault}>
             <h3 style={{padding: 0, marginBottom: 20}}>Badges</h3>
             <div className={styles.badgeGrid}>
-              {props.badges.map(x => <div key={Math.random()} className={styles.gridBadge} onClick={() => {alert(badgeTitles[x[1]])}}>
-              <img alt={x[0] + " badge"} src={"/badges/" + x[1] + ".svg"}/>
+              {props.badges.map(x => <div key={Math.random()} className={styles.gridBadge} onClick={() => {alert(x[1].includes("http") ? `Be an active programmer in ${x[0]} on replit` : badgeTitles[x[1]])}}>
+              <img alt={x[0] + " badge"} src={x[1].includes("http") ? x[1] : ("/badges/" + x[1] + ".svg")}/>
               <div>{x[0]}</div>
             </div>)}
           </div></div>}

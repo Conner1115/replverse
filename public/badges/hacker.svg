@@ -1,0 +1,10 @@
+<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+  <defs></defs>
+  <ellipse style="stroke-width: 5px; fill: rgb(43, 50, 69); stroke: rgb(60, 68, 92);" cx="50" cy="50" rx="47.5" ry="47.5"></ellipse>
+  <line style="fill: none; stroke-width: 2px; stroke-linecap: round; stroke: rgb(178, 217, 255); stroke-linejoin: bevel;" x1="29.145" y1="14.192" x2="28.616" y2="86.115"></line>
+  <polyline style="fill: none; stroke-width: 2px; stroke-linecap: round; stroke: rgb(178, 217, 255); stroke-linejoin: bevel;" points="34.365 88.671 34.782 60.438 49.492 52.269 60.274 59.887 60.149 90.029"></polyline>
+  <polyline style="fill: none; stroke-width: 2px; stroke-linecap: round; stroke: rgb(178, 217, 255); stroke-linejoin: bevel;" points="66.113 86.979 66.525 55.978 50.328 44.408 34.764 54.085"></polyline>
+  <line style="fill: none; stroke-width: 2px; stroke-linecap: round; stroke: rgb(178, 217, 255); stroke-linejoin: bevel;" x1="34.884" y1="48.329" x2="35.045" y2="9.767"></line>
+  <path style="fill: none; stroke: rgb(0, 121, 242); stroke-linecap: round;" d="M 39.723 9.253 C 89.766 -1.25 109.182 64.551 72.349 84.267"></path>
+  <path style="fill: none; stroke: rgb(0, 121, 242); stroke-linecap: round;" d="M 24.778 15.997 C 2.48 32.695 2.381 68.248 24.145 82.938"></path>
+</svg>
