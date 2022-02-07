@@ -23,7 +23,7 @@
 .actionButton{
   padding: 15px;
   font-size: 15px;
-  background: var(--accent-primary-default);
+  background: var(--accent-primary-dimmer);
   border-radius: 5px;
   border: none;
   color: var(--foreground-default);
@@ -31,6 +31,7 @@
   font-weight: 500;
   transition: 0.25s;
   margin: 20px 0;
+  border: solid transparent 1px;
 }
 .actionButtonDark{
   padding: 10px;
@@ -45,16 +46,16 @@
   margin: 20px 0;
 }
 .uiButton{
-  padding: 7px 7px;
+  padding: 7px 10px;
   font-size: 14px;
-  background: var(--accent-primary-default);
-  border: none;
-  border-radius: 4px;
+  background: var(--accent-primary-dimmer);
+  border-radius: 8px;
   color: var(--foreground-default);
   font-family: var(--font-family-default);
   font-weight: 500;
   transition: 0.25s;
   margin: 10px 0;
+  border: solid transparent 1px;
 }
 .uiButtonMed{
   padding: 7.5px;
@@ -106,7 +107,7 @@
   cursor: pointer;
 }
 .actionButton:hover, .uiButton:hover{
-  background: var(--accent-primary-stronger);
+  border: solid var(--accent-primary-stronger) 1px;
   cursor: pointer;
 }
 .uiButtonMed:hover{

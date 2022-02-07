@@ -175,8 +175,8 @@ app.get(async (req, res) => {
     else if(postData.some(x => x.voteCount >= 50)){
       badges.push(["Cool Share","p25"])
     }
-    else if(postData.some(x => x.voteCount >= 10)){
-      badges.push(["Nice Share","p10"])
+    else if(postData.some(x => x.voteCount >= 25)){
+      badges.push(["Nice Share","p25"])
     }
 
     //Post Count
