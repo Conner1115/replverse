@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import { useEffect, useState, useRef } from 'react'
 import Head from 'next/head';
 import ui from '../styles/ui.module.css';
@@ -44,8 +45,8 @@ function Channel(props){
 }
 
 function UserRow(props){
-  return (<Link href={"/user/" + props.name}><div className={styles.userRow}>
-    <img src={props.avatar}/><span>{props.name}</span>  
+  return (<Link href={"/user/" + props.name} passHref><div className={styles.userRow}>
+    <img src={props.avatar} alt={props.name + "'s avatar"}/><span>{props.name}</span>  
   </div></Link>);
 }
 
@@ -247,7 +248,7 @@ export default function Chat(props){
               return (<div style={{
                 background: detectPing(x.text).includes(props.replitName) ? "var(--accent-primary-dimmest)" : 'var(--background-root)'
               }} className={styles.message} id={x.id} key={Math.random()}>
-                        <img className={styles.messageAvatar} src={x.avatar}/>
+                        <img alt={x.username + "'s avatar"} className={styles.messageAvatar} src={x.avatar}/>
                         <div className={styles.mBody}>
                         <div className={styles.mNick}>{x.username} {(x.username === props.replitName || props.admin) && <span className={styles.mDel} onClick={() => deleteMessage(x.id)}>Delete</span>}</div>
                         <div className={styles.mdMessage} dangerouslySetInnerHTML={{__html: san}}></div>
@@ -280,8 +281,8 @@ export default function Chat(props){
         <h3 style={{paddingTop: 0, textAlign: 'center '}}>Replverse Chat Rules</h3>
               <p><strong>Important - Please read these rules before you connect with your fellow replers.</strong></p>
               <p><strong>1. Be nice</strong> - Please talk in a positive manner and refrain from being rude, cursing, and talking to others in a negative way.</p>
-              <p><strong>2. No Botting</strong> - I'm saying it right here for you.  Botting is not allowed whatsoever.  Whether using your own account, an alternate replit account, or tampering with websockets within the browser console, the same rules apply.  If you want, you may fork this project and make bots for your own fork.</p>
-              <p>That's it for the rules.  Please abide by them.  Just because something isn't stated here, doesn't mean you don't have to follow it.  Violating the rules can result in a whole bunch of nasty outcomes. 
+              <p><strong>2. No Botting</strong> - I&apos;m saying it right here for you.  Botting is not allowed whatsoever.  Whether using your own account, an alternate replit account, or tampering with websockets within the browser console, the same rules apply.  If you want, you may fork this project and make bots for your own fork.</p>
+              <p>That&apos;s it for the rules.  Please abide by them.  Just because something isn&apos;t stated here, does&apos;t mean you don&apos;t have to follow it.  Violating the rules can result in a whole bunch of nasty outcomes. 
  Read the <Link href="/rules">Official Community Rules</Link> for more info.  Thank you for joining and using replverse.  Enjoy.</p>
               <button className={ui.uiButton} style={{width: 200, position: 'relative', left: '50%', transform: 'translatex(-50%)'}} onClick={() => {
               localStorage.setItem("chatrulesmodal-replverse", true)
