@@ -6,6 +6,7 @@ import ui from '../styles/ui.module.css'
 import Nav from '../components/nav.js'
 import Link from 'next/link'
 import Footer from '../components/footer'
+import { useEffect } from 'react';
 
 function Feature(props) {
   return (<div className={styles.feature}>
@@ -18,6 +19,15 @@ function Feature(props) {
 }
 
 export default function Home() {
+  useEffect(() => {
+    if(window.location !== window.parent.location){
+      let askWindow = localStorage.getItem("windowopen") ? false : confirm("Make sure you are viewing this page in fullscreen!  Click OK to open a new browser window in fullscreen.")
+      if(askWindow){
+        localStorage.setItem("windowopen", true)
+        window.open("https://replverse.ironcladdev.repl.co")
+      }
+    }
+  })
   return (
     <div className={styles.container}>
       <Head>

@@ -217,18 +217,26 @@ export default class DashNav extends Component {
             {" "}Rules</button>
         </Link>
 
+        <Link href="/chat" passHref>
+          <button className={styles.navLink}><svg preserveAspectRatio="xMidYMin" width="16" height="16" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2" fill="transparent"><path d="M21 15C21 15.5304 20.7893 16.0391 20.4142 16.4142C20.0391 16.7893 19.5304 17 19 17H7L3 21V5C3 4.46957 3.21071 3.96086 3.58579 3.58579C3.96086 3.21071 4.46957 3 5 3H19C19.5304 3 20.0391 3.21071 20.4142 3.58579C20.7893 3.96086 21 4.46957 21 5V15Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"></path></svg>Chat</button>
+        </Link>
+
         <a href="https://digest.repl.co" target="_blank" rel="noreferrer">
           <button className={styles.navLink}>
               <svg preserveAspectRatio="xMidYMin" width="16" height="16" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2" fill="transparent" ><path d="M12 7.99987C9 5.99997 5 7.49992 5 11.4999C5 14.9999 6.5 20.4999 10 20.4999C10.6802 20.4999 11.3545 20.3031 12 19.9814C12.6455 20.3031 13.3198 20.4999 14 20.4999C17.5 20.4999 19 14.9999 19 11.4999C19 7.49992 15 5.99997 12 7.99987ZM12 7.99987C12 5.19987 13.6667 3.83331 14.5 3.49998M6.98243 2.12827C8.21605 2.05993 9.47244 2.49696 10.4148 3.43936C11.3572 4.38175 11.7943 5.63814 11.7259 6.87177C10.4923 6.9401 9.23592 6.50307 8.29352 5.56068C7.35112 4.61828 6.91409 3.36189 6.98243 2.12827Z" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"></path></svg>
             {" "}Learn</button>
         </a>
 
+        
+
         <div className={styles.navFoot}>
         </div>
         
         </div>}
 
-        {(this.state.visible && !this.props.close && this.state.notifModal) && <div className={styles.notifModal + " " + ui.boxDimDefault}>
+        {(this.state.visible && !this.props.close && this.state.notifModal) && <div>
+          <div className={styles.notifBack} onClick={() => this.toggleNotifModal(!this.state.notifModal)}></div>
+          <div className={styles.notifModal + " " + ui.boxDimDefault}>
           <div>
             <button className={ui.uiButtonDark} onClick={this.readNotifs} style={{display: 'block', width: 'calc(100% - 20px)', margin: '10px'}}>Mark as Read</button>
           </div>
@@ -242,7 +250,7 @@ export default class DashNav extends Component {
               </div>
               <div className={styles.notifContent}>{x.cont}</div>
             </div></Link>)}</div>
-        </div>}
+        </div></div>}
         
         <div className={styles.mainBody} style={{width: this.props.close ? '100vw' : (this.state.visible ? "calc(100vw - 240px)" : '100vw'), left: this.props.close ? 0 : (this.state.visible ? 240 : 0)}}>{this.props.children}</div>
 
