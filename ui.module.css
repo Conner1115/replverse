@@ -1,0 +1,218 @@
+/**************************************************/
+/**************************************************/
+/************************TEXT**********************/
+/**************************************************/
+/**************************************************/
+
+.glow{
+  text-shadow: 0 0 50px var(--accent-primary-default);
+}
+.header{
+  text-align: center;
+}
+.errorText{
+  color: var(--accent-negative-stronger);
+}
+
+/**************************************************/
+/**************************************************/
+/**********************BUTTONS*********************/
+/**************************************************/
+/**************************************************/
+
+.actionButton{
+  padding: 15px;
+  font-size: 15px;
+  background: var(--accent-primary-dimmer);
+  border-radius: 5px;
+  border: none;
+  color: var(--foreground-default);
+  font-family: var(--font-family-default);
+  font-weight: 500;
+  transition: 0.25s;
+  margin: 20px 0;
+  border: solid transparent 1px;
+}
+.actionButtonDark{
+  padding: 10px;
+  font-size: 15px;
+  background: var(--background-highest);
+  border: solid var(--outline-dimmest) 1px;
+  border-radius: 5px;
+  color: var(--accent-primary-stronger);
+  font-family: var(--font-family-default);
+  font-weight: 500;
+  transition: 0.25s;
+  margin: 20px 0;
+}
+.uiButton{
+  padding: 7px 10px;
+  font-size: 14px;
+  background: var(--accent-primary-dimmer);
+  border-radius: 8px;
+  color: var(--foreground-default);
+  font-family: var(--font-family-default);
+  font-weight: 500;
+  transition: 0.25s;
+  margin: 10px 0;
+  border: solid transparent 1px;
+}
+.uiButtonMed{
+  padding: 7.5px;
+  font-size: 14px;
+  background: var(--accent-primary-dimmer);
+  border: none;
+  border-radius: 7px;
+  color: var(--foreground-default);
+  font-family: var(--font-family-default);
+  font-weight: 300;
+  transition: 0.05s;
+  border: solid transparent 1px;
+  margin: 10px 0;
+}
+.uiButtonDark{
+  padding: 7px;
+  font-size: 14px;
+  background: var(--background-higher);
+  border: solid var(--outline-dimmest) 1px;
+  border-radius: 4px;
+  color: var(--accent-primary-stronger);
+  font-family: var(--font-family-default);
+  font-weight: 500;
+  transition: 0.25s;
+  margin: 10px 0;
+}
+.uiButtonDanger{
+  padding: 7.5px;
+  font-size: 14px;
+  background: var(--accent-negative-dimmest);
+  border: solid var(--accent-negative-dimmer) 1px;
+  border-radius: 4px;
+  color: var(--foreground-default);
+  font-family: var(--font-family-default);
+  font-weight: 500;
+  transition: 0.25s;
+  margin: 10px 0;
+}
+.uiButtonDanger:hover{
+  background: var(--accent-negative-default);
+  color: var(--foreground-default);
+  border-color: var(--accent-negative-stronger);
+  cursor: pointer;
+}
+.uiButtonDark:hover, .actionButtonDark:hover{
+  background: var(--accent-primary-stronger);
+  color: var(--foreground-default);
+  border-color: var(--accent-primary-default);
+  cursor: pointer;
+}
+.actionButton:hover, .uiButton:hover{
+  border: solid var(--accent-primary-stronger) 1px;
+  cursor: pointer;
+}
+.uiButtonMed:hover{
+  border: solid var(--accent-primary-stronger) 1px;
+}
+.padBtn{
+  padding: 5px;
+  border-radius: 5px;
+  background: var(--background-default);
+}
+.padBtn:hover{
+  background: var(--background-higher);
+}
+
+
+/**************************************************/
+/**************************************************/
+/**********************ELEMENTS********************/
+/**************************************************/
+/**************************************************/
+
+.blockEl{
+  width: 100%;
+  max-width: 400px;
+}
+.block{
+  display: block;
+}
+
+.padBoxThin{
+  padding: 15px;
+  border-radius: 5px;
+  border: solid var(--outline-default) 1px;
+}
+
+/**************************************************/
+/**************************************************/
+/***********************FORMS**********************/
+/**************************************************/
+/**************************************************/
+
+.input{
+  background: var(--background-default);
+  padding: 10px;
+  font-size: 16px;
+  color: var(--foreground-default);
+  border-radius: 5px;
+  border: solid var(--outline-dimmest) 1px;
+  font-family: var(--font-family-default);
+  outline: none;
+}
+.inputSmall{
+  background: var(--background-default);
+  padding: 7.5px;
+  font-size: 14px;
+  color: var(--foreground-default);
+  border-radius: 3px;
+  border: solid var(--outline-dimmest) 1px;
+  font-family: var(--font-family-default);
+  outline: none;
+}
+.input::placeholder, .inputSmall::placeholder{
+  color: var(--foreground-dimmest);
+}
+.input:hover, .inputSmall:hover{
+  border: solid var(--accent-primary-dimmest) 1px;
+}
+.input:focus, .inputSmall:focus{
+  border: solid var(--accent-primary-default) 1px;
+}
+.formLabel{
+  margin-bottom: 5px;
+  font-size: 14px;
+}
+
+/**************************************************/
+/**************************************************/
+/***********************BOXES**********************/
+/**************************************************/
+/**************************************************/
+
+.boxDimCompact{
+  background: var(--background-default);
+  padding: 10px;
+  border-radius: 5px;
+  border: solid var(--outline-dimmer) 1px;
+}
+
+.boxDimDefault{
+  background: var(--background-default);
+  padding: 15px;
+  border-radius: 7.5px;
+  border: solid var(--outline-dimmer) 1px;
+}
+
+.boxDimSpaced{
+  background: var(--background-default);
+  padding: 20px;
+  border-radius: 10px;
+  border: solid var(--outline-dimmer) 1px;
+}
+
+.boxDimOverspaced{
+  background: var(--background-default);
+  padding: 25px;
+  border-radius: 10px;
+  border: solid var(--outline-dimmer) 1px;
+}

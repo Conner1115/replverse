@@ -2,9 +2,19 @@
 import styles from '../styles/components/nav.module.css'
 import ui from '../styles/ui.module.css'
 import Link from 'next/link';
-import {useState} from 'react';
-export default function Nav() {
+import {useState, useEffect} from 'react';
+export default function Nav(props) {
   const [visible, toggle] = useState(true);
+  const [loggedIn, setLoggedIn] = useState(false);
+
+  useEffect(() => {
+    fetch("/api/user/__me__").then(r => r.json()).then(data => {
+      if(data){
+        setLoggedIn(true);
+      }
+    })
+  }, [])
+  
   return (
     <div className={styles.nav}>
       <Link href="/" passHref>
@@ -21,7 +31,11 @@ export default function Nav() {
         <a target="_blank" rel="noreferrer" href="https://digest.repl.co">Learn</a>
       </div>
 
-      <div className={styles.linksRight}>
+  {loggedIn ? <div className={styles.linksRight}>
+        <Link href="/dashboard" passHref>
+          <button className={ui.uiButton} style={{marginRight: 5}}>Dashboard</button>
+        </Link>
+      </div> : <div className={styles.linksRight}>
         <Link href="/login" passHref>
           <button className={ui.uiButtonDark} style={{marginRight: 5}}>Log In</button>
         </Link>
@@ -29,7 +43,7 @@ export default function Nav() {
         <Link href="/signup" passHref>
           <button className={ui.uiButton + " " + styles.signupButton}>Sign Up</button>
         </Link>
-      </div>
+      </div>}
     </div>
   )
 }

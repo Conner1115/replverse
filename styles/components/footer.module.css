@@ -26,3 +26,9 @@
 .linkCol > div > a:hover{
   color: var(--accent-primary-stronger);
 }
+
+@media(max-width: 600px){
+  .linkCol > div{
+    text-align: center;
+  }
+}

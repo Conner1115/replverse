@@ -7,11 +7,10 @@ import styles from '../styles/pages/chat.module.css'
 import DashNav from '../components/dashnav'
 import Link from 'next/link'
 import DOMPurify from 'isomorphic-dompurify';
-import { parse } from 'marked';
+import { parse, marked } from 'marked';
 import { getData } from '../scripts/json.js';
-import { User } from '../scripts/mongo.js'
-
- 
+import { User } from '../scripts/mongo.js';
+import hljs from 'highlight.js/lib/common';
 
 let socket = false;
 
@@ -41,7 +40,7 @@ let channels = {
 }
 
 function Channel(props){
-  return (<div className={styles.channel} onClick={() => props.onClick(props.name)}>#{props.name}{props.messageCount > 0 ? ` (${props.messageCount})` : ""}</div>)
+  return (<div className={styles.channel + " " + (props.channel === props.name && styles.channelSelected)} onClick={() => props.onClick(props.name)}>#{props.name}{props.messageCount > 0 ? ` (${props.messageCount})` : ""}</div>)
 }
 
 function UserRow(props){
@@ -57,7 +56,7 @@ const ScrollView = () => {
 };
 
 export default function Chat(props){
-  const [channel, changeChannel] = useState("general");
+  const [channel, changeChannel] = useState(props.channel);
   const [online, setOnline] = useState([]);
   const [input, setInput] = useState("");
   const [messages, setMessages] = useState(props.messages || []);
@@ -65,7 +64,8 @@ export default function Chat(props){
   const inputRef = useRef();
   const users = JSON.parse(props.users).map(x => x.name);
   const [modal, togModal] = useState(true);
-
+  const [slide, slideScreen] = useState(1) //channes, chat, online
+  const [compact, setCompact] = useState(false);
 
   const playNotif = () => {
     let audio = new Audio("/notif.mp3")
@@ -196,6 +196,23 @@ export default function Chat(props){
   }
 
   useEffect(() => {
+    if(window.innerWidth < 600){
+      setCompact(true);
+    }
+    window.addEventListener("resize", () => {
+      if(window.innerWidth < 600){
+        setCompact(true);
+      }else{
+        setCompact(false)
+      }
+    })
+    marked.setOptions({
+      langPrefix: 'language-',
+      highlight: function(code, lang) {
+        return hljs.highlight(lang, code).value;
+      }
+    });
+    hljs.highlightAll();
     if(JSON.parse(localStorage.getItem("chatrulesmodal-replverse"))){
       togModal(false);
     }
@@ -214,7 +231,7 @@ export default function Chat(props){
     socket.on("chat", (msg) => {
       if(msg.last){
         if(detectPing(msg.last.text).includes(props.replitName)){
-          sendNotif(msg.last.username, msg.last.text, "/logo.png")
+          sendNotif(msg.last.username + " Mentioned you in #" + msg.last.channel, msg.last.text, "/logo.png")
         }
       }
       setMessages(msg.data)
@@ -222,19 +239,44 @@ export default function Chat(props){
   }, [])
 
   let inputRows = (input.match(/\n/g) ? input.match(/\n/g).length : 1) + 1;
+
+  const setSlide = (num) => {
+    if(window.innerWidth < 600){
+      let n = slide + num;
+      if(n < 0){
+        n = 2;
+      }
+      if(n > 2){
+        n = 0;
+      }
+      slideScreen(n);
+    }else{
+      slideScreen(1);
+    }
+  }
   
   return (<div>
     <Head>
       <title>Chat | Replverse</title>
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@11.4.0/styles/base16/oceanicnext.css"/>
     </Head>
     <DashNav>
       <div className={styles.bodyCont}>
-        <div className={styles.channelList}>
+        {compact && <div className={styles.openChannels} onClick={() => setSlide(-1)}><span>&lt;</span></div>}
+        {compact && <div className={styles.openOnline} onClick={() => setSlide(1)}><span>&gt;</span></div>}
+        <div className={styles.channelList}  style={{
+          display: compact ? (slide === 0 ? 'block' : 'none') : 'block'
+        }}>
           <div className={styles.channelContainer}>
-            {Object.keys(channels).map(x => channels[x] === "HEADER" ? <h4 key={x}>{x}</h4> :<Channel key={x} name={x} onClick={changeChannel} messageCount={messages.filter(y=>y.channel===x).length}/>)}
+            {Object.keys(channels).map(x => channels[x] === "HEADER" ? <h4 key={x}>{x}</h4> :<Channel channel={channel} key={x} name={x} onClick={(c) => {
+              changeChannel(c);
+              setSlide(1);
+            }} messageCount={messages.filter(y=>y.channel===x).length}/>)}
           </div>
         </div>
-        <div className={styles.chatCore}>
+        <div className={styles.chatCore} style={{
+          display: compact ? (slide === 1 ? 'flex' : 'none') : 'flex'
+        }}>
           <div className={styles.headerBar}>
             <strong>#{channel}</strong>{" - "}{channels[channel]}
           </div>
@@ -244,7 +286,7 @@ export default function Chat(props){
             <p style={{margin: 0, marginBottom: 20}}>{channels[channel]}</p>
             <hr/>
             {messages.filter(x => x.channel === channel).map(x => {
-              let san = DOMPurify.sanitize(parse(x.text.replace(/\n/g,"<br>")));
+              let san = DOMPurify.sanitize(marked(x.text));
               return (<div style={{
                 background: detectPing(x.text).includes(props.replitName) ? "var(--accent-primary-dimmest)" : 'var(--background-root)'
               }} className={styles.message} id={x.id} key={Math.random()}>
@@ -260,7 +302,7 @@ export default function Chat(props){
               </div>
 
           <div className={styles.sendForm}>
-            <textarea ref={inputRef} maxLength={500} placeholder={"Message #" + channel} className={ui.input} onChange={updateInput} onKeyDown={handleInput} rows={inputRows < 2 ? 2 : (inputRows < 10 ? inputRows : 10)} value={input}/>
+            <textarea ref={inputRef} maxLength={500} placeholder={"Message #" + channel} className={ui.input + " " + styles.input} onChange={updateInput} onKeyDown={handleInput} rows={inputRows < 2 ? 2 : (inputRows < 10 ? inputRows : 10)} value={input}/>
             <button className={ui.actionButton} onClick={emitChat}>Send</button>
           </div>
           <div className={styles.userFind} style={{ display: autoCom.length > 0 ? "block" : "none" }}>
@@ -272,7 +314,9 @@ export default function Chat(props){
             }} className={styles.userRes} key={x}>{x}</div>)}
           </div>
         </div>
-        <div className={styles.memberList}>
+        <div className={styles.memberList}  style={{
+          display: compact ? (slide === 2 ? 'block' : 'none') : 'block'
+        }}>
           <h4>Online - {online.length}</h4>
           {online.map(x => <UserRow key={Math.random()} name={x.username} avatar={x.avatar}/>)}
         </div>
@@ -293,7 +337,7 @@ export default function Chat(props){
   </div>)
 }
 
-export async function getServerSideProps({req, res}){
+export async function getServerSideProps({req, res, query}){
   if(req.headers["x-replit-user-name"]){
     let userData = await fetch("https://" + req.headers.host + "/api/user/" + req.headers["x-replit-user-name"]).then(r => r.json());
     let messages = await getData("messages.json", {});
@@ -304,7 +348,8 @@ export async function getServerSideProps({req, res}){
         replitName: req.headers["x-replit-user-name"],
         messages,
         users: JSON.stringify(users),
-        admin: JSON.parse(process.env.ADMINS).includes(req.headers["x-replit-user-name"])
+        admin: JSON.parse(process.env.ADMINS).includes(req.headers["x-replit-user-name"]),
+        channel: query.channel || "general"
       }
     }
   }else{

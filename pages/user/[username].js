@@ -239,6 +239,7 @@ export default function Dashboard(props){
       alert("Incorrectly typed.  Your account lives for another day!")
     }
   }
+  
   return (
     <div>
     <Head>
@@ -249,14 +250,18 @@ export default function Dashboard(props){
       <div className={styles.container}>
           <div className={styles.columnLeft}>
           <div className={styles.userSec}>
-            <h2 style={{paddingTop: 0, textAlign: 'center'}}>{props.username}</h2>
-            <div className={styles.avatar}>
-              <img src={props.avatar} alt="User Avatar"/>
-            </div>
-            <div className={styles.bio}>
-              <p style={{textAlign: 'center'}}>{props.bio}</p>
-            </div>
-            <div>
+        
+            <div className={styles.dtv}>
+              <h2 className={styles.userNameHeader}>{props.username}</h2>
+              <div className={styles.avatar}>
+                <img src={props.avatar} alt="User Avatar"/>
+              </div>
+              <div className={styles.bio}>
+                <p style={{textAlign: 'center'}}>{props.bio}</p>
+              </div>
+
+
+              <div>
               {props.own ? <div>
                 <button onClick={deleteAccount} style={{width: '100%'}} className={ui.uiButtonDanger + " " + ui.block}>Delete Account</button>
               </div> : <button onClick={followUser} className={(fd.filter(x => x.user+x.follow === props.me+props.username)[0] ? ui.actionButtonDark : ui.actionButton) + " " + ui.block + " " + styles.followBtn}>{fd.filter(x => x.user+x.follow === props.me+props.username)[0] ? "Unfollow" : "Follow"}</button>}
@@ -279,8 +284,12 @@ export default function Dashboard(props){
                 <button onClick={banUser} style={{width: '100%'}} className={ui.uiButtonDanger + " " + ui.block}>IP ban + Disable account</button>
               </div></details>}
             </div>
+            </div>
+
+        
+            
 {props.followers.length > 0 && <div><h3 style={{marginBottom: 15, fontSize: '1.75em'}}>Followers ({props.followers.length})</h3>
-            <div className={ui.boxDimDefault + " " + styles.userGrid}>
+            <div className={ui.boxDimCompact + " " + styles.userGrid}>
               {props.followers.slice(0, 20).map(x => <div key={Math.random()} className={styles.gridUser}>
                 <Link href={"/user/"+x.user} passHref>
                 <img src={x.userAvatar} alt="User Avatar"/>
@@ -290,7 +299,7 @@ export default function Dashboard(props){
                 
             </div></div>}
                 {props.following.length > 0 && <div><h3 style={{marginBottom: 15, fontSize: '1.75em'}}>Following ({props.following.length})</h3>
-            <div className={ui.boxDimDefault + " " + styles.userGrid}>
+            <div className={ui.boxDimCompact + " " + styles.userGrid}>
               {props.following.slice(0, 20).map(x => <div key={Math.random()} className={styles.gridUser}>
                 <Link href={"/user/"+x.follow} passHref>
                 <img src={x.avatar} alt="User Avatar"/>
@@ -328,6 +337,40 @@ export default function Dashboard(props){
                 
                 
         <div className={styles.columnRight}>
+          <div className={styles.mv}>
+          <div className={styles.flexProfile}>
+              <img className={styles.mvav} src={props.avatar} alt="User Avatar"/>
+              <div>
+                <h4 className={styles.mvname}>{props.username}</h4>
+                <p className={styles.mvbio}>{props.bio}</p>
+              </div>
+          </div>
+          <div style={{maxWidth: 400, margin: 'auto'}}>
+              {props.own ? <div>
+                <button onClick={deleteAccount} style={{width: '100%'}} className={ui.uiButtonDanger + " " + ui.block}>Delete Account</button>
+              </div> : <button onClick={followUser} className={(fd.filter(x => x.user+x.follow === props.me+props.username)[0] ? ui.actionButtonDark : ui.actionButton) + " " + ui.block + " " + styles.followBtn}>{fd.filter(x => x.user+x.follow === props.me+props.username)[0] ? "Unfollow" : "Follow"}</button>}
+
+              {(props.admin) && <details style={{
+                background: 'var(--background-higher)',
+                padding: 10,
+                borderRadius: 5,
+                border: 'solid var(--outline-dimmer) 1px',
+                cursor: 'pointer',
+                userSelect: 'none',
+                margin: '20px 0'
+              }}>
+                <summary>Admin Options</summary>
+                <div>
+                {props.daddy && <button onClick={giveBadge} style={{width: '100%'}} className={ui.uiButton + " " + ui.block}>Give Badge</button>}
+                <button onClick={warnUser} style={{width: '100%'}} className={ui.uiButtonDanger + " " + ui.block}>Warn User</button>
+                <button onClick={purgeUser} style={{width: '100%'}} className={ui.uiButtonDanger + " " + ui.block}>Purge Repls</button>
+                <button onClick={disableUser} style={{width: '100%'}} className={ui.uiButtonDanger + " " + ui.block}>Disable Account (Token)</button>
+                <button onClick={banUser} style={{width: '100%'}} className={ui.uiButtonDanger + " " + ui.block}>IP ban + Disable account</button>
+              </div></details>}
+            </div>
+          
+            </div>
+          
           {props.badges.length > 0 && <div className={ui.boxDimDefault}>
             <h3 style={{padding: 0, marginBottom: 20}}>Badges</h3>
             <div className={styles.badgeGrid}>
@@ -353,7 +396,7 @@ export default function Dashboard(props){
 export async function getServerSideProps({ params, req, res }){
   if(req.headers["x-replit-user-name"] && req.cookies.sid){
     let rs = await fetch("https://" + req.headers.host + "/api/user/" + params.username)
-  let badges = await fetch("https://" + req.headers.host + "/api/badges/" + params.username).then(r => r.json());
+  let badges = await fetch("https://" + req.headers.host + "/api/badges/" + params.username).then(r => r.json())
   let data = await rs.json()
   if(data.exists){
     let repls = await App.find({ user: params.username })

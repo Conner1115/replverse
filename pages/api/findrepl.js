@@ -238,6 +238,18 @@ function alphaPurge(sentence, words){
   }
 }
 
+const headers = {
+  'X-Requested-With':'replit',
+  'Origin':'https://replit.com',
+  'Accept':'application/json',
+  'Referrer':'https://replit.com/jdog787',
+  'Content-Type':'application/json',
+  'Connection':'keep-alive',
+  'Host': "replit.com",
+  "x-requested-with": "XMLHttpRequest",
+  "User-Agent": "Mozilla/5.0"
+};
+
 app.get((req, res) => {
   let repl = req.query.q;
   let user = req.headers["x-replit-user-name"];

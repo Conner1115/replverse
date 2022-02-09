@@ -192,7 +192,7 @@ app.use(limiter(1000 * 60, 30, function(req, res){
 
 const badWords = [
   "ass","shit","fuck","fucking","damn","asshole","sex","nigger","goddamn",
-  "boobs","boob","pussy","nutsack","penis","porn","hentai","motherfucking"
+  "boobs","boob","pussy","nutsack","penis","porn","hentai","motherfucking", "nigga", "dick", "vagina"
 ]
 
 app.post(async (req, res) => {
@@ -220,8 +220,8 @@ app.post(async (req, res) => {
           if(req.body.pings.length > 0){
             for(var i of req.body.pings){
               writeNotif({
-                title: req.body.data.username + " mentioned you in chat",
-                link: "/chat#" + req.body.data.id,
+                title: req.body.data.username + " mentioned you in #" + req.body.data.channel,
+                link: "/chat?channel=" + req.body.data.channel + "#" + req.body.data.id,
                 cont: req.body.data.text,
                 icon: req.body.data.avatar,
                 userFor: i

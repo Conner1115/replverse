@@ -2,7 +2,6 @@ import nc from 'next-connect'
 import md5 from 'md5'
 import { User } from '../../scripts/mongo.js'
 import requestIp from 'request-ip'
-import { v4 as uuidv4 } from 'uuid';
 import {getData} from '../../scripts/json.js'
 
 const app = nc();
@@ -33,7 +32,7 @@ app.post(async (req, res) => {
       let hashedEmail = md5(req.body.email);
         
         let usr = new User({
-          token: uuidv4(),
+          token: Math.random().toString(36).slice(2),
           name: req.headers["x-replit-user-name"],
           addr: md5(requestIp.getClientIp(req))
         })

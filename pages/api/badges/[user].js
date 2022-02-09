@@ -77,7 +77,8 @@ app.get(async (req, res) => {
 		headers,
 		body: posts
 	}).then(res => res.json())
-  let postData = userPosts.data.userByUsername.posts.items;
+  let postData = userPosts.data.userByUsername 
+? userPosts.data.userByUsername.posts.items : [];
 
   let userProfile = await fetch('https://replit.com/graphql', {
 		method: 'POST',
@@ -91,7 +92,7 @@ app.get(async (req, res) => {
 		headers,
 		body: repls
 	}).then(res => res.json())
-  let replData = userRepls.data.userByUsername.publicRepls.items;
+  let replData = userRepls.data.userByUsername ? userRepls.data.userByUsername.publicRepls.items : [];
   
   let awards = await getData("awards.json", {})
   let user = req.query.user;

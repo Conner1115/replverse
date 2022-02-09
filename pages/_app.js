@@ -16,6 +16,7 @@ function MyApp({ Component, pageProps }) {
         <meta property="og:image:height" content="675" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="copyright" content="2021" />
+        {/*<meta name="viewport" content="viewport-fit=cover" />*/}
       </Head>
       <NextNProgress options={{showSpinner: false}} color="var(--accent-primary-default)"/>
       <Component {...pageProps} />

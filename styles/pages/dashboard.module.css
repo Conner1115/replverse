@@ -53,7 +53,6 @@
   border-radius: 5px;
   transition: 0.25s;
   display: inline-block;
-  margin: 0 5px;
 }
 .gridUser > img{
   border-radius: 50%;
@@ -143,4 +142,47 @@
   border: solid var(--outline-dimmer) 1px;
   margin: 10px 0;
   transition: 0.25s;
+}
+.userNameHeader{
+  padding-top: 0;
+  text-align: center;
+}
+.mv{
+  display: none;
+  margin: 50px 0;
+}
+.mvav{
+  border-radius: 50%;
+  width: 75px;
+  height: 75px;
+}
+.mvname{
+  margin-left: 10px;
+}
+.mvbio{
+  margin: 0;
+  width: 100%;
+  margin-left: 10px;
+  padding: 0;
+  font-size: 14px;
+}
+.flexProfile{
+  display: flex;
+}
+@media(max-width: 800px){
+  .container{
+    flex-direction: column-reverse;
+  }
+  .columnLeft{
+    width: 100%;
+  }
+  .columnRight {
+    width: 100%;
+  }
+  .dtv {
+    display: none;
+  }
+  .mv{
+    display: block;
+  }
 }
