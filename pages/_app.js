@@ -21,9 +21,8 @@ function MyApp({ Component, pageProps }) {
         username: userData.username,
         avatar: userData.icon.url
       });
-      console.log("Joined server as " + userData.username);
     }
-  }, [])
+  })
   
   return (
     <>
