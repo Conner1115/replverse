@@ -2,12 +2,12 @@ import '../styles/globals.css'
 import Head from 'next/head'
 import NextNProgress from 'nextjs-progressbar';
 import Script from 'next/script';
-import io from 'socket.io-client';
-import {useEffect} from 'react';
-let socket = false;
+//import io from 'socket.io-client';
+//import {useEffect} from 'react';
+//let socket = false;
 function MyApp({ Component, pageProps }) {
   
-  useEffect(async () => {
+  /*useEffect(async () => {
     let userData = await fetch("/api/user/__me__").then(r => r.json());
     if(userData){
       if(!socket){
@@ -22,7 +22,7 @@ function MyApp({ Component, pageProps }) {
         avatar: userData.icon.url
       });
     }
-  })
+  })*/
   
   return (
     <>
