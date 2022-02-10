@@ -1,6 +1,6 @@
 .bodyCont{
   display: flex;
-  width: 100vw;
+  width: 100%;
   margin: auto;
   height: 100%;
   padding: 10px;
