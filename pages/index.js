@@ -51,8 +51,18 @@ export default function Home(props) {
             <img src="/logo.svg" alt="Replverse Logo" className={styles.illustration} />
           </div>
         </div>
+      </section>
 
-
+      <section style={{paddingBottom: 50}}>
+        <video style={{
+          width: '80%',
+          position: 'relative',
+          left: '50%',
+          transform: 'translatex(-50%)',
+          borderRadius: 10
+        }} loop autoPlay muted>
+          <source src="/vid.mp4"/>
+        </video>
       </section>
 
       <section className={pos.relcont} style={{ background: 'linear-gradient(180deg, var(--background-default), var(--background-root))', padding: '50px 0' }}>

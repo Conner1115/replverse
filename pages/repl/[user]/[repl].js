@@ -251,7 +251,7 @@ export default function Spotlight(props) {
       <div style={{ padding: '50px 40px' }}>
         <div className={styles.flexBody}>
             
-          <div className={styles.replOptions}>
+          <div className={styles.replOptions} style={{display: props.me ? 'block' : 'none'}}>
             <h3 style={{ padding: 0 }}>{props.repl}</h3>
       
             <div>

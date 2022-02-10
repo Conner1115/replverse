@@ -7,6 +7,7 @@
   background: var(--background-root);
   border-bottom: solid var(--background-default) 1px;
   display: flex;
+  z-index: 20;
 }
 
 .logoWrapper{

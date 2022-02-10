@@ -4,6 +4,7 @@ import ui from '../styles/ui.module.css'
 import Link from 'next/link';
 import { useState, Component, useRef } from 'react';
 import {getData} from '../scripts/json.js'
+import Nav from './nav.js'
 
 function TagInput(props){
   let inputRef = useRef(null);
@@ -42,7 +43,8 @@ export default class DashNav extends Component {
       tag: "",
       tags: [],
       notifModal: false,
-      notifs: []
+      notifs: [],
+      loggedIn: true,
     }
     this.toggle = this.toggle.bind(this);
     this.updateInput = this.updateInput.bind(this);
@@ -104,7 +106,8 @@ export default class DashNav extends Component {
       this.setState({
         icon: "/user.svg",
         username: "Guest",
-        visible: true
+        visible: true,
+        loggedIn: false
       })
     }
   }
@@ -176,7 +179,7 @@ export default class DashNav extends Component {
   }
   
   render(){
-    return (
+    return !this.state.loggedIn ? (<div><Nav/><div>{this.props.children}</div></div>) : (
       <div className={styles.nav}>
       {!this.state.visible && !this.props.close && <div onClick={() => {this.toggle(true)}} className={styles.navButtonVis}>
         <ion-icon name="menu-outline"></ion-icon>
