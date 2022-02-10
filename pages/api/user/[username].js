@@ -30,16 +30,20 @@ app.get(async (req, res) => {
 	})
     if(rs.status === 200){
       let data = await rs.json();
-      let d = {
-        ...data.data.userByUsername,
-        username: req.query.username,
-        icon: {
-          url: data.data.userByUsername.image
-        },
-        exists: findUser ? true : false
-      };
-      delete d.image;
-      res.json(d);
+      if(data.data.userByUsername){
+        let d = {
+          ...data.data.userByUsername,
+          username: req.query.username,
+          icon: {
+            url: data.data.userByUsername.image
+          },
+          exists: findUser ? true : false
+        };
+        delete d.image;
+        res.json(d);
+      }else{
+        res.json(false)
+      }
     }else{
       res.json(false)
     }

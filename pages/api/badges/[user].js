@@ -98,7 +98,7 @@ app.get(async (req, res) => {
   let user = req.query.user;
   //let userData = await fetch("https://" + req.headers.host + "/api/user/" + user).then(r => r.json());
   let userSch = await User.findOne({ name: user })
-  if(user && userSch){
+  if(user && userSch && userData){
     let badges = [];
     //Replit ID age
     if(userData.id > 5000000){
