@@ -11,6 +11,7 @@ import { parse, marked } from 'marked';
 import { getData } from '../scripts/json.js';
 import { User } from '../scripts/mongo.js';
 import hljs from 'highlight.js/lib/common';
+import {Negative, Swal, showClass, hideClass} from '../scripts/modal'
 
 let socket = false;
 
@@ -144,7 +145,7 @@ export default function Chat(props){
       }
     }).then(r => r.json()).then(data => {
       if(!data.success){
-        alert(data.message)
+        Negative.fire(data.message)
       }
     })
     setInput("");
@@ -162,8 +163,15 @@ export default function Chat(props){
     setInput(val);
   }
   const deleteMessage = (id) => {
-    let ask = confirm("Are you sure you would like to delete this?");
-    if(ask){
+    Swal.fire({
+      showClass, hideClass,
+      title: "Delete Message",
+      text: "Are you sure you would like to delete your message?",
+      showCancelButton: true,
+      showDenyButton: true,
+       showConfirmButton: false,
+      denyButtonText: '<ion-icon name="trash-outline"></ion-icon> Yes, delete message',
+      preDeny: async () => {
       fetch("/api/message/delete", {
         method: "POST",
         body: JSON.stringify({
@@ -175,10 +183,11 @@ export default function Chat(props){
         }
       }).then(r => r.json()).then(data => {
         if(!data.success){
-          alert(data.message)
+          Negative.fire(data.message)
         }
       })
     }
+    })
   };
   const detectPing = (txt) => {
     let splt = txt.split(/[\s\n]/);

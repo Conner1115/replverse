@@ -71,16 +71,16 @@
   margin: 10px 0;
 }
 .uiButtonDark{
-  padding: 7px;
+  padding: 7px 10px;
   font-size: 14px;
-  background: var(--background-higher);
-  border: solid var(--outline-dimmest) 1px;
-  border-radius: 4px;
-  color: var(--accent-primary-stronger);
+  background: var(--background-highest);
+  border-radius: 8px;
+  color: var(--foreground-default);
   font-family: var(--font-family-default);
   font-weight: 500;
   transition: 0.25s;
   margin: 10px 0;
+  border: solid transparent 1px;
 }
 .uiButtonDanger{
   padding: 7.5px;
@@ -101,9 +101,8 @@
   cursor: pointer;
 }
 .uiButtonDark:hover, .actionButtonDark:hover{
-  background: var(--accent-primary-stronger);
+  background: var(--accent-primary-default);
   color: var(--foreground-default);
-  border-color: var(--accent-primary-default);
   cursor: pointer;
 }
 .actionButton:hover, .uiButton:hover{

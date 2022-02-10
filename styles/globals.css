@@ -134,3 +134,157 @@ button:disabled{
 button:disabled:hover{
   cursor: not-allowed !important;
 }
+
+.swal2-popup:not(.swal2-toast), .swal2-modal:not(.swal2-toast){
+  background: var(--background-higher) !important;
+  border: solid var(--outline-dimmest) 1px !important;
+  padding: 20px !important;
+  min-height: 300px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  border-radius: 8px !important;
+}
+
+.swal2-toast.modal-positive{
+  background: var(--accent-positive-dimmer) !important;
+  padding: 15px !important;
+  width: auto !important;
+  min-width: 150px !important;
+}
+
+.swal2-toast.modal-negative{
+  background: var(--accent-negative-dimmest) !important;
+  padding: 15px !important;
+  width: auto !important;
+  min-width: 150px !important;
+}
+
+.swal2-title{
+  font-weight: 500 !important;
+  font-family: var(--font-family-default) !important;
+  color: var(--foreground-default) !important;
+  text-align: left !important;
+  padding: 0 !important;
+  flex-grow: 0 !important;
+}
+
+
+.swal2-toast > .swal2-title{
+  font-weight: 300 !important;
+  font-size: 18px !important;
+  margin: 5px !important;
+}
+
+.swal2-html-container{
+  color: var(--foreground-dimmer) !important;
+  text-align: left !important;
+  margin: 15px 0 !important;
+}
+.swal2-backdrop-show:not(> .swal2-toast){
+  background: var(--background-overlay) !important;
+}
+.swal2-backdrop-show:has(> .swal2-toast){
+  background: transparent !important;
+}
+.swal2-confirm{
+  padding: 7px 10px !important;
+  font-size: 14px !important;
+  background: var(--accent-primary-dimmer) !important;
+  border-radius: 8px !important;
+  color: var(--foreground-default) !important;
+  font-family: var(--font-family-default) !important;
+  font-weight: 500 !important;
+  transition: 0.25s !important;
+  border: solid transparent 1px !important;
+  min-width: 70px;
+  margin: 0 !important;
+}
+.swal2-confirm:hover{
+  border: solid var(--accent-primary-stronger) 1px !important;
+  cursor: pointer !important;
+}
+.swal2-confirm:focus{
+  box-shadow: 0 0 0 3px var(--accent-primary-stronger) !important;
+}
+
+.swal2-deny{
+  padding: 7px 10px !important;
+  font-size: 14px !important;
+  background: var(--accent-negative-dimmer) !important;
+  border-radius: 8px !important;
+  color: var(--foreground-default) !important;
+  font-family: var(--font-family-default) !important;
+  font-weight: 500 !important;
+  transition: 0.25s !important;
+  border: solid transparent 1px !important;
+  min-width: 70px;
+  margin: 0 !important;
+  padding-top: 3px !important;
+}
+.swal2-deny:hover{
+  border: solid var(--accent-negative-default) 1px !important;
+  cursor: pointer !important;
+}
+.swal2-deny:focus{
+  box-shadow: 0 0 0 3px var(--accent-negative-stronger) !important;
+}
+.swal2-close{
+  position: absolute !important;
+  right: 10px !important;
+  top: 10px !important;
+  color: var(--foreground-dimmer) !important;
+  font-weight: 300 !important;
+  font-size: 30px !important;
+}
+.swal2-close:focus{
+  box-shadow: none !important;
+}
+
+.swal2-styled{
+  margin: 0 10px !important;
+}
+
+.swal2-cancel{
+  padding: 7px 10px !important;
+  font-size: 14px !important;
+  background: var(--background-highest) !important;
+  border-radius: 8px !important;
+  color: var(--foreground-default) !important;
+  font-family: var(--font-family-default) !important;
+  font-weight: 500 !important;
+  transition: 0.25s !important;
+  border: solid transparent 1px !important;
+  min-width: 70px;
+  margin: 0 !important;
+}
+.swal2-cancel:hover{
+  background: var(--outline-dimmest) !important;
+  cursor: pointer !important;
+}
+.swal2-cancel:focus{
+  box-shadow: 0 0 0 3px var(--outline-default) !important;
+}
+
+.swal2-input{
+  background: var(--background-default) !important;
+  padding: 10px !important;
+  font-size: 16px !important;
+  color: var(--foreground-default) !important;
+  border-radius: 5px !important;
+  border: solid var(--outline-dimmest) 1px !important;
+  font-family: var(--font-family-default) !important;
+  outline: none !important;
+  margin: 0 !important;
+}
+.swal2-input:focus{
+  box-shadow: 0 0 0 3px var(--accent-primary-dimmer) !important;
+}
+
+.swal2-actions{
+  width: 100% !important;
+  flex-direction: row-reverse;
+  justify-items: right !important;
+  justify-content: right !important;
+  flex-grow: 1 !important;
+  align-content: flex-end !important;
+}

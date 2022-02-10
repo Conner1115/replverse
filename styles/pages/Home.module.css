@@ -25,6 +25,14 @@
     transform: rotate(360deg);
   }
 }
+.animatePopup{
+  opacity: 1;
+  transition: 0.25s;
+}
+.animatePopupOut{
+  opacity: 0;
+  transition: 0.25s;
+}
 
 .iwrap {
   flex-grow: 1;

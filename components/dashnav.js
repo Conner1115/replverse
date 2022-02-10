@@ -5,6 +5,8 @@ import Link from 'next/link';
 import { useState, Component, useRef } from 'react';
 import {getData} from '../scripts/json.js'
 import Nav from './nav.js'
+import { Negative, Swal, showClass, hideClass } from '../scripts/modal';
+
 
 function TagInput(props){
   let inputRef = useRef(null);
@@ -70,7 +72,7 @@ export default class DashNav extends Component {
           unreads: 0
         })
       }else{
-        alert(res.message || "Internal Error.  Read the browser console for more information.");
+        Negative.fire({ title: res.message || "Internal Error" })
         console.log(res.err);
       }
     })
@@ -132,7 +134,7 @@ export default class DashNav extends Component {
           this.setState({
             loading: false,
           })
-          alert("Please make sure your repl is running so replverse can get a screenshot.")
+          Negative.fire({title:"Please make sure your repl is running"})
         }
         if(res.success){
           this.setState({
@@ -140,7 +142,7 @@ export default class DashNav extends Component {
           })
           location.href = "/repl/" + res.user + "/" + res.slug
         } else {
-          alert(res.message || "Internal Server Error.  Check browser console for details.")
+          Negative.fire({ title: res.message || "Internal Error" })
           console.log(res.err)
           this.setState({
             loading: false

@@ -8,12 +8,20 @@ import styles from '../../../styles/pages/spotlight.module.css'
 import ui from '../../../styles/ui.module.css'
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import {getData} from '../../../scripts/json.js'
+import {getData} from '../../../scripts/json.js';
+import {Negative, Positive, Swal, showClass, hideClass} from '../../../scripts/modal';
 
 function Comment(props){
   const deleteComment = () => {
-    let ask = confirm("Are you sure you would like to delete this comment?");
-    if(ask){
+     Swal.fire({
+      showClass, hideClass,
+       showConfirmButton: false,
+       showDenyButton: true,
+      denyButtonText: '<ion-icon name="trash-outline"></ion-icon> Delete Comment',
+      title: "Delete Comment?",
+      text: "Are you sure you would like to delete this comment?",
+      showCancelButton: true,
+      preDeny: async () => {
       fetch("/api/delcom", {
         method: "POST",
         headers: {
@@ -30,11 +38,11 @@ function Comment(props){
         if(res.success){
           props.updateComments(res.data);
         }else{
-            alert(res.message || "Internal Error.  Check the browser console for details.");
+            Negative.fire({ title: res.message || "Internal Error" })
             console.log(res.err)
         }
       })
-    }
+    }})
   }
   return (<div className={styles.comment}>
       <div className={styles.commentUserFlex}>
@@ -57,30 +65,57 @@ export default function Spotlight(props) {
   const [load, toggleLoad] = useState(false);
   const author = JSON.parse(props.author);
   const reportRepl = () => {
-    let conf = confirm("Are you sure you would like to report this?");
-    if(conf){
-      let reason = prompt("How does this break the rules?  Please provide an explanation.")
-    fetch("/api/report", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "accept": "*/*"
-      },
-      body: JSON.stringify({
-        repl: props.repl,
-        author: props.user,
-        reason: reason
-      })
-    }).then(r => r.json())
-    .then(res => {
-      if(res.success){
-        alert("Reported");
-      }else{
-          alert(res.message || "Internal Error.  Check the browser console for details.");
-          console.log(res.err)
-      }
-    })
-    }
+     Swal.fire({
+       showCloseButton: true,
+      allowOutsideClick: false,
+      showClass, hideClass,
+      title: "Report Repl?",
+      text: "Are you sure you would like to remove this repl?",
+      showCancelButton: true,
+      showDenyButton: true,
+       showConfirmButton: false,
+      denyButtonText: '<ion-icon name="flag-outline"></ion-icon> Yes, report repl',
+      preDeny: async () => {
+        
+        const { value: reason } = await Swal.fire({
+          showCloseButton: true,
+      allowOutsideClick: false,
+          title: 'Provide Reason',
+          text: "Please provide a reason of why this breaks the rules and why you are reporting it.",
+          input: 'text',
+          showClass, hideClass,
+          inputPlaceholder: "Reason (10 words or less)",
+          showCancelButton: true,
+          showCancelButton: true,
+          inputValidator: (value) => {
+            if (!value) {
+              return 'Reason is required'
+            }
+          }
+        })
+        if(reason){
+        fetch("/api/report", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "accept": "*/*"
+          },
+          body: JSON.stringify({
+            repl: props.repl,
+            author: props.user,
+            reason: reason
+          })
+        }).then(r => r.json())
+        .then(res => {
+          if(res.success){
+            Positive.fire("Reported");
+          }else{
+              Negative.fire({ title: res.message || "Internal Error" })
+              console.log(res.err)
+          }
+        })
+        }
+      }})
   }
   const applyLike = () => {
     fetch("/api/like", {
@@ -98,7 +133,7 @@ export default function Spotlight(props) {
       if(res.success){
         updateLikes(likes + res.count);
       }else{
-          alert(res.message || "Internal Error.  Check the browser console for details.");
+          Negative.fire({ title: res.message || "Internal Error" })
           console.log(res.err)
       }
     })
@@ -117,7 +152,7 @@ export default function Spotlight(props) {
       if(res.success){
         updateF(res.data);
       } else{
-        alert(res.message || "Internal Error.  Read the browser consold for more information.");
+        Negative.fire({ title: res.message || "Internal Error" })
         console.log(res.error);
       }
     })
@@ -141,38 +176,67 @@ export default function Spotlight(props) {
         updateComment("");
         updateComments(res.data)
       }else{
-        alert(res.message || "Internal Error.  Check the browser console for details.");
+        Negative.fire({ title: res.message || "Internal Error" })
         console.log(res.err)
       }
     })
     }else{
-      alert("Comment must be at least three characters!!")
+      Negative.fire("Comment must be at least three characters")
     }
   }
   const removeRepl = (props.adminView) ? () => {
-    let confirmWarn = confirm("Are you sure you would like to remove this repl?")
-    if(confirmWarn){
-      let warning = prompt("Please provide a reason of why this breaks the rules and why you are removing it.")
-      fetch("/api/admin/remrepl", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "accept": "*/*"
-        },
-        body: JSON.stringify({
-          user: props.user,
-          repl: props.repl,
-          message: warning
+    Swal.fire({
+      showCloseButton: true,
+      allowOutsideClick: false,
+      showClass, hideClass,
+      title: "Remove Repl?",
+      text: "Are you sure you would like to remove this repl?",
+      showCancelButton: true,
+      showConfirmButton: false,
+      showDenyButton: true,
+      denyButtonText: '<ion-icon name="trash-outline"></ion-icon> Yes, Remove Repl',
+      preDeny: async () => {
+
+        const { value: warning } = await Swal.fire({
+          showCloseButton: true,
+      allowOutsideClick: false,
+          title: 'Provide Reason',
+          text: "Please provide a reason of why this breaks the rules and why you are removing it.",
+          input: 'text',
+          showClass, hideClass,
+          inputPlaceholder: "Reason (10 words or less)",
+          showCancelButton: true,
+          showCancelButton: true,
+          inputValidator: (value) => {
+            if (!value) {
+              return 'Reason is required'
+            }
+          }
         })
-      }).then(r => r.json()).then(res => {
-        if(res.success){
-          location.href = "/apps"
-        } else{
-          alert(res.message || "Internal Error.  Read the browser console for more information.");
-          console.log(res.error);
-        }
-      })
-    }
+
+      if(warning){
+        fetch("/api/admin/remrepl", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "accept": "*/*"
+          },
+          body: JSON.stringify({
+            user: props.user,
+            repl: props.repl,
+            message: warning
+          })
+        }).then(r => r.json()).then(res => {
+          if(res.success){
+            location.href = "/apps"
+          } else{
+            Negative.fire({ title: res.message || "Internal Error" })
+            console.log(res.error);
+          }
+        })
+      }
+      }
+    })
   } : () => {}
   const updateRepl = () => {
     toggleLoad(true);
@@ -192,39 +256,48 @@ export default function Spotlight(props) {
         location.reload();
         toggleLoad(false);
       }else{
-        alert(res.message || "Internal Error.  Check the browser console for details.");
+        Negative.fire({ title: res.message || "Internal Error" })
         console.log(res.err)
         toggleLoad(false);
       }
     })
     }catch(e){
-      alert("Failed to reroll repl.  Please make sure it is running so that replverse can take a screenshot.");
+      Negative.fire("Failed to reroll repl");
       toggleLoad(false);
     }
   }
-  const deleteRepl = () => {
-    let q = confirm("Are you really absolutely assuredly sure that you would like to delete this repl from Replverse? (this won't effect your actual replit account.   It will just be unpublished from here)");
-    if(q){
-      fetch("/api/deleterepl", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "accept": "*/*"
-        },
-        body: JSON.stringify({
-          repl: props.repl,
-          author: props.user
+  const deleteRepl = async () => {
+    Swal.fire({
+      showCloseButton: true,
+      allowOutsideClick: false,
+      showClass, hideClass,
+      title: "Delete Repl?",
+      text: "Are you really absolutely 100% sure you would like to delete this repl?  This cannot be undone.",
+      showCancelButton: true,
+      showDenyButton: true,
+      showConfirmButton: false,
+      denyButtonText: '<ion-icon name="trash-outline"></ion-icon> Yes, Delete my repl',
+      preDeny: () => {
+        fetch("/api/deleterepl", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "accept": "* /*"
+          },
+          body: JSON.stringify({
+            repl: props.repl,
+            author: props.user
+          })
+        }).then(r => r.json())
+        .then(res => {
+          if(res.success){
+            location.href = "/dashboard"
+          }else{
+            Negative.fire(res.message || "Internal Error");
+            console.log(res.err)
+          }
         })
-      }).then(r => r.json())
-      .then(res => {
-        if(res.success){
-          location.href = "/dashboard"
-        }else{
-          alert(res.message || "Internal Error.  Check the browser console for details.");
-          console.log(res.err)
-        }
-      })
-    }
+      }})
   }
 
   useEffect(() => {

@@ -192,7 +192,7 @@ app.use(limiter(1000 * 60, 30, function(req, res){
 
 const badWords = [
   "ass","shit","fuck","fucking","damn","asshole","sex","nigger","goddamn",
-  "boobs","boob","pussy","nutsack","penis","porn","hentai","motherfucking", "nigga", "dick", "vagina"
+  "boobs","boob","pussy","nutsack","penis","porn","hentai","motherfucking", "nigga", "dick", "vagina", "bitch"
 ]
 
 app.post(async (req, res) => {

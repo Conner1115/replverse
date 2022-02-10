@@ -7,6 +7,7 @@ import Nav from '../components/nav.js'
 import Link from 'next/link'
 import Footer from '../components/footer'
 import { useEffect } from 'react';
+import { Negative, Swal, showClass, hideClass } from '../scripts/modal';
 
 function Feature(props) {
   return (<div className={styles.feature}>

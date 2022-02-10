@@ -21,7 +21,7 @@ app.post(async (req, res) => {
         let email = findUser.email;
         writeNotif({
           title: `Moderator Warning`,
-          link: `alert('${message}')`,
+          link: `javascript:alert('${message}')`,
           cont: message || "Please follow the rules.",
           icon: adminData.icon.url,
           userFor: findUser.name

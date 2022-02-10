@@ -10,6 +10,9 @@ import { useState, useEffect } from 'react'
 import Error from '../../components/404.js'
 import { getData } from '../../scripts/json.js'
 import io from 'socket.io-client'
+import {Negative, Positive, Swal, showClass, hideClass} from '../../scripts/modal'
+
+
 let badgeTitles = {
   "ancient": "Be in the first million users of replit",
   "olden": "Be in the first 2.5 million users of replit",
@@ -73,7 +76,7 @@ export default function Dashboard(props){
       if(res.success){
         setReports(res.data)
       } else{
-        alert(res.message || "Internal Error.  Read the browser console for more information.");
+        Negative.fire(res.message || "Internal Error");
         console.log(res.error);
       }
     })
@@ -92,15 +95,40 @@ export default function Dashboard(props){
       if(res.success){
         updateF(res.data);
       } else{
-        alert(res.message || "Internal Error.  Read the browser console for more information.");
+        Negative.fire(res.message || "Internal Error");
         console.log(res.error);
       }
     })
   }
   const warnUser = props.admin ? () => {
-    let confirmWarn = confirm("Are you sure you would like to warn this user?")
-    if(confirmWarn){
-      let warning = prompt("Please provide a detailed message for the warning.  Make sure to include what violation they made and be nice.")
+    Swal.fire({
+      showCloseButton: true,
+      allowOutsideClick: false,
+      showClass, hideClass,
+      title: "Warn User?",
+      text: "Are you sure you would like to warn this user?",
+      showCancelButton: true,
+      showDenyButton: true,
+      showConfirmButton: false,
+      denyButtonText: '<ion-icon name="flash-outline"></ion-icon> Yes, warn user',
+      preDeny: async () => {
+        
+      const { value: warning } = await Swal.fire({
+          title: 'Provide Reason',
+          text: "Please provide a reason of why you are warning this user.",
+          input: 'text',
+          showClass, hideClass,
+          confirmButtonText: "Send Warning",
+          inputPlaceholder: "Reason (10 words or less)",
+          showCancelButton: true,
+          showCancelButton: true,
+          inputValidator: (value) => {
+            if (!value) {
+              return 'Reason is required'
+            }
+          }
+        })
+        if(warning){
       fetch("/api/admin/warn", {
         method: "POST",
         headers: {
@@ -113,18 +141,43 @@ export default function Dashboard(props){
         })
       }).then(r => r.json()).then(res => {
         if(res.success){
-          alert("User Warned");
+          Positive.fire("User Warned");
         } else{
-          alert(res.message || "Internal Error.  Read the browser console for more information.");
+          Negative.fire(res.message || "Internal Error");
           console.log(res.error);
         }
       })
-    }
+        }
+      }})
   } : () => {};
   const purgeUser = props.admin ? () => {
-    let question = confirm("Purging a user will delete all repls they've published and remove all their comments and followers on the site.  Are you sure you would like to perform this?");
-    if(question){
-      let warning = prompt("Please provide a reason why you are purging the account.")
+    Swal.fire({
+      showCloseButton: true,
+      allowOutsideClick: false,
+      showClass, hideClass,
+      title: "Purge User?",
+      text: "Are you sure you would like to warn this user?  This will unpublish all their repls and remove all their followers.",
+      showCancelButton: true,
+      showDenyButton: true,
+      showConfirmButton: false,
+      denyButtonText: '<ion-icon name="flame-outline"></ion-icon> Yes, purge user',
+      preDeny: async () => {
+      const { value: warning } = await Swal.fire({
+          title: 'Provide Reason',
+          text: "Please provide a reason of why you are purging this user.",
+          input: 'text',
+          showClass, hideClass,
+          confirmButtonText: "Purge Account",
+          inputPlaceholder: "Reason (10 words or less)",
+          showCancelButton: true,
+          showCancelButton: true,
+          inputValidator: (value) => {
+            if (!value) {
+              return 'Reason is required'
+            }
+          }
+        })
+        if(warning){
       fetch("/api/admin/purge", {
         method: "POST",
         headers: {
@@ -137,18 +190,43 @@ export default function Dashboard(props){
         })
       }).then(r => r.json()).then(res => {
         if(res.success){
-          alert("User Purged");
+          Positive.fire("User Purged");
         } else{
-          alert(res.message || "Internal Error.  Read the browser console for more information.");
+          Negative.fire(res.message || "Internal Error");
           console.log(res.error);
         }
       })
-    }
+        }
+    }})
   } : () => {};
   const disableUser = props.admin ? () => {
-    let question = confirm("Disabling a user will ban them by their account token and purge all their repls.  Are you sure you would like to do this?");
-    if(question){
-      let warning = prompt("Please provide a reason why you are disabling the account.");
+    Swal.fire({
+      showCloseButton: true,
+      allowOutsideClick: false,
+      showClass, hideClass,
+      title: "Disable User?",
+      text: "Are you sure you would like to disable this user?  This will purge and prevent their account from performing any actions.",
+      showCancelButton: true,
+      showDenyButton: true,
+      showConfirmButton: false,
+      denyButtonText: '<ion-icon name="close-outline"></ion-icon> Yes, disable user',
+      preDeny: async () => {
+      const { value: warning } = await Swal.fire({
+          title: 'Provide Reason',
+          text: "Please provide a reason of why you are disabling this user.",
+          input: 'text',
+          showClass, hideClass,
+          confirmButtonText: "Disable Account",
+          inputPlaceholder: "Reason (10 words or less)",
+          showCancelButton: true,
+          showCancelButton: true,
+          inputValidator: (value) => {
+            if (!value) {
+              return 'Reason is required'
+            }
+          }
+        })
+        if(warning){
       fetch("/api/admin/disable", {
         method: "POST",
         headers: {
@@ -161,18 +239,43 @@ export default function Dashboard(props){
         })
       }).then(r => r.json()).then(res => {
         if(res.success){
-          alert("User Disabled");
+          Positive.fire("User Disabled");
         } else{
-          alert(res.message || "Internal Error.  Read the browser console for more information.");
+          Negative.fire(res.message || "Internal Error");
           console.log(res.error);
         }
       })
-    }
+        }
+    }})
   } : () => {};
   const banUser = props.admin ? () => {
-    let question = confirm("Banning a user will ban them by their IP address (hashed in md5) as well as their token as well as purging all their repls.  Are you sure you would like to do this?");
-    if(question){
-      let warning = prompt("Please provide a reason why you are banning the account.")
+    Swal.fire({
+      showCloseButton: true,
+      allowOutsideClick: false,
+      showClass, hideClass,
+      title: "IP Ban User?",
+      text: "Are you sure you would like to IP ban this user?  This will purge, disable, and IP ban their account from replverse.",
+      showCancelButton: true,
+      showDenyButton: true,
+      showConfirmButton: false,
+      denyButtonText: '<ion-icon name="close-circle-outline"></ion-icon> Yes, IP ban user',
+      preDeny: async () => {
+      const { value: warning } = await Swal.fire({
+          title: 'Provide Reason',
+          text: "Please provide a reason of why you are banning this user.",
+          input: 'text',
+          showClass, hideClass,
+          confirmButtonText: "IP Ban User",
+          inputPlaceholder: "Reason (10 words or less)",
+          showCancelButton: true,
+          showCancelButton: true,
+          inputValidator: (value) => {
+            if (!value) {
+              return 'Reason is required'
+            }
+          }
+        })
+        if(warning){
       fetch("/api/admin/ban", {
         method: "POST",
         headers: {
@@ -185,18 +288,40 @@ export default function Dashboard(props){
         })
       }).then(r => r.json()).then(res => {
         if(res.success){
-          alert("User Banned");
+          Positive.fire("User Banned");
         } else{
-          alert(res.message || "Internal Error.  Read the browser console for more information.");
+          Negative.fire(res.message || "Internal Error");
           console.log(res.error);
         }
       })
-    }
+        }
+    }})
   } : () => {};
   const giveBadge = (props.admin && props.daddy) ? () => {
-    let question = confirm("Are you sure you would like to give this user a badge?");
-    if(question){
-      let badgeNum = prompt("Choose a number for the corresponding badge\n1. Loyal Repler\n2. Replverse Developer\n3. Replit Team")
+    Swal.fire({
+      showCloseButton: true,
+      allowOutsideClick: false,
+      showClass, hideClass,
+      title: "Give Badge?",
+      text: "Are you sure you would like to give this use a badge?",
+      showCancelButton: true,
+      confirmButtonText: '<ion-icon name="trophy-outline"></ion-icon> Yes, give badge',
+      preConfirm: async () => {
+      const { value: badgeNum } = await Swal.fire({
+          title: 'Provide Reason',
+          html: "Choose a number for the corresponding badge.<br>1. Loyal Repler<br>2. Replit Team",
+          input: 'text',
+          showClass, hideClass,
+          confirmButtonText: "Give Badge",
+          inputPlaceholder: "Badge (number)",
+          showCancelButton: true,
+          inputValidator: (value) => {
+            if (!value) {
+              return 'Badge Number is required'
+            }
+          }
+        })
+        if(badgeNum){
       fetch("/api/admin/givebadge", {
         method: "POST",
         headers: {
@@ -209,16 +334,26 @@ export default function Dashboard(props){
         })
       }).then(r => r.json()).then(res => {
         if(res.success){
-          alert("Badge Given");
+          Positive.fire("Badge Given");
         } else{
-          alert(res.message || "Internal Error.  Read the browser console for more information.");
+          Negative.fire(res.message || "Internal Error");
           console.log(res.error);
         }
-      })
-    }
+      })}
+    }})
   } : () => {};
-  const deleteAccount = () => {
-    let question = prompt("Warning!  Deleting your account will also remove all your published repls on this site! Are you sure you would like to continue?\n\nIf so, please type 'DELETE_MY_REPLVERSE_ACCOUNT'");
+  const deleteAccount = async () => {
+    const { value: question } = await Swal.fire({
+          showCloseButton: true,
+      allowOutsideClick: false,
+          title: 'Delete Account?',
+          text: `In order to delete your replverse account, type the phrase "DELETE_MY_REPLVERSE_ACCOUNT" in the box.`,
+          input: 'text',
+          showClass, hideClass,
+          confirmButtonText: "Delete Account",
+          inputPlaceholder: "DELETE_MY_REPLVERSE_ACCOUNT",
+          showCancelButton: true
+        })
     if(question === "DELETE_MY_REPLVERSE_ACCOUNT"){
       fetch("/api/deleteacc", {
         method: "POST",
@@ -233,12 +368,12 @@ export default function Dashboard(props){
         if(res.success){
           location.href = "/"
         } else{
-          alert(res.message || "Internal Error.  Read the browser console for more information.");
+          Negative.fire(res.message || "Internal Error");
           console.log(res.error);
         }
       })
     }else{
-      alert("Incorrectly typed.  Your account lives for another day!")
+      Negative.fire("Incorrectly typed.  Your account lives for another day!")
     }
   }
   const [online, setStatus] = useState(false);
@@ -255,6 +390,17 @@ export default function Dashboard(props){
       username: props.me,
       avatar: props.avatar
     })
+    const cookie = name => `; ${document.cookie}`.split(`; ${name}=`).pop().split(';').shift();
+    if(cookie("newuser")){
+      Swal.fire({
+        showClass, hideClass,
+        title: "Like Replverse?",
+        html: "If you are enjoying replverse or would like to be notified of the most recent updates, be sure to <a href='https://discord.gg/TZCc8P2cyH' target='_blank' rel='noreferrer'>Join the Discord</a> and offer some appreciation by giving replverse <a href='https://replit.com/@IroncladDev/replverse' target='_blank' rel='noreferrer'>an upvote</a>!<br><br>Thank you so much for joining and being a member.  Happy coding!",
+        preConfirm: () => {
+          document.cookie = "newuser=; SameSite=None; Secure";
+        }
+      })
+    }
   }, [])
 
   useEffect(() => {
