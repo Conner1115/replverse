@@ -117,8 +117,22 @@ export default function Chat(props){
     fetch("/api/message/send", {
       method: "POST",
       body: JSON.stringify({data: {
-        username: props.replitName,
-        text: input,
+        username: props.replitName.replace(/\\n/g, "\\n")
+                                      .replace(/\\'/g, "\\'")
+                                      .replace(/\\"/g, '\\"')
+                                      .replace(/\\&/g, "\\&")
+                                      .replace(/\\r/g, "\\r")
+                                      .replace(/\\t/g, "\\t")
+                                      .replace(/\\b/g, "\\b")
+                                      .replace(/\\f/g, "\\f"),
+        text: input.replace(/\\n/g, "\\n")
+                                      .replace(/\\'/g, "\\'")
+                                      .replace(/\\"/g, '\\"')
+                                      .replace(/\\&/g, "\\&")
+                                      .replace(/\\r/g, "\\r")
+                                      .replace(/\\t/g, "\\t")
+                                      .replace(/\\b/g, "\\b")
+                                      .replace(/\\f/g, "\\f"),
         avatar: props.avatar,
         channel,
         id: Math.random().toString(36).slice(2),
@@ -240,6 +254,10 @@ export default function Chat(props){
         }
       });
     }
+    socket.emit("join", {
+      username: props.replitName,
+      avatar: props.avatar
+    })
     socket.on("online", setOnline)
     socket.on("chat", (msg) => {
       if(msg.last){

@@ -251,6 +251,13 @@ export default function Dashboard(props){
         }
       });
     }
+    socket.emit("join", {
+      username: props.me,
+      avatar: props.avatar
+    })
+  }, [])
+
+  useEffect(() => {
     socket.on("online", online => {
       if(online.some(x => x.username === props.username)){
         setStatus(true);
@@ -260,7 +267,7 @@ export default function Dashboard(props){
         console.log("offline")
       }
     })
-  }, [])
+  }, [online])
   
   return (
     <div>
