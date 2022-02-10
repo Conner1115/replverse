@@ -21,7 +21,7 @@ function Feature(props) {
 export default function Home(props) {
   useEffect(() => {
     if(window.location !== window.parent.location){
-      let askWindow = localStorage.getItem("windowopen") ? false : confirm("Make sure you are viewing this page in fullscreen!  Click OK to open a new browser window in fullscreen.")
+      let askWindow = localStorage.getItem("windowopen") ? false : confirm("Make sure you are viewing this page in fullscreen!  Click OK to switch to fullscreen mode.")
       if(askWindow){
         localStorage.setItem("windowopen", true)
         window.open("https://replverse.ironcladdev.repl.co")

@@ -6,10 +6,10 @@ import Link from 'next/link'
 import Repl from '../../components/repl'
 import Head from 'next/head'
 import { App } from '../../scripts/mongo.js'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Error from '../../components/404.js'
 import { getData } from '../../scripts/json.js'
-
+import io from 'socket.io-client'
 let badgeTitles = {
   "ancient": "Be in the first million users of replit",
   "olden": "Be in the first 2.5 million users of replit",
@@ -53,6 +53,8 @@ let badgeTitles = {
   "community-dude":"Post fifty things to ReplTalk/Community",
 
 }
+
+let socket = false;
 
 export default function Dashboard(props){
   const [fd, updateF] = useState(props.following)
@@ -239,6 +241,26 @@ export default function Dashboard(props){
       alert("Incorrectly typed.  Your account lives for another day!")
     }
   }
+  const [online, setStatus] = useState(false);
+
+  useEffect(() => {
+    if(!socket){
+      socket = io("https://replverse-data.ironcladdev.repl.co", {
+        extraHeaders: {
+          username: props.me
+        }
+      });
+    }
+    socket.on("online", online => {
+      if(online.some(x => x.username === props.username)){
+        setStatus(true);
+        console.log("online")
+      }else{
+        setStatus(false);
+        console.log("offline")
+      }
+    })
+  }, [])
   
   return (
     <div>
@@ -251,10 +273,10 @@ export default function Dashboard(props){
           <div className={styles.columnLeft}>
           <div className={styles.userSec}>
         
-            <div className={styles.dtv}>
+            <div className={styles.dtv + " " + ui.boxDimDefault} style={{marginTop: 0, marginBottom: 10, border: 'none'}}>
               <h2 className={styles.userNameHeader}>{props.username}</h2>
               <div className={styles.avatar}>
-                <img src={props.avatar} alt="User Avatar"/>
+                <img src={props.avatar} className={(online ? styles.avatarOnline : undefined)} alt="User Avatar" title={`${props.username} is ${online ? "online" : "offline"}`}/>
               </div>
               <div className={styles.bio}>
                 <p style={{textAlign: 'center'}}>{props.bio}</p>
@@ -270,10 +292,9 @@ export default function Dashboard(props){
                 background: 'var(--background-higher)',
                 padding: 10,
                 borderRadius: 5,
-                border: 'solid var(--outline-dimmer) 1px',
                 cursor: 'pointer',
                 userSelect: 'none',
-                margin: '20px 0'
+                margin: '10px 0'
               }}>
                 <summary>Admin Options</summary>
                 <div>
@@ -288,28 +309,38 @@ export default function Dashboard(props){
 
         
             
-{props.followers.length > 0 && <div><h3 style={{marginBottom: 15, fontSize: '1.75em'}}>Followers ({props.followers.length})</h3>
-            <div className={ui.boxDimCompact + " " + styles.userGrid}>
-              {props.followers.slice(0, 20).map(x => <div key={Math.random()} className={styles.gridUser}>
-                <Link href={"/user/"+x.user} passHref>
-                <img src={x.userAvatar} alt="User Avatar"/>
-                </Link>
-              </div>)}
+{props.followers.length > 0 && 
+            <div className={ui.boxDimCompact}  style={{border: 'none'}}>
+              <h3 style={{marginBottom: 15, fontSize: '1.75em', padding: 0}}>Followers ({props.followers.length})</h3>
+              <div className={styles.userGrid}>
+                {props.followers.slice(0, 20).map(x => <div key={Math.random()} className={styles.gridUser} title={x.user}>
+                  <Link href={"/user/"+x.user} passHref>
+                  <img src={x.userAvatar} alt="User Avatar"/>
+                  </Link>
+                </div>)}
+                </div>
               <div style={{width:50,height:50,verticalAlign: 'middle',textAlign: 'center',fontSize:18,paddingTop: 12}}>{props.followers.length > 20 &&`+${props.followers.length - 20}`}</div>
                 
-            </div></div>}
-                {props.following.length > 0 && <div><h3 style={{marginBottom: 15, fontSize: '1.75em'}}>Following ({props.following.length})</h3>
-            <div className={ui.boxDimCompact + " " + styles.userGrid}>
-              {props.following.slice(0, 20).map(x => <div key={Math.random()} className={styles.gridUser}>
+            </div>}
+
+
+
+            {props.following.length > 0 && 
+            <div className={ui.boxDimCompact}  style={{border: 'none',margin: '10px 0'}}>
+              <h3 style={{marginBottom: 15, fontSize: '1.75em',padding:0}}>Following ({props.following.length})</h3>
+              <div className={styles.userGrid}>
+                {props.following.slice(0, 20).map(x => <div key={Math.random()} className={styles.gridUser} title={x.follow}>
                 <Link href={"/user/"+x.follow} passHref>
                 <img src={x.avatar} alt="User Avatar"/>
                 </Link>
               </div>)}
-              <div style={{width:50,height:50,verticalAlign: 'middle',textAlign: 'center',fontSize:18,paddingTop: 12}}>{props.following.length > 20 &&`+${props.following.length - 20}`}</div>
-            </div></div>}
+                </div>
+              <div style={{width:50,height:50,verticalAlign: 'middle',textAlign: 'center',fontSize:18,paddingTop: 12}}>{props.followers.length > 20 &&`+${props.following.length - 20}`}</div>
+                
+            </div>}
 
-                {props.admin && <div>
-                  <h3 style={{fontSize: '1.75em'}}>Reported Repls</h3>
+                {(props.admin && props.username === props.me && reps.length > 0) && <div className={ui.boxDimDefault} style={{border: 'none'}}>
+                  <h3 style={{fontSize: '1.75em', padding: 0}}>Reported Repls</h3>
 
                  {reps.map(x => <div key={Math.random()} className={styles.report}>
                     <div style={{display: 'flex'}}>
@@ -337,9 +368,9 @@ export default function Dashboard(props){
                 
                 
         <div className={styles.columnRight}>
-          <div className={styles.mv}>
+          <div className={styles.mv + " " + ui.boxDimDefault} style={{border: 'none', margin: 0, marginBottom: 10}}>
           <div className={styles.flexProfile}>
-              <img className={styles.mvav} src={props.avatar} alt="User Avatar"/>
+              <img className={styles.mvav + " " + (online ? styles.avatarOnline : undefined)} src={props.avatar} alt="User Avatar" title={`${props.username} is ${online ? "online" : "offline"}`}/>
               <div>
                 <h4 className={styles.mvname}>{props.username}</h4>
                 <p className={styles.mvbio}>{props.bio}</p>
@@ -350,11 +381,11 @@ export default function Dashboard(props){
                 <button onClick={deleteAccount} style={{width: '100%'}} className={ui.uiButtonDanger + " " + ui.block}>Delete Account</button>
               </div> : <button onClick={followUser} className={(fd.filter(x => x.user+x.follow === props.me+props.username)[0] ? ui.actionButtonDark : ui.actionButton) + " " + ui.block + " " + styles.followBtn}>{fd.filter(x => x.user+x.follow === props.me+props.username)[0] ? "Unfollow" : "Follow"}</button>}
 
-              {(props.admin) && <details style={{
+              {props.admin && <details style={{
                 background: 'var(--background-higher)',
                 padding: 10,
                 borderRadius: 5,
-                border: 'solid var(--outline-dimmer) 1px',
+                border: 'none',
                 cursor: 'pointer',
                 userSelect: 'none',
                 margin: '20px 0'
@@ -371,10 +402,10 @@ export default function Dashboard(props){
           
             </div>
           
-          {props.badges.length > 0 && <div className={ui.boxDimDefault}>
+          {props.badges.length > 0 && <div className={ui.boxDimDefault} style={{border: 'none'}}>
             <h3 style={{padding: 0, marginBottom: 20}}>Badges</h3>
             <div className={styles.badgeGrid}>
-              {props.badges.map(x => <div key={Math.random()} className={styles.gridBadge} onClick={() => {alert(x[1].includes("http") ? `Be an active programmer in ${x[0]} on replit` : badgeTitles[x[1]])}}>
+              {props.badges.map(x => <div key={Math.random()} className={styles.gridBadge} title={x[1].includes("http") ? `Be an active programmer in ${x[0]} on replit` : badgeTitles[x[1]]}>
               <img alt={x[0] + " badge"} src={x[1].includes("http") ? x[1] : ("/badges/" + x[1] + ".svg")}/>
               <div>{x[0]}</div>
             </div>)}

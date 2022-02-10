@@ -20,6 +20,7 @@ let channels = {
   "oof-topic": "Off-topic chat.  Likewise, keep things sfw.",
   "help": "Live help chat",
   "replverse-feedback": "Have any feedback on replverse?  Post it here!",
+  "feedback-discussion": "Discuss new features and share your newest ideas for replverse here",
   "Programming": "HEADER",
   "programmming": "Programming in general.",
   "web-dev": "Web-development related stuff goes here.",
@@ -37,6 +38,21 @@ let channels = {
   "golang": "Talk about golang here",
   "swift": "Talk about swift here",
   "other-langs": "Talk about other langs here",
+}
+
+function getToday() {
+  var now = new Date();
+  var start = new Date(now.getFullYear(), 0, 0);
+  var diff = (now - start) + ((start.getTimezoneOffset() - now.getTimezoneOffset()) * 60 * 1000);
+  var oneDay = 1000 * 60 * 60 * 24;
+  var day = Math.floor(diff / oneDay);
+  return day;
+}
+
+function parseDay(d) {
+  var date = new Date(d * 24 * 60 * 60 * 1000);
+  var options = { month: 'short', day: 'numeric' };
+  return (date.toLocaleString('us', options))
 }
 
 function Channel(props){
@@ -85,7 +101,7 @@ export default function Chat(props){
         shiftKey = false;
       }else{
         if(autoCom.length > 0){
-          let inputVal = input.split(' ');
+          let inputVal = input.split(/[\s\n]/);
           let sliceBefore = inputVal.slice(0, inputVal.length-1);
           setInput([...sliceBefore, `\u200b@${autoCom[0]}\u200b`].join` `)
           setAutoCom([]);
@@ -105,7 +121,8 @@ export default function Chat(props){
         text: input,
         avatar: props.avatar,
         channel,
-        id: Math.random().toString(36).slice(2)
+        id: Math.random().toString(36).slice(2),
+        day: getToday()
       }, pings: detectPing(input)}),
       headers: {
         "Content-Type": "application/json",
@@ -120,7 +137,7 @@ export default function Chat(props){
   }
   const updateInput = (e) => {
     let val = e.target.value;
-    let splitVal = val.split(" ");
+    let splitVal = val.split(/[\s\n]/);
     let word = splitVal.slice(-1)[0];
     if(word[0] === "@"){
       let name = word.slice(1, word.length);
@@ -150,7 +167,7 @@ export default function Chat(props){
     }
   };
   const detectPing = (txt) => {
-    let splt = txt.split` `;
+    let splt = txt.split(/[\s\n]/);
     let foundPings = [];
     for(var i = 0; i < splt.length; i++){
       let word = splt[i];
@@ -223,10 +240,6 @@ export default function Chat(props){
         }
       });
     }
-    socket.emit("join", {
-      username: props.replitName,
-      avatar: props.avatar
-    })
     socket.on("online", setOnline)
     socket.on("chat", (msg) => {
       if(msg.last){
@@ -292,7 +305,7 @@ export default function Chat(props){
               }} className={styles.message} id={x.id} key={Math.random()}>
                         <img alt={x.username + "'s avatar"} className={styles.messageAvatar} src={x.avatar}/>
                         <div className={styles.mBody}>
-                        <div className={styles.mNick}>{x.username} {(x.username === props.replitName || props.admin) && <span className={styles.mDel} onClick={() => deleteMessage(x.id)}>Delete</span>}</div>
+                        <div className={styles.mNick}>{x.username}{'day' in x && <span className={styles.dateStamp}>{parseDay(x.day)}</span>} {(x.username === props.replitName || props.admin) && <span className={styles.mDel} onClick={() => deleteMessage(x.id)}>Delete</span>}</div>
                         <div className={styles.mdMessage} dangerouslySetInnerHTML={{__html: san}}></div>
                         </div>
                       </div>)
@@ -307,7 +320,7 @@ export default function Chat(props){
           </div>
           <div className={styles.userFind} style={{ display: autoCom.length > 0 ? "block" : "none" }}>
             {autoCom.map(x => <div onClick={() => {
-              let inputVal = input.split(' ');
+              let inputVal = input.split(/[\s\n]/);
               let sliceBefore = inputVal.slice(0, inputVal.length-1);
               setInput([...sliceBefore, `@${x}`].join` `)
               setAutoCom([]);

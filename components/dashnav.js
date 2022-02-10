@@ -243,7 +243,7 @@ export default class DashNav extends Component {
           <div className={styles.notifsBody}>
             {this.state.notifs.length === 0 && <div style={{textAlign: 'center', color: 'var(--foreground-dimmer)', fontStyle: 'italic'}}>No notifications yet</div>}
             {this.state.notifs
-            .map(x => <Link key={Math.random()} href={x.link} passHref><div className={styles.notif + " " + (!x.r && styles.unread)}>
+            .map(x => <Link key={Math.random()} href={x.link} passHref><div className={styles.notif + " " + (!x.r ? styles.unread : undefined)}>
               <div className={styles.notifTop}>
                   <img alt="Notification Icon" src={x.icon} className={styles.notifIcon}/>
                   <span className={styles.notifHeader}>{x.title}</span>

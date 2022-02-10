@@ -123,6 +123,7 @@ export default function Spotlight(props) {
     })
   }
   const submitComment = () => {
+    if(comment.length > 3){
     fetch("/api/comment", {
       method: "POST",
       headers: {
@@ -144,8 +145,10 @@ export default function Spotlight(props) {
         console.log(res.err)
       }
     })
+    }else{
+      alert("Comment must be at least three characters!!")
+    }
   }
-
   const removeRepl = (props.adminView) ? () => {
     let confirmWarn = confirm("Are you sure you would like to remove this repl?")
     if(confirmWarn){
@@ -171,7 +174,6 @@ export default function Spotlight(props) {
       })
     }
   } : () => {}
-
   const updateRepl = () => {
     toggleLoad(true);
     try{

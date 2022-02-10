@@ -10,15 +10,13 @@
 .columnLeft{
   width: 400px;
   height: 100%;
-  padding: 20px;
-}
-.userSec{
-  padding: 20px 0;
+  padding: 10px;
 }
 .columnRight{
   height: 100%;
   flex-grow: 1;
-  padding: 20px;
+  padding: 10px;
+  padding-left: 0;
 }
 .avatar{
   width: 200px;
@@ -31,6 +29,9 @@
   height: 100%;
   border-radius: 50%;
   border: solid var(--outline-dimmer) 3px;
+}
+.avatarOnline{
+  border: solid var(--accent-positive-stronger) 3px !important;
 }
 .followBtn{
   width: 100%;
@@ -78,14 +79,7 @@
   border: solid transparent 1px;
 }
 .gridBadge:hover{
-  cursor: pointer;
   border: solid var(--accent-primary-default) 1px;
-}
-.gridBadge:first-of-type{
-  margin-left: 0;
-}
-.gridBadge:last-of-type{
-  margin-right: 0;
 }
 .gridBadge > img{
   width: 90px;
@@ -130,8 +124,8 @@
 .replGrid{
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   display: grid;
-  grid-gap: 20px;
-  margin: 20px 0;
+  grid-gap: 10px;
+  margin-top: 10px;
   justify-items: center;
   justify-content: center;
 }
@@ -178,6 +172,8 @@
   }
   .columnRight {
     width: 100%;
+    padding-left: 10px;
+    padding-bottom: 0;
   }
   .dtv {
     display: none;

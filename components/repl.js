@@ -4,7 +4,7 @@ import styles from '../styles/components/repl.module.css'
 import Link from 'next/link'
 
 export default function Repl(props){
-  return (<Link href={"/repl/" + props.username + "/" + props.slug} passHref><div className={styles.repl + " " + ui.boxDimSpaced}>
+  return (<Link href={"/repl/" + props.username + "/" + props.slug} passHref><div className={styles.repl + " " + ui.boxDimSpaced} style={{border: 'none'}}>
     <div className={styles.rstats}>
     <Link href={"/user/"+props.username} passHref>
       <div className={styles.userInfo}>

@@ -12,6 +12,16 @@
   border-radius: 8px;
   padding: 25px 10px;
 }
+.memberList{
+  overflow-y: auto;
+}
+.dateStamp{
+  color: var(--outline-default);
+  font-size: 12px;
+  margin-left: 10px;
+  font-weight: 300;
+  vertical-align: middle;
+}
 .chatCore{
   flex-grow: 1;
   width: 100%;
