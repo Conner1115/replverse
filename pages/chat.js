@@ -256,26 +256,28 @@ export default function Chat(props){
     if(JSON.parse(localStorage.getItem("chatrulesmodal-replverse"))){
       togModal(false);
     }
-    if(!socket){
+    if(socket === false){
       socket = io("https://replverse-data.ironcladdev.repl.co", {
         extraHeaders: {
           username: props.replitName
         }
       });
+      socket.emit("join", {
+        username: props.replitName,
+        avatar: props.avatar
+      })
     }
-    socket.emit("join", {
-      username: props.replitName,
-      avatar: props.avatar
-    })
-    socket.on("online", setOnline)
-    socket.on("chat", (msg) => {
-      if(msg.last){
-        if(detectPing(msg.last.text).includes(props.replitName)){
-          sendNotif(msg.last.username + " Mentioned you in #" + msg.last.channel, msg.last.text, "/logo.png")
+    if(socket){
+      socket.on("online", setOnline)
+      socket.on("chat", (msg) => {
+        if(msg.last){
+          if(detectPing(msg.last.text).includes(props.replitName)){
+            sendNotif(msg.last.username + " Mentioned you in #" + msg.last.channel, msg.last.text, "/logo.png")
+          }
         }
-      }
-      setMessages(msg.data)
-    })
+        setMessages(msg.data)
+      })
+    }
   }, [])
 
   let inputRows = (input.match(/\n/g) ? input.match(/\n/g).length : 1) + 1;
