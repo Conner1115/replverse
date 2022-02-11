@@ -187,7 +187,7 @@ button:disabled:hover{
   background: transparent !important;
 }
 .swal2-confirm{
-  padding: 7px 10px !important;
+  padding: 8px !important;
   font-size: 14px !important;
   background: var(--accent-primary-dimmer) !important;
   border-radius: 8px !important;
@@ -200,19 +200,23 @@ button:disabled:hover{
   margin: 0 !important;
 }
 .swal2-confirm:hover{
-  border: solid var(--accent-primary-stronger) 1px !important;
+  border: solid var(--accent-primary-default) 1px !important;
   cursor: pointer !important;
+}
+.swal2-confirm:active{
+  background: var(--accent-primary-dimmest);
+  border: 1px solid var(--accent-primary-default);
 }
 .swal2-confirm:focus{
   box-shadow: 0 0 0 3px var(--accent-primary-stronger) !important;
 }
 
 .swal2-deny{
-  padding: 7px 10px !important;
+  padding: 8px !important;
   font-size: 14px !important;
-  background: var(--accent-negative-dimmer) !important;
+  background: var(--accent-negative-dimmest) !important;
   border-radius: 8px !important;
-  color: var(--foreground-default) !important;
+  color: var(--accent-negative-default) !important;
   font-family: var(--font-family-default) !important;
   font-weight: 500 !important;
   transition: 0.25s !important;
@@ -245,7 +249,7 @@ button:disabled:hover{
 }
 
 .swal2-cancel{
-  padding: 7px 10px !important;
+  padding: 8px !important;
   font-size: 14px !important;
   background: var(--background-highest) !important;
   border-radius: 8px !important;
@@ -266,18 +270,22 @@ button:disabled:hover{
 }
 
 .swal2-input{
-  background: var(--background-default) !important;
-  padding: 10px !important;
-  font-size: 16px !important;
+  background: var(--background-highest) !important;
+  padding: 8px !important;
+  font-size: 13px !important;
   color: var(--foreground-default) !important;
-  border-radius: 5px !important;
-  border: solid var(--outline-dimmest) 1px !important;
+  border-radius: 8px !important;
+  border: solid var(--outline-default) 1px !important;
   font-family: var(--font-family-default) !important;
   outline: none !important;
   margin: 0 !important;
 }
+.swal2-input::placeholder{
+  color: #91969d !important;
+}
 .swal2-input:focus{
-  box-shadow: 0 0 0 3px var(--accent-primary-dimmer) !important;
+  box-shadow: 0 0 0 2px var(--accent-primary-default) !important;
+  background: var(--background-higher) !important;
 }
 
 .swal2-actions{

@@ -9,7 +9,6 @@ import { App } from '../../scripts/mongo.js'
 import { useState, useEffect } from 'react'
 import Error from '../../components/404.js'
 import { getData } from '../../scripts/json.js'
-import io from 'socket.io-client'
 import {Negative, Positive, Swal, showClass, hideClass} from '../../scripts/modal'
 
 
@@ -56,8 +55,6 @@ let badgeTitles = {
   "community-dude":"Post fifty things to ReplTalk/Community",
 
 }
-
-let socket = false;
 
 export default function Dashboard(props){
   const [fd, updateF] = useState(props.following)
@@ -344,16 +341,20 @@ export default function Dashboard(props){
   } : () => {};
   const deleteAccount = async () => {
     const { value: question } = await Swal.fire({
+      returnInputValueOnDeny: true,
           showCloseButton: true,
       allowOutsideClick: false,
           title: 'Delete Account?',
           text: `In order to delete your replverse account, type the phrase "DELETE_MY_REPLVERSE_ACCOUNT" in the box.`,
           input: 'text',
           showClass, hideClass,
-          confirmButtonText: "Delete Account",
+      showConfirmButton: false,
+          denyButtonText: '<ion-icon name="trash-outline"></ion-icon> Yes, Delete Account',
+      showDenyButton: true,
           inputPlaceholder: "DELETE_MY_REPLVERSE_ACCOUNT",
           showCancelButton: true
         })
+    console.log(question)
     if(question === "DELETE_MY_REPLVERSE_ACCOUNT"){
       fetch("/api/deleteacc", {
         method: "POST",
@@ -376,20 +377,8 @@ export default function Dashboard(props){
       Negative.fire("Incorrectly typed.  Your account lives for another day!")
     }
   }
-  const [online, setStatus] = useState(false);
 
   useEffect(() => {
-    if(!socket){
-      socket = io("https://replverse-data.ironcladdev.repl.co", {
-        extraHeaders: {
-          username: props.me
-        }
-      });
-    }
-    socket.emit("join", {
-      username: props.me,
-      avatar: props.avatar
-    })
     const cookie = name => `; ${document.cookie}`.split(`; ${name}=`).pop().split(';').shift();
     if(cookie("newuser")){
       Swal.fire({
@@ -402,18 +391,6 @@ export default function Dashboard(props){
       })
     }
   }, [])
-
-  useEffect(() => {
-    socket.on("online", online => {
-      if(online.some(x => x.username === props.username)){
-        setStatus(true);
-        console.log("online")
-      }else{
-        setStatus(false);
-        console.log("offline")
-      }
-    })
-  }, [online])
   
   return (
     <div>
@@ -429,7 +406,7 @@ export default function Dashboard(props){
             <div className={styles.dtv + " " + ui.boxDimDefault} style={{marginTop: 0, marginBottom: 10, border: 'none'}}>
               <h2 className={styles.userNameHeader}>{props.username}</h2>
               <div className={styles.avatar}>
-                <img src={props.avatar} className={(online ? styles.avatarOnline : undefined)} alt="User Avatar" title={`${props.username} is ${online ? "online" : "offline"}`}/>
+                <img src={props.avatar} alt="User Avatar"/>
               </div>
               <div className={styles.bio}>
                 <p style={{textAlign: 'center'}}>{props.bio}</p>
@@ -523,7 +500,7 @@ export default function Dashboard(props){
         <div className={styles.columnRight}>
           <div className={styles.mv + " " + ui.boxDimDefault} style={{border: 'none', margin: 0, marginBottom: 10}}>
           <div className={styles.flexProfile}>
-              <img className={styles.mvav + " " + (online ? styles.avatarOnline : undefined)} src={props.avatar} alt="User Avatar" title={`${props.username} is ${online ? "online" : "offline"}`}/>
+              <img className={styles.mvav} src={props.avatar} alt="User Avatar"/>
               <div>
                 <h4 className={styles.mvname}>{props.username}</h4>
                 <p className={styles.mvbio}>{props.bio}</p>
