@@ -95,6 +95,7 @@
   dislay: block;
   vertical-align: bottom;
   font-weight: 500;
+  font-size: 13px;
 }
 
 @media(max-width: 900px){

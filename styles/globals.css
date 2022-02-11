@@ -143,6 +143,7 @@ button:disabled:hover{
   display: flex !important;
   flex-direction: column !important;
   border-radius: 8px !important;
+  margin-top: 50px;
 }
 
 .swal2-toast.modal-positive{
@@ -166,6 +167,7 @@ button:disabled:hover{
   text-align: left !important;
   padding: 0 !important;
   flex-grow: 0 !important;
+  font-size: 1.5em !important;
 }
 
 
@@ -179,9 +181,11 @@ button:disabled:hover{
   color: var(--foreground-dimmer) !important;
   text-align: left !important;
   margin: 15px 0 !important;
+  font-size: 14px !important;
 }
 .swal2-backdrop-show:not(> .swal2-toast){
   background: var(--background-overlay) !important;
+  padding-top: 50px !important;
 }
 .swal2-backdrop-show:has(> .swal2-toast){
   background: transparent !important;
