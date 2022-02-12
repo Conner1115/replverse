@@ -4,6 +4,7 @@ import Head from 'next/head'
 import Nav from '../components/nav'
 import Link from 'next/link'
 import { useState, useEffect } from 'react'
+import {Swal, showClass, hideClass} from '../scripts/modal'
 
 export default function Signup() {
   const [error, setError] = useState("")
@@ -31,7 +32,7 @@ export default function Signup() {
 
   
   const authenticate = async () => {
-    if(window.location !== window.parent.location){
+    if(window.location === window.parent.location){
     window.addEventListener('message', authComplete);
 
     var h = 500;
