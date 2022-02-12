@@ -3,13 +3,35 @@ import pos from '../styles/pos.module.css';
 import Head from 'next/head'
 import Nav from '../components/nav'
 import Link from 'next/link'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 export default function Signup() {
   const [error, setError] = useState("")
   const [email, setEmail] = useState("");
   const [verify, setVf] = useState(false);
+
+  useEffect(() => {
+    if(window.location !== window.parent.location){
+        Swal.fire({
+          allowEnterKey: false,
+          allowOutsideClick: false,
+          showClass, hideClass,
+          title: "Hold Up there, buddy!",
+          text: "Replverse only works in fullscreen.  Please allow repverse to open this in fullscreen before you can access it.",
+          showCancelButton: false,
+          showConfirmButton: true,
+          confirmButtonText: "Open in Fullscreen",
+          preConfirm: async () => {
+            localStorage.setItem("windowopen", true)
+            window.open("https://replverse.ironcladdev.repl.co")
+          }
+        });
+    }
+  }, [])
+
+  
   const authenticate = async () => {
+    if(window.location !== window.parent.location){
     window.addEventListener('message', authComplete);
 
     var h = 500;
@@ -46,6 +68,22 @@ export default function Signup() {
           setError(data.message)
         }
       })
+    }
+    }else{
+      Swal.fire({
+          allowEnterKey: false,
+          allowOutsideClick: false,
+          showClass, hideClass,
+          title: "Hold Up there, buddy!",
+          text: "Replverse only works in fullscreen.  Please allow repverse to open this in fullscreen before you can access it.",
+          showCancelButton: false,
+          showConfirmButton: true,
+          confirmButtonText: "Open in Fullscreen",
+          preConfirm: async () => {
+            localStorage.setItem("windowopen", true)
+            window.open("https://replverse.ironcladdev.repl.co")
+          }
+        });
     }
   }
   const submit = (e) => { 

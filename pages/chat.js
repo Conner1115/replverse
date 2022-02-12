@@ -11,7 +11,7 @@ import { parse, marked } from 'marked';
 import { getData } from '../scripts/json.js';
 import { User } from '../scripts/mongo.js';
 import hljs from 'highlight.js/lib/common';
-import {Negative, Swal, showClass, hideClass} from '../scripts/modal'
+import {Negative, Swal, showClass, hideClass, Positive} from '../scripts/modal'
 
 let socket = false;
 
@@ -72,6 +72,23 @@ const ScrollView = () => {
   return <div ref={elementRef} />;
 };
 
+//stackoverflow!!
+function arraysEqual(a, b) {
+  if (a === b) return true;
+  if (a == null || b == null) return false;
+  if (a.length !== b.length) return false;
+
+  // If you don't care about the order of the elements inside
+  // the array, you should sort both arrays here.
+  // Please note that calling sort on an array will modify that array.
+  // you might want to clone your array first.
+
+  for (var i = 0; i < a.length; ++i) {
+    if (a[i] !== b[i]) return false;
+  }
+  return true;
+}
+
 export default function Chat(props){
   const [channel, changeChannel] = useState(props.channel);
   const [online, setOnline] = useState([]);
@@ -87,6 +104,9 @@ export default function Chat(props){
   const playNotif = () => {
     let audio = new Audio("/notif.mp3")
     audio.play()
+    setTimeout(function(){
+      audio.remove();
+    }, 2)
   }
   const completeUser = (user) => {
     return users.filter(x => new RegExp(user, "ig").test(x));
@@ -268,7 +288,13 @@ export default function Chat(props){
         username: props.replitName,
         avatar: props.avatar
       })
-      socket.on("online", setOnline)
+      socket.on("online", __online => {
+        if(!arraysEqual(online, __online)){
+          Positive.fire(__online.slice(-1)[0].username + " Joined the Chat");
+          playNotif();
+        }
+        setOnline(__online)
+      })
       socket.on("chat", (msg) => {
         if(msg.last){
           if(detectPing(msg.last.text).includes(props.replitName)){

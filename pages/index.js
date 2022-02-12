@@ -63,24 +63,13 @@ export default function Home(props) {
         </div>
       </section>
 
-      <section style={{paddingBottom: 50}}>
-        <video style={{
-          width: '80%',
-          position: 'relative',
-          left: '50%',
-          transform: 'translatex(-50%)',
-          borderRadius: 10
-        }} loop autoPlay muted>
-          <source src="/vid.mp4"/>
-        </video>
-      </section>
-
       <section className={pos.relcont} style={{ background: 'linear-gradient(180deg, var(--background-default), var(--background-root))', padding: '50px 0' }}>
-        <Feature image="/graphics/replsearch.svg" title="Search Engine" desc="The long-sought-after repl search engine is finally here!  Locate your favorite repls in a matter of seconds with the all-powerful search engine." />
-        <Feature image="/graphics/quality.svg" title="Quality Repls" desc="The age of clickbait, scams, and low effort repls are over.  Open your eyes and see the true talent of the programmers of Replit." />
-        <Feature image="/graphics/algorithm.svg" title="Enhanced Algorithm" desc="Repls no longer trend based off of forks or runs, neither do they trend for months at a time.  This algorithm is governed by what the community loves and updates relatively quickly.  Each and every repl gets a chance for some visibility." />
         <Feature image="/graphics/follow.svg" title="Following" desc="Stay updated with newly published repls from your favorite programmers and showcase your newest projects to your followers!" />
+        <Feature image="/graphics/replsearch.svg" title="Search Engine" desc="The long-sought-after repl search engine is finally here!  Locate your favorite repls in a matter of seconds with the all-powerful search engine." />
+        <Feature image="/graphics/badgey.svg" title="Badges and Achievements" desc="Repvlerse runs on replit's api and enables you to earn achievements from a variety of over thirty badges!  From the count of your cycles to how long you've been at replit, there's an achievement for every occasion and badges for everyone." />
+        <Feature image="/graphics/quality.svg" title="Quality Repls" desc="The age of clickbait, scams, and low effort repls are over.  Open your eyes and see the true talent of the programmers of Replit." />
         <Feature image="/graphics/chat.svg" title="Live Chat" desc="Communicate in realtime with your fellow replers both synchronously and asynchronously, get live coding help, and more!" />
+        <Feature image="/graphics/algorithm.svg" title="Enhanced Algorithm" desc="Repls no longer trend based off of forks or runs, neither do they trend for months at a time.  This algorithm is governed by what the community loves and updates relatively quickly.  Each and every repl gets a chance for some visibility." />
       </section>
       <section style={{ padding: '50px 0' }}>
         <h3 className={ui.header}>Take your coding to the next level</h3>
