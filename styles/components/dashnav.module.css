@@ -4,6 +4,9 @@
   height: 50px;
   width: 100%;
 }
+.linkSelected {
+  background: var(--accent-primary-dimmest) !important;
+}
 .navButtonVis{
   display: flex;
   position: fixed;

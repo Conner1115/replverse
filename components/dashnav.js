@@ -204,26 +204,30 @@ export default class DashNav extends Component {
     {'  '}Share a Repl</button>
 
         <Link href="/dashboard" passHref>
-          <button className={styles.navLink} style={{marginTop: `0 !important`}}>
+          <button className={styles.navLink + " " + (this.props.page === "dashboard" ? styles.linkSelected : undefined)} style={{marginTop: `0 !important`}}>
             <svg preserveAspectRatio="xMidYMin" width="16" height="16" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2" fill="transparent"><path d="M9 22H5C4.46957 22 3.96086 21.7893 3.58579 21.4142C3.21071 21.0391 3 20.5304 3 20V9L12 2L21 9V20C21 20.5304 20.7893 21.0391 20.4142 21.4142C20.0391 21.7893 19.5304 22 19 22H15M9 22V13.5H15V22M9 22H15" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"></path>
             </svg>
             {" "}Home</button>
         </Link>
 
         <Link href="/apps" passHref>
-          <button className={styles.navLink}>
+          <button className={styles.navLink + " " + (this.props.page === "apps" ? styles.linkSelected : undefined)}>
               <svg preserveAspectRatio="xMidYMin" width="16" height="16" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2" fill="transparent" ><path d="M22 12C22 17.5228 17.5228 22 12 22M22 12C22 6.47715 17.5228 2 12 2M22 12H2M12 22C6.47715 22 2 17.5228 2 12M12 22C14.5013 19.2616 15.9228 15.708 16 12C15.9228 8.29203 14.5013 4.73835 12 2M12 22C9.49872 19.2616 8.07725 15.708 8 12C8.07725 8.29203 9.49872 4.73835 12 2M2 12C2 6.47715 6.47715 2 12 2" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"></path></svg>
             {" "}Browse</button>
         </Link>
 
         <Link href="/rules" passHref>
-          <button className={styles.navLink}>
+          <button className={styles.navLink + " " + (this.props.page === "rules" ? styles.linkSelected : undefined)}>
             <svg preserveAspectRatio="xMidYMin" width="16" height="16" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2" fill="transparent" ><path d="M12 7C12 5.93913 11.5786 4.92172 10.8284 4.17157C10.0783 3.42143 9.06087 3 8 3H2V18H9C9.79565 18 10.5587 18.3161 11.1213 18.8787C11.6839 19.4413 12 20.2044 12 21M12 7V21M12 7C12 5.93913 12.4214 4.92172 13.1716 4.17157C13.9217 3.42143 14.9391 3 16 3H22V18H15C14.2044 18 13.4413 18.3161 12.8787 18.8787C12.3161 19.4413 12 20.2044 12 21" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"></path></svg>
             {" "}Rules</button>
         </Link>
 
         <Link href="/chat" passHref>
-          <button className={styles.navLink}><svg preserveAspectRatio="xMidYMin" width="16" height="16" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2" fill="transparent"><path d="M21 15C21 15.5304 20.7893 16.0391 20.4142 16.4142C20.0391 16.7893 19.5304 17 19 17H7L3 21V5C3 4.46957 3.21071 3.96086 3.58579 3.58579C3.96086 3.21071 4.46957 3 5 3H19C19.5304 3 20.0391 3.21071 20.4142 3.58579C20.7893 3.96086 21 4.46957 21 5V15Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"></path></svg>Chat</button>
+          <button className={styles.navLink + " " + (this.props.page === "chat" ? styles.linkSelected : undefined)}><svg preserveAspectRatio="xMidYMin" width="16" height="16" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2" fill="transparent"><path d="M21 15C21 15.5304 20.7893 16.0391 20.4142 16.4142C20.0391 16.7893 19.5304 17 19 17H7L3 21V5C3 4.46957 3.21071 3.96086 3.58579 3.58579C3.96086 3.21071 4.46957 3 5 3H19C19.5304 3 20.0391 3.21071 20.4142 3.58579C20.7893 3.96086 21 4.46957 21 5V15Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"></path></svg>Chat</button>
+        </Link>
+
+        <Link href="/badges" passHref>
+          <button className={styles.navLink + " " + (this.props.page === "badges" ? styles.linkSelected : undefined)} style={{paddingLeft: 8}}><ion-icon name="trophy-outline"></ion-icon> Badges</button>
         </Link>
 
         <a href="https://digest.repl.co" target="_blank" rel="noreferrer">

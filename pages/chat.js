@@ -104,7 +104,7 @@ export default function Chat(props){
         if(autoCom.length > 0){
           let inputVal = input.split(/[\s\n]/);
           let sliceBefore = inputVal.slice(0, inputVal.length-1);
-          setInput([...sliceBefore, `\u200b@${autoCom[0]}\u200b`].join` `)
+          setInput([...sliceBefore, `\u200b@${autoCom[0]}\u200b `].join` `)
           setAutoCom([]);
         }else{
           emitChat();
@@ -262,12 +262,12 @@ export default function Chat(props){
           username: props.replitName
         }
       });
+    }
+    if(socket){
       socket.emit("join", {
         username: props.replitName,
         avatar: props.avatar
       })
-    }
-    if(socket){
       socket.on("online", setOnline)
       socket.on("chat", (msg) => {
         if(msg.last){
@@ -302,7 +302,7 @@ export default function Chat(props){
       <title>Chat | Replverse</title>
       <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@11.4.0/styles/base16/oceanicnext.css"/>
     </Head>
-    <DashNav>
+    <DashNav page="chat">
       <div className={styles.bodyCont}>
         {compact && <div className={styles.openChannels} onClick={() => setSlide(-1)}><span>&lt;</span></div>}
         {compact && <div className={styles.openOnline} onClick={() => setSlide(1)}><span>&gt;</span></div>}

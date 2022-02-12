@@ -22,7 +22,6 @@ function Feature(props) {
 export default function Home(props) {
   useEffect(() => {
     if(window.location !== window.parent.location){
-      if(!localStorage.getItem("windowopen")){
         Swal.fire({
           allowEnterKey: false,
           allowOutsideClick: false,
@@ -30,13 +29,13 @@ export default function Home(props) {
           title: "Hold Up there, buddy!",
           text: "Replverse only works in fullscreen.  Please allow repverse to open this in fullscreen before you can access it.",
           showCancelButton: false,
+          showConfirmButton: true,
           confirmButtonText: "Open in Fullscreen",
           preConfirm: async () => {
             localStorage.setItem("windowopen", true)
             window.open("https://replverse.ironcladdev.repl.co")
           }
         });
-      }
     }
   })
   return (

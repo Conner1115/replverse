@@ -16,7 +16,7 @@ export default function Badges(props){
     <Head>
         <title>Badges | Replverse</title>
       </Head>
-    <DashNav>
+    <DashNav page="badges">
       <h3 style={{width: '90%', margin: 'auto', maxWidth: '1000px'}}>Badges</h3>
       <div className={styles.badgeGrid}>
   

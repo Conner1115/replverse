@@ -398,7 +398,7 @@ export default function Dashboard(props){
       <title>{props.own ? "Dashboard" : props.username} | Replverse</title>
     </Head>
       {props.lost && <Error/>}
-      {!props.lost && <DashNav>
+      {!props.lost && <DashNav page="dashboard">
       <div className={styles.container}>
           <div className={styles.columnLeft}>
           <div className={styles.userSec}>

@@ -65,7 +65,7 @@ export default function Apps(props){
     <Head>
         <title>Explore | Replverse</title>
     </Head>
-    <DashNav>
+    <DashNav page="apps">
     <div className={styles.bodyCont}>
       <div className={styles.searchEngine}>
       <span className={styles.flexIntrude}>
