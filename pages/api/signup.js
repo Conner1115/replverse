@@ -25,7 +25,6 @@ app.post(async (req, res) => {
     
     if(findUser){
       res.setHeader('Set-Cookie', `sid=${findUser.token}; path=/; Max-Age=${1000 * 60 * 60 * 24 * 365 * 10}`);
-      res.setHeader('Set-Cookie', `newuser=${findUser.token}; path=/; Max-Age=${1000 * 60 * 60 * 24}`);
       res.json({ success: true });
     }else{
       let __data = await fetch("https://" + req.headers.host + "/api/user/" + req.headers["x-replit-user-name"])
