@@ -68,7 +68,7 @@ function UserRow(props){
 
 const ScrollView = () => {
   const elementRef = useRef();
-  useEffect(() => elementRef.current.scrollIntoView({ behavior: "smooth" }));
+  useEffect(() => elementRef.current.scrollIntoView(/*{ behavior: "smooth" }*/));
   return <div ref={elementRef} />;
 };
 
@@ -103,6 +103,13 @@ export default function Chat(props){
 
   const playNotif = () => {
     let audio = new Audio("/notif.mp3")
+    audio.play()
+    setTimeout(function(){
+      audio.remove();
+    }, 2)
+  }
+  const playOnline = () => {
+    let audio = new Audio("/online.mp3")
     audio.play()
     setTimeout(function(){
       audio.remove();
@@ -291,7 +298,7 @@ export default function Chat(props){
       socket.on("online", __online => {
         if(!arraysEqual(online, __online)){
           Positive.fire(__online.slice(-1)[0].username + " Joined the Chat");
-          playNotif();
+          playOnline();
         }
         setOnline(__online)
       })
@@ -358,7 +365,7 @@ export default function Chat(props){
               return (<div style={{
                 background: detectPing(x.text).includes(props.replitName) ? "var(--accent-primary-dimmest)" : 'var(--background-root)'
               }} className={styles.message} id={x.id} key={Math.random()}>
-                        <img alt={x.username + "'s avatar"} className={styles.messageAvatar} src={x.avatar}/>
+                        <a href={"/user/" + x.username} target="_blank" rel="noreferrer"><img alt={x.username + "'s avatar"} className={styles.messageAvatar} src={x.avatar}/></a>
                         <div className={styles.mBody}>
                         <div className={styles.mNick}>{x.username}{'day' in x && <span className={styles.dateStamp}>{parseDay(x.day)}</span>} {(x.username === props.replitName || props.admin) && <span className={styles.mDel} onClick={() => deleteMessage(x.id)}>Delete</span>}</div>
                         <div className={styles.mdMessage} dangerouslySetInnerHTML={{__html: san}}></div>

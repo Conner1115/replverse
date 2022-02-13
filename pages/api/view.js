@@ -25,8 +25,11 @@ app.post(async (req, res) => {
           repl,
           author
         });
-        saveJSON("/data/records.json", rec)
+        saveJSON("/data/records.json", rec);
         findApp.views++;
+        if(findApp.views % 5 === 0){
+          findApp.z--;
+        }
         findApp.save();
         res.json({
           success: true

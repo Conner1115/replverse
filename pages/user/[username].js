@@ -33,6 +33,7 @@ let badgeTitles = {
   "loyal-repler": "Loyal Repler is a specific role only given to some who have been active in the community and using replit for a while.",
   "replit-team": "Be a worker at replit",
   "replverse-admin": "Be an administrator in replverse",
+  "replitmod": "Be a replit moderator",
 
   "p25":"Get 25 upvotes on a post or shared repl",
   "p50":"Get 50 upvotes on a post or shared repl",
@@ -302,16 +303,18 @@ export default function Dashboard(props){
       title: "Give Badge?",
       text: "Are you sure you would like to give this use a badge?",
       showCancelButton: true,
+      showConfirmButton: true,
       confirmButtonText: '<ion-icon name="trophy-outline"></ion-icon> Yes, give badge',
       preConfirm: async () => {
       const { value: badgeNum } = await Swal.fire({
           title: 'Provide Reason',
-          html: "Choose a number for the corresponding badge.<br>1. Loyal Repler<br>2. Replit Team",
+          html: "Choose a number for the corresponding badge.<br>1. Loyal Repler<br>2. Replit Team<br>3. Replit Moderator",
           input: 'text',
           showClass, hideClass,
           confirmButtonText: "Give Badge",
           inputPlaceholder: "Badge (number)",
           showCancelButton: true,
+          showConfirmButton: true,
           inputValidator: (value) => {
             if (!value) {
               return 'Badge Number is required'
@@ -377,20 +380,6 @@ export default function Dashboard(props){
       Negative.fire("Incorrectly typed.  Your account lives for another day!")
     }
   }
-
-  useEffect(() => {
-    const cookie = name => `; ${document.cookie}`.split(`; ${name}=`).pop().split(';').shift();
-    if(cookie("newuser")){
-      Swal.fire({
-        showClass, hideClass,
-        title: "Like Replverse?",
-        html: "If you are enjoying replverse or would like to be notified of the most recent updates, be sure to <a href='https://discord.gg/TZCc8P2cyH' target='_blank' rel='noreferrer'>Join the Discord</a> and offer some appreciation by giving replverse <a href='https://replit.com/@IroncladDev/replverse' target='_blank' rel='noreferrer'>an upvote</a>!<br><br>Thank you so much for joining and being a member.  Happy coding!",
-        preConfirm: () => {
-          document.cookie = "newuser=; SameSite=None; Secure";
-        }
-      })
-    }
-  }, [])
   
   return (
     <div>

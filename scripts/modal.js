@@ -35,7 +35,6 @@ const hideClass = {
 const Swal = Swil.mixin({
   toast: false,
   position: 'top',
-  showConfirmButton: false,
   hideClass, showClass
 })
 export { Swal, Positive, Negative, showClass, hideClass };
