@@ -26,7 +26,7 @@ const limiter = (time, max, handler) => {
 };
 
 async function authUser(req, res, callback){
-  if(req.headers["x-replit-user-name"]){
+  if(req.headers["x-replit-user-name"] && req.cookies.sid){
     let blacklist = await getData("blacklist.json", {})
     let __user = await User.findOne({ token: req.cookies.sid, name: req.headers["x-replit-user-name"] });
     let userExists = await User.findOne({ name: req.headers["x-replit-user-name"] });
@@ -53,7 +53,7 @@ async function authUser(req, res, callback){
   else{
     res.status(401).json({
       success: false,
-      message: "Please log in/sign up before you perform this action."
+      message: "Please log in.  If you are, please clear your cookies and try again."
     })
   }
 }
