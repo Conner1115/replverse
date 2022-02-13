@@ -142,17 +142,8 @@ export default function Chat(props){
     }
   }
   const emitChat = () => {
-    fetch("/api/message/send", {
-      method: "POST",
-      body: JSON.stringify({data: {
-        username: props.replitName.replace(/\\n/g, "\\n")
-                                      .replace(/\\'/g, "\\'")
-                                      .replace(/\\"/g, '\\"')
-                                      .replace(/\\&/g, "\\&")
-                                      .replace(/\\r/g, "\\r")
-                                      .replace(/\\t/g, "\\t")
-                                      .replace(/\\b/g, "\\b")
-                                      .replace(/\\f/g, "\\f"),
+    let bodyCont = JSON.stringify({data: {
+        username: props.replitName,
         text: input.replace(/\\n/g, "\\n")
                                       .replace(/\\'/g, "\\'")
                                       .replace(/\\"/g, '\\"')
@@ -162,10 +153,13 @@ export default function Chat(props){
                                       .replace(/\\b/g, "\\b")
                                       .replace(/\\f/g, "\\f"),
         avatar: props.avatar,
-        channel,
+        channel: channel,
         id: Math.random().toString(36).slice(2),
         day: getToday()
-      }, pings: detectPing(input)}),
+      }, pings: detectPing(input)})
+    fetch("/api/message/send", {
+      method: "POST",
+      body: bodyCont,
       headers: {
         "Content-Type": "application/json",
         accept: "*/*"
