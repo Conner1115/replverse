@@ -8,7 +8,10 @@ const app = nc();
 let bds = [
   ["Loyal Repler", "loyal-repler"],
   ["Replit Team", "replit-team"],
-  ["Replit Mod", "replitmod"]
+  ["Replit Mod", "replitmod"],
+  ["Beta Tester", "beta"],
+  ["Contributor", "contributor"],
+  ["Inspirer", "inspire"]
 ];
 
 app.post(async (req, res) => {
@@ -19,7 +22,7 @@ app.post(async (req, res) => {
         let num = req.body.badge;
         let parseNum = +num;
         if(parseNum){
-          if(parseNum && +parseNum > 0 && +parseNum < 4){
+          if(parseNum && +parseNum > 0 && +parseNum < bds.length+1){
             let findUser = await User.findOne({ name: user });
             let adminData = await fetch("https://" + req.headers.host + "/api/user/" + usr.name).then(r => r.json());
             writeNotif({

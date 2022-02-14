@@ -3,8 +3,8 @@ import { User } from '../../../scripts/mongo.js'
 const app = nc();
 
 app.get(async (req, res) => {
-  let users = await User.find({}, "_id");
-  res.json(users.length);
+  let users = await User.countDocuments({});
+  res.json(users);
 })
 
 export default app;

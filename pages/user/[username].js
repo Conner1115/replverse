@@ -55,6 +55,9 @@ let badgeTitles = {
   "enthusiastic":"Post twenty things to ReplTalk/Community",
   "community-dude":"Post fifty things to ReplTalk/Community",
 
+  "beta": "Be an official beta tester of replverse",
+  "inspire": "One of your requests is added to replverse",
+  "contributor": "Code or fix a portion of replverse"
 }
 
 export default function Dashboard(props){
@@ -308,7 +311,7 @@ export default function Dashboard(props){
       preConfirm: async () => {
       const { value: badgeNum } = await Swal.fire({
           title: 'Provide Reason',
-          html: "Choose a number for the corresponding badge.<br>1. Loyal Repler<br>2. Replit Team<br>3. Replit Moderator",
+          html: "Choose a number for the corresponding badge.<br>1. Loyal Repler<br>2. Replit Team<br>3. Replit Moderator<br>4. Beta Tester<br>5. Contributor<br>6. Inspirer",
           input: 'text',
           showClass, hideClass,
           confirmButtonText: "Give Badge",
