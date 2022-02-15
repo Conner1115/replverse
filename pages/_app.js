@@ -2,34 +2,28 @@ import '../styles/globals.css'
 import Head from 'next/head'
 import NextNProgress from 'nextjs-progressbar';
 import Script from 'next/script';
-//import io from 'socket.io-client';
-//import {useEffect} from 'react';
-//let socket = false;
 function MyApp({ Component, pageProps }) {
-  
-  /*useEffect(async () => {
-    let userData = await fetch("/api/user/__me__").then(r => r.json());
-    if(userData){
-      if(!socket){
-        socket = io("https://replverse-data.ironcladdev.repl.co", {
-          extraHeaders: {
-            username: userData.username
-          }
-        });
-      }
-      socket.emit("join", {
-        username: userData.username,
-        avatar: userData.icon.url
-      });
-    }
-  })*/
-  
   return (
     <>
       <Head>
         <meta name="google-site-verification" content="bkRxvS08xIT7SSv2FWIDnI70Ugu0nLprZnS3Eidl9vA" />
         <meta name="apple-mobile-web-app-capable" content="yes"/>
         <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+        <script
+          async
+          src="https://www.googletagmanager.com/gtag/js?id=UA-220435644-1"
+        />
+
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', 'UA-220435644-1', { page_path: window.location.pathname });
+            `,
+          }}
+        />
         <meta name="apple-mobile-web-app-title" content="ABC App"/>
         <meta name="msapplication-TileImage" content="/logo.png"/>
         <link rel="manifest" href="/manifest.json"/>
