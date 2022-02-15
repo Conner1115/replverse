@@ -170,6 +170,20 @@ export default function Chat(props){
       }
     })
     setInput("");
+    const cookie = name => `; ${document.cookie}`.split(`; ${name}=`).pop().split(';').shift();
+    if(+cookie("newuser") === 3){
+      Swal.fire({
+        confirmButtonText: "Next",
+        allowEscapeKey: false,
+        allowEnterKey: false,
+        allowOutsideClick: false,
+        title: "Message Sent!",
+        html: "Nice!  You just sent your first message!  Is anyone else online?  Howabout mentioning them with an @ in front of their name?  What happens when you mention yourself?<br><br>Send a new message in the #oof-topic channel and then delete it.",
+        preConfirm: () => {
+          document.cookie="newuser=4; path=/; Max-Age="+1000 * 60 * 60 * 24 * 365 * 10
+        }
+      })
+    }
   }
   const updateInput = (e) => {
     let val = e.target.value;
@@ -206,6 +220,21 @@ export default function Chat(props){
         if(!data.success){
           Negative.fire(data.message)
         }
+        const cookie = name => `; ${document.cookie}`.split(`; ${name}=`).pop().split(';').shift();
+    if(+cookie("newuser") === 4){
+      Swal.fire({
+        confirmButtonText: "Next",
+        allowEscapeKey: false,
+        allowEnterKey: false,
+        allowOutsideClick: false,
+        title: "Message Deleted!",
+        html: "Now it looks like you have a good feel of the chat system!  Before you start chatting your days away, let's check out the community hotlist.",
+        preConfirm: () => {
+          document.cookie="newuser=5; path=/; Max-Age="+1000 * 60 * 60 * 24 * 365 * 10
+          location.href="/apps"
+        }
+      })
+    }
       })
     }
     })
@@ -257,6 +286,17 @@ export default function Chat(props){
   }
 
   useEffect(() => {
+    const cookie = name => `; ${document.cookie}`.split(`; ${name}=`).pop().split(';').shift();
+    if(+cookie("newuser") === 3){
+      Swal.fire({
+        confirmButtonText: "Next",
+        allowEscapeKey: false,
+        allowEnterKey: false,
+        allowOutsideClick: false,
+        title: "Communications",
+        html: "In the replverse chat, you can communicate with others, ask for help in realtime, and even ping/mention each other.<br><br>Let's start by reading the rules.  Please read them carefully!"
+      })
+    }
     if(window.innerWidth < 600){
       setCompact(true);
     }
@@ -276,6 +316,7 @@ export default function Chat(props){
     hljs.highlightAll();
     if(JSON.parse(localStorage.getItem("chatrulesmodal-replverse"))){
       togModal(false);
+      
     }
     if(socket === false){
       socket = io("https://replverse-data.ironcladdev.repl.co", {
@@ -290,10 +331,14 @@ export default function Chat(props){
         avatar: props.avatar
       })
       socket.on("online", __online => {
-        if(!arraysEqual(online, __online)){
-          Positive.fire(__online.slice(-1)[0].username + " Joined the Chat");
-          playOnline();
+            if(!arraysEqual(online, __online)){
+              const cookie = name => `; ${document.cookie}`.split(`; ${name}=`).pop().split(';').shift();
+        if(+cookie("newuser") !== 3){
+              Positive.fire(__online.slice(-1)[0].username + " Joined the Chat");
+              playOnline();
         }
+            }
+        
         setOnline(__online)
       })
       socket.on("chat", (msg) => {
@@ -400,6 +445,17 @@ export default function Chat(props){
               <button className={ui.uiButton} style={{width: 200, position: 'relative', left: '50%', transform: 'translatex(-50%)'}} onClick={() => {
               localStorage.setItem("chatrulesmodal-replverse", true)
               togModal(false)
+            const cookie = name => `; ${document.cookie}`.split(`; ${name}=`).pop().split(';').shift();
+    if(+cookie("newuser") === 3){
+      Swal.fire({
+        confirmButtonText: "Next",
+        allowEscapeKey: false,
+        allowEnterKey: false,
+        allowOutsideClick: false,
+        title: "Nice!",
+        html: "Now that you've ready the rules, let's send our first message.  Write a new one in #general and if anyone's online, be sure to ping them >:)"
+      })
+    }
               }}>Close</button>
       </div>
     </DashNav>

@@ -5,7 +5,8 @@ import Link from 'next/link';
 import { useState, Component, useRef } from 'react';
 import {getData} from '../scripts/json.js'
 import Nav from './nav.js'
-import { Negative, Swal, showClass, hideClass } from '../scripts/modal';
+import { Negative, Swal, showClass, hideClass, Mod } from '../scripts/modal';
+import Swil from 'sweetalert2';
 
 
 function TagInput(props){
@@ -175,6 +176,8 @@ export default class DashNav extends Component {
     })
   }
   publish(){
+    Mod.close();
+    Swal.close();
     this.setState({
       showModal: true
     })

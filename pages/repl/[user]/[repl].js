@@ -118,6 +118,21 @@ export default function Spotlight(props) {
       }})
   }
   const applyLike = () => {
+    const cookie = name => `; ${document.cookie}`.split(`; ${name}=`).pop().split(';').shift();
+    if(+cookie("newuser") === 2){
+      Swal.fire({
+        confirmButtonText: "Next",
+        allowEscapeKey: false,
+        allowEnterKey: false,
+        allowOutsideClick: false,
+        title: "Upvote Applied",
+        html: "Nice!  You've just added a like to your repl.<br><br>Let's take a look at the chat next.",
+        preConfirm: () => {
+          document.cookie="newuser=3; path=/; Max-Age="+1000 * 60 * 60 * 24 * 365 * 10
+          location.href = "/chat"
+        }
+      })
+    }
     fetch("/api/like", {
       method: "POST",
       headers: {
@@ -299,8 +314,22 @@ export default function Spotlight(props) {
         })
       }})
   }
+  const onboard = () => {
+    Swal.fire({
+      confirmButtonText: "Next",
+      allowEscapeKey: false,
+      allowEnterKey: false,
+      allowOutsideClick: false,
+      title: "One step closer!",
+      html: "Congrats!  You've just published your first repl!  As you can see, there are a whole bunch of things you can play with in these spotlight pages.<br><br>You can do anything from reporting a project to commenting and upvoting it as well.<br><br>Try upvoting your repl with the like button."
+    })
+  }
 
   useEffect(() => {
+    const cookie = name => `; ${document.cookie}`.split(`; ${name}=`).pop().split(';').shift();
+    if(+cookie("newuser") === 2){
+      onboard();
+    }
      fetch("/api/view", {
       method: "POST",
       headers: {

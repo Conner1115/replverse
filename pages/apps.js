@@ -4,50 +4,25 @@ import Repl from '../components/repl'
 import ui from '../styles/ui.module.css'
 import Head from 'next/head'
 import { useState, useEffect } from 'react';
+import {Swal} from '../scripts/modal'
 export default function Apps(props){
   let [pick, setPick] = useState(0);
   let [search, setSearch] = useState("")
   let [topic, setTopic] = useState("hot")
   let [tags, setTags] = useState([])
   let [tag, setTag] = useState("")
-  let [displayRepls, setDisplay] = useState(4);
   let [repls, setRepls] = useState([]);
   useEffect(() => {
-    window.addEventListener("load", () => {
-      setDisplay(4);
-      if(window.innerWidth <= 1450){
-        setDisplay(3);
-      }
-      if(window.innerWidth <= 1150){
-        setDisplay(2);
-      }
-      if(window.innerWidth <= 800){
-        setDisplay(1);
-      }
-    })
-    window.addEventListener("resize", () => {
-      setDisplay(4);
-      if(window.innerWidth <= 1450){
-        setDisplay(3);
-      }
-      if(window.innerWidth <= 1150){
-        setDisplay(2);
-      }
-      if(window.innerWidth <= 800){
-        setDisplay(1);
-      }
-    })
-  }, [])
-  useEffect(() => {
-      setDisplay(4);
-      if(window.innerWidth <= 1450){
-        setDisplay(3);
-      }
-      if(window.innerWidth <= 1150){
-        setDisplay(2);
-      }
-      if(window.innerWidth <= 800){
-        setDisplay(1);
+      const cookie = name => `; ${document.cookie}`.split(`; ${name}=`).pop().split(';').shift();
+      if(+cookie("newuser") === 5){
+        Swal.fire({
+          confirmButtonText: "Finish",
+          title: "Community Hotlist",
+          html: "Take a look at all these amazing repls out here!  This is the last major feature of replverse.<br><br>If you've liked replverse and would like to know the latest updates on replverse, be sure to join my <a href='https://discord.gg/TZCc8P2cyH'>discord server</a> and click the like button at <a href='https://replit.com/@IroncladDev/replverse'>https://replit.com/@IroncladDev/replverse</a>.<br><br>Thanks for joining and using replverse!  Enjoy!",
+          preConfirm: () => {
+            document.cookie="newuser=; path=/; Max-Age=" + 1
+          }
+        })
       }
   }, [])
 

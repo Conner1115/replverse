@@ -9,7 +9,7 @@ import { App } from '../../scripts/mongo.js'
 import { useState, useEffect } from 'react'
 import Error from '../../components/404.js'
 import { getData } from '../../scripts/json.js'
-import {Negative, Positive, Swal, showClass, hideClass} from '../../scripts/modal'
+import {Negative, Positive, Swal, showClass, hideClass, Mod} from '../../scripts/modal'
 
 
 let badgeTitles = {
@@ -383,6 +383,39 @@ export default function Dashboard(props){
       Negative.fire("Incorrectly typed.  Your account lives for another day!")
     }
   }
+
+  const onboard = () => {
+    Swal.fire({
+      confirmButtonText: "Next",
+      title: "Welcome!",
+      text: "Welcome to Replverse!  In this guide, you will be walked through all the main features replverse has to offer.  Click Next to get started!",
+      preConfirm: () => {
+  
+        Swal.fire({
+          showConfirmButton: false,
+          allowEscapeKey: false,
+          allowEnterKey: false,
+          allowOutsideClick: false,
+          backdrop: false,
+          title: "Publishing a Repl",
+          position: "center-start",
+          text: "Let's publish your first repl.  Click the \"Share a Repl\" button on the navigation bar to start.  Make sure you type your repl name exactly including dashes, capital letters, and symbols (if any).",
+          willClose: () => {
+            document.cookie="newuser=2; path=/; Max-Age="+1000 * 60 * 60 * 24 * 365 * 10
+          }
+        })
+
+        
+      }
+    })
+  }
+
+  useEffect(() => {
+    const cookie = name => `; ${document.cookie}`.split(`; ${name}=`).pop().split(';').shift();
+    if(+cookie("newuser") === 1){
+      onboard();
+    }
+  }, [])
   
   return (
     <div>
@@ -390,7 +423,7 @@ export default function Dashboard(props){
       <title>{props.own ? "Dashboard" : props.username} | Replverse</title>
     </Head>
       {props.lost && <Error/>}
-      {!props.lost && <DashNav page="dashboard">
+      {!props.lost && <DashNav page={props.own ? "dashboard" : ""}>
       <div className={styles.container}>
           <div className={styles.columnLeft}>
           <div className={styles.userSec}>
@@ -527,7 +560,15 @@ export default function Dashboard(props){
           {props.badges.length > 0 && <div className={ui.boxDimDefault} style={{border: 'none'}}>
             <h3 style={{padding: 0, marginBottom: 20}}>Badges</h3>
             <div className={styles.badgeGrid}>
-              {props.badges.map(x => <div key={Math.random()} className={styles.gridBadge} title={x[1].includes("http") ? `Be an active programmer in ${x[0]} on replit` : badgeTitles[x[1]]}>
+              {props.badges.map(x => <div key={Math.random()} className={styles.gridBadge} onClick={() => {
+                Swal.fire({
+                  title: x[0],
+                  html: x[1].includes("http") ? `Be an active programmer in ${x[0]} on replit` : badgeTitles[x[1]],
+                  showCancelButton: false,
+                  confirmButtonText: "Close",
+                  showCloseButton: true
+                })
+              }}>
               <img alt={x[0] + " badge"} src={x[1].includes("http") ? x[1] : ("/badges/" + x[1] + ".svg")}/>
               <div>{x[0]}</div>
             </div>)}

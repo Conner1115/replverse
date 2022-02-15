@@ -37,7 +37,7 @@ app.post(async (req, res) => {
           addr: md5(requestIp.getClientIp(req))
         })
         usr.save();
-        res.setHeader('Set-Cookie', `sid=${usr.token}; path=/; Max-Age=${1000 * 60 * 60 * 24 * 365 * 10}`);
+        res.setHeader('Set-Cookie', [`sid=${usr.token}; path=/; Max-Age=${1000 * 60 * 60 * 24 * 365 * 10}`, `newuser=1; path=/; Max-Age=${1000 * 60 * 60 * 24 * 365 * 10}`]);
         res.json({
           success: true
         })

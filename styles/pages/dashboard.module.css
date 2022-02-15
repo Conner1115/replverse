@@ -43,10 +43,6 @@
   margin: 20px auto;
   margin-bottom: 30px;
 }
-.userGrid{
-  /*display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(50px, 1fr));*/
-}
 .gridUser{
   width: 50px;
   height: 50px;
@@ -79,6 +75,7 @@
   border: solid transparent 1px;
 }
 .gridBadge:hover{
+  cursor: pointer;
   border: solid var(--accent-primary-default) 1px;
 }
 .gridBadge > img{

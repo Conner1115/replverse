@@ -135,7 +135,7 @@ button:disabled:hover{
   cursor: not-allowed !important;
 }
 
-.swal2-popup:not(.swal2-toast), .swal2-modal:not(.swal2-toast){
+.swal2-popup:not(.swal2-toast), .swal2-modal:not(.swal2-toast), .mod{
   background: var(--background-higher) !important;
   border: solid var(--outline-dimmest) 1px !important;
   padding: 20px !important;
@@ -146,14 +146,14 @@ button:disabled:hover{
   margin-top: 50px;
 }
 
-.swal2-toast.modal-positive{
+.swal2-toast.modal-positive:not(.mod){
   background: var(--accent-positive-dimmer) !important;
   padding: 15px !important;
   width: auto !important;
   min-width: 150px !important;
 }
 
-.swal2-toast.modal-negative{
+.swal2-toast.modal-negative:not(.mod){
   background: var(--accent-negative-dimmest) !important;
   padding: 15px !important;
   width: auto !important;
@@ -171,7 +171,7 @@ button:disabled:hover{
 }
 
 
-.swal2-toast > .swal2-title{
+.swal2-toast > .swal2-title:not(.mod){
   font-weight: 300 !important;
   font-size: 18px !important;
   margin: 5px !important;

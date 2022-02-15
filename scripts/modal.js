@@ -35,6 +35,19 @@ const hideClass = {
 const Swal = Swil.mixin({
   toast: false,
   position: 'top',
-  hideClass, showClass
+  hideClass, showClass,
+  allowEscapeKey: false,
+  allowOutsideClick: false
 })
-export { Swal, Positive, Negative, showClass, hideClass };
+const Mod = Swil.mixin({
+  customClass:{
+    popup: "mod"
+  },
+  toast: false,
+  position: 'top',
+  hideClass, showClass,
+  allowEscapeKey: false,
+  toast: true,
+  allowOutsideClick: false
+})
+export { Swal, Positive, Negative, showClass, hideClass, Mod };
