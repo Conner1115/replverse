@@ -2,7 +2,18 @@ import '../styles/globals.css'
 import Head from 'next/head'
 import NextNProgress from 'nextjs-progressbar';
 import Script from 'next/script';
+import {useEffect} from 'react'
 function MyApp({ Component, pageProps }) {
+  useEffect(() => {
+    navigator.serviceWorker.register('/service-worker.js', { scope: '/' })
+        .then(function (registration)
+        {
+          console.log('Service worker registered successfully');
+        }).catch(function (e)
+        {
+          console.error('Error during service worker registration:', e);
+        });
+  })
   return (
     <>
       <Head>
