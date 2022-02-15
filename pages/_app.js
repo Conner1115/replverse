@@ -24,6 +24,13 @@ function MyApp({ Component, pageProps }) {
             `,
           }}
         />
+          <script dangerouslySetInnerHTML={{
+            html: `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-KDFR3D8');`
+          }}/>
         <meta name="apple-mobile-web-app-title" content="ABC App"/>
         <meta name="msapplication-TileImage" content="/logo.png"/>
         <link rel="manifest" href="/manifest.json"/>
@@ -40,6 +47,9 @@ function MyApp({ Component, pageProps }) {
         <meta name="copyright" content="2021" />
         {/*<meta name="viewport" content="viewport-fit=cover" />*/}
       </Head>
+      <noscript>
+          <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KDFR3D8"
+height="0" width="0" style="display:none;visibility:hidden"></iframe>          </noscript>
       <NextNProgress options={{showSpinner: false}} color="var(--accent-primary-default)"/>
       <Component {...pageProps} />
       <Script src="https://unpkg.com/ionicons@5.0.0/dist/ionicons.js"></Script>
