@@ -12,6 +12,9 @@ import { getData } from '../scripts/json.js';
 import { User } from '../scripts/mongo.js';
 import hljs from 'highlight.js/lib/common';
 import {Negative, Swal, showClass, hideClass, Positive} from '../scripts/modal'
+import EmojiConvertor from 'emoji-js'
+
+var emoji = new EmojiConvertor();
 
 let socket = false;
 
@@ -407,7 +410,7 @@ export default function Chat(props){
                         <a href={"/user/" + x.username} target="_blank" rel="noreferrer"><img alt={x.username + "'s avatar"} className={styles.messageAvatar} src={x.avatar}/></a>
                         <div className={styles.mBody}>
                         <div className={styles.mNick}>{x.username}{'day' in x && <span className={styles.dateStamp}>{parseDay(x.day)}</span>} {(x.username === props.replitName || props.admin) && <span className={styles.mDel} onClick={() => deleteMessage(x.id)}>Delete</span>}</div>
-                        <div className={styles.mdMessage} dangerouslySetInnerHTML={{__html: san}}></div>
+                        <div className={styles.mdMessage} dangerouslySetInnerHTML={{__html: emoji.replace_colons(san)}}></div>
                         </div>
                       </div>)
             })}

@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "cookie": "^0.4.1",
+    "emoji-js": "^3.6.0",
     "express-rate-limit": "^6.0.5",
     "highlight.js": "^11.4.0",
     "i": "^0.3.7",

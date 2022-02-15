@@ -50,7 +50,7 @@ export default function Home(props) {
 
             <h1 className={styles.title}><span className={ui.glow}>Replit Apps<br />done</span>{' '}<span className={styles.headDescription} style={{ color: 'var(--accent-positive-stronger)', textShadow: '0 0 25px var(--accent-positive-stronger)' }}>Right</span></h1>
 
-            <p style={{ margin: '20px 0' }}>Browse, learn, code, and communicate alongside over {props.memberCount} members at replverse.</p>
+            <p style={{ margin: '20px 0' }}>Replverse is a rip-off recreation of replit apps with a whole bunch more features.  Browse, code, create, and communicate along with our {props.memberCount} members!</p>
 
             <Link href="/signup" passHref>
               <button className={ui.actionButton + " " + ui.block}><ion-icon name="code"></ion-icon> Sign up Now</button>

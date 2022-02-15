@@ -27,6 +27,15 @@ function MyApp({ Component, pageProps }) {
   return (
     <>
       <Head>
+        <meta name="google-site-verification" content="bkRxvS08xIT7SSv2FWIDnI70Ugu0nLprZnS3Eidl9vA" />
+        {/*<meta name="google-site-verification" content="_aGKlyLpRC3C0bPPncSzNpAgQc7QSVIAc7t7NmxDTaU" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="ABC App">
+    <meta name="msapplication-TileImage" content="logo.png">
+    <meta name="msapplication-TileColor" content="#101C2A">
+    <link rel="manifest" href="https://hemsirelik.serifoglu.repl.co/manifest.json">
+    <link rel="apple-touch-icon" href="logo.png">*/}
         <link rel="icon" type="image/*" href="/logo.svg"/>
         <meta property="og:type" content="website" />
         <meta property="og:title" content="Replverse" />
