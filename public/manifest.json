@@ -24,6 +24,7 @@
   "display": "standalone",
   "theme_color": "#101C2A",
   "background_color": "#3c445c",
+  "offline_enabled": true,
   "screenshots": [
     {
       "src": "/site.png",
