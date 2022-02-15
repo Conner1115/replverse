@@ -1,0 +1,16 @@
+{
+   "name": "Replverse",
+   "description": "Replverse is a ripoff recreation of replit apps with a whole bunch more features.",
+   "short_name": "Replverse",
+   "icons": [
+      {
+         "src": "/logo.png",
+         "sizes": "512x512",
+         "type": "image/png"
+      }
+   ],
+   "start_url": "https://replverse.connerow.dev",
+   "display": "standalone",
+   "theme_color": "#101C2A",
+   "background_color": "#3c445c"
+}
