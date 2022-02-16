@@ -413,8 +413,9 @@ export default function Chat(props){
               if(x){
               let san = DOMPurify.sanitize(marked(x.text));
               return (x.compact ? (<div style={{
-                background: detectPing(x.text).includes(props.replitName) ? "var(--accent-primary-dimmest)" : 'var(--background-root)'
-              }} className={styles.message} style={{paddingTop: 0}} id={x.id} key={Math.random()}>
+                background: detectPing(x.text).includes(props.replitName) ? "var(--accent-primary-dimmest)" : 'var(--background-root)',
+                paddingTop: 0
+              }} className={styles.message} id={x.id} key={Math.random()}>
                         <div style={{
                           display: 'flex',
               width: '100%'
