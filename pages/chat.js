@@ -421,7 +421,7 @@ export default function Chat(props){
               width: '100%'
                         }}>
               <div className={styles.mdMessage} style={{flexGrow: 1, paddingLeft: 40}} dangerouslySetInnerHTML={{__html: emoji.replace_colons(san)}}></div>
-                        <div className={styles.mDel} onClick={() => deleteMessage(x.id)}><ion-icon name="trash"></ion-icon></div>
+                        {(x.username === props.replitName || props.admin) && <div className={styles.mDel} onClick={() => deleteMessage(x.id)}><ion-icon name="trash"></ion-icon></div>}
                         </div>
                       </div>) : (<div style={{
                 background: detectPing(x.text).includes(props.replitName) ? "var(--accent-primary-dimmest)" : 'var(--background-root)'
