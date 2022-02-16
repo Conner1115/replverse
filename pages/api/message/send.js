@@ -202,7 +202,7 @@ app.post(async (req, res) => {
       if(alphaPurge(req.body.data.text, badWords).contains){
         res.status(401).json({
           success: false,
-          message: `Whoah, hold up there buddy - We found the word(s) ${alphaPurge(req.body.data.text, badWords).words.join(', ')} in your message.  Please note that bypassing filters or saying a seriously offensive word could get you banned from replverse forever.`
+          message: `Whoah, hold up there buddy - We found the word(s) ${alphaPurge(req.body.data.text, badWords).words.join(', ')} in your message.  Please note that bypassing filters or saying a seriously offensive word could get you banned from replverse.`
         })
       }else{
         let ft = await fetch("https://replverse-data.ironcladdev.repl.co/se/nd/a/me/ssa/ge", {

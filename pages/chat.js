@@ -103,6 +103,7 @@ export default function Chat(props){
   const [modal, togModal] = useState(true);
   const [slide, slideScreen] = useState(1) //channes, chat, online
   const [compact, setCompact] = useState(false);
+  const [messageIndex, setMI] = useState(-30);
 
   const playNotif = () => {
     let audio = new Audio("/notif.mp3")
@@ -328,7 +329,6 @@ export default function Chat(props){
         }
       });
     }
-    if(socket){
       socket.emit("join", {
         username: props.replitName,
         avatar: props.avatar
@@ -352,7 +352,7 @@ export default function Chat(props){
         }
         setMessages(msg.data)
       })
-    }
+    
   }, [])
 
   let inputRows = (input.match(/\n/g) ? input.match(/\n/g).length : 1) + 1;
@@ -398,22 +398,46 @@ export default function Chat(props){
             <strong>#{channel}</strong>{" - "}{channels[channel]}
           </div>
           <div className={styles.messageFlexer}>
-          <div className={styles.messageBody}>
+          <div className={styles.messageBody} style={{paddingBottom: 20}}>
             <h2 style={{paddingTop: 20}}>Welcome to #{channel}</h2>
             <p style={{margin: 0, marginBottom: 20}}>{channels[channel]}</p>
             <hr/>
-            {messages.filter(x => x.channel === channel).map(x => {
+              {messages.filter(x => x.channel === channel).slice(messageIndex, messageIndex + 29).length >= 29 && <a onClick={() => {
+                if(messages.filter(x => x.channel === channel).slice(messageIndex, messageIndex + 29).length >= 29){
+                  setMI(messageIndex - 30);
+                }
+              }} style={{marginBottom: 10, textAlign: 'center', display: 'block', padding: '10px 0'}}>Show More</a>}
+
+
+            {[...messages.filter(x => x.channel === channel),false].slice(messageIndex, messageIndex + 29).map(x => {
+              if(x){
               let san = DOMPurify.sanitize(marked(x.text));
-              return (<div style={{
+              return (x.compact ? (<div style={{
+                background: detectPing(x.text).includes(props.replitName) ? "var(--accent-primary-dimmest)" : 'var(--background-root)'
+              }} className={styles.message} style={{paddingTop: 0}} id={x.id} key={Math.random()}>
+                        <div style={{
+                          display: 'flex',
+              width: '100%'
+                        }}>
+              <div className={styles.mdMessage} style={{flexGrow: 1, paddingLeft: 40}} dangerouslySetInnerHTML={{__html: emoji.replace_colons(san)}}></div>
+                        <div className={styles.mDel} onClick={() => deleteMessage(x.id)}><ion-icon name="trash"></ion-icon></div>
+                        </div>
+                      </div>) : (<div style={{
                 background: detectPing(x.text).includes(props.replitName) ? "var(--accent-primary-dimmest)" : 'var(--background-root)'
               }} className={styles.message} id={x.id} key={Math.random()}>
                         <a href={"/user/" + x.username} target="_blank" rel="noreferrer"><img alt={x.username + "'s avatar"} className={styles.messageAvatar} src={x.avatar}/></a>
                         <div className={styles.mBody}>
-                        <div className={styles.mNick}>{x.username}{'day' in x && <span className={styles.dateStamp}>{parseDay(x.day)}</span>} {(x.username === props.replitName || props.admin) && <span className={styles.mDel} onClick={() => deleteMessage(x.id)}>Delete</span>}</div>
+                        <div className={styles.mNick}>{x.username}{'day' in x && <span className={styles.dateStamp}>{parseDay(x.day)}</span>} {(x.username === props.replitName || props.admin) && <span className={styles.mDel} onClick={() => deleteMessage(x.id)}><ion-icon name="trash"></ion-icon></span>}</div>
                         <div className={styles.mdMessage} dangerouslySetInnerHTML={{__html: emoji.replace_colons(san)}}></div>
                         </div>
-                      </div>)
+                      </div>))
+}
             })}
+
+
+              {messageIndex < -30 && <a onClick={() => {
+                  setMI(-30);
+              }} style={{marginBottom: 10, textAlign: 'center', display: 'block', padding: '10px 0'}}>Jump to present</a>}
               <ScrollView/>
           </div>
               </div>

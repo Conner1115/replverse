@@ -156,7 +156,8 @@
   cursor: pointer;
 }
 .message {
-  padding: 15px 10px;
+  padding: 25px 10px;
+  padding-bottom: 0;
   width: 100%;
   text-align: left;
   color: var(--foreground-default);
@@ -239,13 +240,13 @@
 }
 .mDel{
   float: right;
-  color: var(--accent-negative-default);
+  color: var(--accent-negative-dimmest);
   font-size: 13px;
   font-weight: 400;
   transition: 0.25s;
 }
 .mDel:hover{
-  color: var(--accent-negative-stronger);
+  color: var(--accent-negative-default);
   cursor: pointer;
 }
 .chatRulesModal{
