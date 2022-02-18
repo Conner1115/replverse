@@ -411,7 +411,7 @@ export default function Chat(props){
 
             {[...messages.filter(x => x.channel === channel),false].slice(messageIndex, messageIndex + 29).map(x => {
               if(x){
-              let san = DOMPurify.sanitize(marked(x.text));
+              let san = DOMPurify.sanitize(marked(x.text.replace(/\</g, "&lt;").replace(/\>/g, "&gt;")));
               return (x.compact ? (<div style={{
                 background: detectPing(x.text).includes(props.replitName) ? "var(--accent-primary-dimmest)" : 'var(--background-root)',
                 paddingTop: 0
