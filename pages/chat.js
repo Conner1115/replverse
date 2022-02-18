@@ -342,7 +342,7 @@ export default function Chat(props){
         }
             }
         
-        setOnline(__online)
+        setOnline([{ username: "(:) Replverse Bot", avatar: "/logo.svg" },...__online])
       })
       socket.on("chat", (msg) => {
         if(msg.last){
@@ -500,7 +500,7 @@ export async function getServerSideProps({req, res, query}){
         avatar: userData.icon.url,
         replitName: req.headers["x-replit-user-name"],
         messages,
-        users: JSON.stringify(users),
+        users: JSON.stringify([...new Set(users)]),
         admin: JSON.parse(process.env.ADMINS).includes(req.headers["x-replit-user-name"]),
         channel: query.channel || "general"
       }

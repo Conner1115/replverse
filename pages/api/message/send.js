@@ -195,17 +195,19 @@ const badWords = [
   "boobs","boob","pussy","nutsack","penis","porn","hentai","motherfucking", "nigga", "dick", "vagina", "bitch"
 ]
 
+const prefix = ":";
+
 app.post(async (req, res) => {
   authUser(req, res, async (usr) => {
     let findApps = await App.find({ user: usr.name });
     if(findApps.length > 0){
       if(alphaPurge(req.body.data.text, badWords).contains){
-        res.status(401).json({
+        res.status(403).json({
           success: false,
           message: `Whoah, hold up there buddy - We found the word(s) ${alphaPurge(req.body.data.text, badWords).words.join(', ')} in your message.  Please note that bypassing filters or saying a seriously offensive word could get you banned from replverse.`
         })
       }else{
-        let ft = await fetch("https://replverse-data.ironcladdev.repl.co/se/nd/a/me/ssa/ge", {
+        fetch("https://replverse-data.ironcladdev.repl.co/se/nd/a/me/ssa/ge", {
           method: "POST",
           body: JSON.stringify({
             data: req.body.data,
@@ -215,26 +217,45 @@ app.post(async (req, res) => {
             "Content-Type": "application/json",
             accept: "*/*"
           }
-        }).then(r => r.json())
-        if(ft.success){
-          if(req.body.pings.length > 0){
-            for(var i of req.body.pings){
-              writeNotif({
-                title: req.body.data.username + " mentioned you in #" + req.body.data.channel,
-                link: "/chat?channel=" + req.body.data.channel + "#" + req.body.data.id,
-                cont: req.body.data.text,
-                icon: req.body.data.avatar,
-                userFor: i
-              });
+        }).then(r => r.json()).then(__data => {
+          if(__data.success){
+            if(req.body.pings.length > 0){
+                    for(var i of req.body.pings){
+                      writeNotif({
+                        title: req.body.data.username + " mentioned you in #" + req.body.data.channel,
+                        link: "/chat?channel=" + req.body.data.channel + "#" + req.body.data.id,
+                        cont: req.body.data.text,
+                        icon: req.body.data.avatar,
+                        userFor: i
+                      });
+                    }
+            }
+            if(req.body.data.text.startsWith(prefix)){
+              fetch("https://replverse-data.ironcladdev.repl.co/bot/se/nd/me/ss/age", {
+                method: "POST",
+                body: JSON.stringify({
+                  command: req.body.data.text,
+                  channel: req.body.data.channel,
+                  day: req.body.data.day,
+                  auth: process.env.ADMSS
+                }),
+                headers: {
+                  "Content-Type": "application/json",
+                  accept: "*/*"
+                }
+              }).then(r => r.json()).then(ft => {
+                if(ft.success){
+                  res.json({ success: true });
+                }
+              })
+            }
+            else{
+              if(__data.success){
+                  res.json({ success: true });
+              }
             }
           }
-          res.json({ success: true });
-        } else{
-          res.json({
-            success: false,
-            message: "Unauthorized Attempt"
-          })
-        }
+        })
       }
     }
     else{
