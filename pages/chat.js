@@ -413,7 +413,7 @@ export default function Chat(props){
               if(x){
               let san = DOMPurify.sanitize(marked(x.text.replace(/\</g, "&lt;").replace(/\>/g, "&gt;")));
               return (x.compact ? (<div style={{
-                background: detectPing(x.text).includes(props.replitName) ? "var(--accent-primary-dimmest)" : 'var(--background-root)',
+                  background: detectPing(x.text).includes(props.replitName) ? "var(--accent-primary-dimmest)" : "var(--background-root)",
                 paddingTop: 0
               }} className={styles.message} id={x.id} key={Math.random()}>
                         <div style={{
@@ -424,7 +424,8 @@ export default function Chat(props){
                         {(x.username === props.replitName || props.admin) && <div className={styles.mDel} onClick={() => deleteMessage(x.id)}><ion-icon name="trash"></ion-icon></div>}
                         </div>
                       </div>) : (<div style={{
-                background: detectPing(x.text).includes(props.replitName) ? "var(--accent-primary-dimmest)" : 'var(--background-root)'
+                boxShadow: detectPing(x.text).includes(props.replitName) ? "0 10px 0 0 var(--accent-primary-dimmest), inset 0 10px 0 0 var(--background-root)" : '0 0 0 0 transparent',
+                  background: detectPing(x.text).includes(props.replitName) ? "var(--accent-primary-dimmest)" : "var(--background-root)"
               }} className={styles.message} id={x.id} key={Math.random()}>
                         <a href={"/user/" + x.username} target="_blank" rel="noreferrer"><img alt={x.username + "'s avatar"} className={styles.messageAvatar} src={x.avatar}/></a>
                         <div className={styles.mBody}>
