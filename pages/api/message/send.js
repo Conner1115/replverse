@@ -237,6 +237,7 @@ app.post(async (req, res) => {
                   command: req.body.data.text,
                   channel: req.body.data.channel,
                   day: req.body.data.day,
+                  username: req.body.data.username,
                   auth: process.env.ADMSS
                 }),
                 headers: {
