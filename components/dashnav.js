@@ -48,6 +48,7 @@ export default class DashNav extends Component {
       notifModal: false,
       notifs: [],
       loggedIn: true,
+      repls: []
     }
     this.toggle = this.toggle.bind(this);
     this.updateInput = this.updateInput.bind(this);
@@ -97,13 +98,15 @@ export default class DashNav extends Component {
     const data = await fetch("/api/user/__me__").then(r => r.json())
     if(data){
       let __notifications = await getData("notifs.json", {userFor: data.username});
+      let replItems = data.publicRepls.items;
       let rev = __notifications.reverse()
       this.setState({
         icon: data.icon.url,
         username: data.username,
         visible: this.props.close ? false : (localStorage.getItem("nav") ? JSON.parse(localStorage.getItem("nav")) : true),
         notifs: rev,
-        unreads: rev.filter(x => !x.r).length
+        unreads: rev.filter(x => !x.r).length,
+        repls: replItems.map(x => x.slug)
       })
     } else {
       this.setState({
@@ -274,8 +277,11 @@ export default class DashNav extends Component {
         }}></div>
         <div className={styles.publishModal + " " + ui.boxDimDefault}>
           <h3 style={{padding: 0, fontSize: '1.5em', textAlign: 'center'}}>Share a Repl</h3>
-          <div className={ui.formLabel} style={{marginTop: 15}}>Repl Title (Case-Sensitive!)</div>
-          <input className={ui.input + " " + styles.replName} value={this.state.replname} onChange={this.updateInput} style={{background: 'var(--background-higher)'}}/>
+          <div className={ui.formLabel} style={{marginTop: 15}}>Select one of your repls to publish</div>
+          <select className={ui.uiButtonDark} value={this.state.replname} onChange={this.updateInput}>
+              {this.state.repls.map(x => <option value={x} key={Math.random()}>{x}</option>)}
+          </select>
+          {/*<input className={ui.input + " " + styles.replName} value={this.state.replname} onChange={this.updateInput} style={{background: 'var(--background-higher)'}}/>*/}
             <div className={styles.verifyFlex}>
               <img alt="Language Icon" className={styles.replIcon} src={this.state.langicon}/>
               <div className={styles.replstatus} style={{

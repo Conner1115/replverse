@@ -18,7 +18,7 @@ app.get(async (req, res) => {
   let findUser = await User.findOne({ name: req.headers["x-replit-user-name"] });
   if(findUser && req.headers["x-replit-user-name"]){
   const query = JSON.stringify({
-  query: `{userByUsername(username: "${req.headers["x-replit-user-name"]}") {karma, firstName, lastName, bio, id, image}}`,
+  query: `{userByUsername(username: "${req.headers["x-replit-user-name"]}") {karma, firstName, lastName, bio, id, image, publicRepls(count: 10000) { items {slug}}}}`,
   variables: {
     username: "IroncladDev",
     search: ""
