@@ -399,7 +399,7 @@ export default function Dashboard(props){
           backdrop: false,
           title: "Publishing a Repl",
           position: "center-start",
-          text: "Let's publish your first repl.  Click the \"Share a Repl\" button on the navigation bar to start.  Make sure you type your repl name exactly including dashes, capital letters, and symbols (if any).",
+          text: "Let's publish your first repl.  Open the sidebar and click the \"Share a Repl\" button on the navigation bar to start and select one of yours.",
           willClose: () => {
             document.cookie="newuser=2; path=/; Max-Age="+1000 * 60 * 60 * 24 * 365 * 10
           }
