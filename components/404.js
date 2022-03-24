@@ -24,7 +24,7 @@ export default function Error(props){
         transform: 'translate(-50%, -50%)'
       }}>
         <h1 style={{paddingTop: 0, textAlign: 'center'}}>{props.error || "404 Not Found"}</h1>
-        <h3 style={{textAlign: 'center', paddingTop: 0, marginBottom: 50}}>This page doensn&apos;t exist.</h3>
+        <h3 style={{textAlign: 'center', paddingTop: 0, marginBottom: 50}}>This page doesn&apos;t exist.</h3>
         <img src="/logo.svg" alt="Replverse Logo" style={{height: '40vh', maxHeight: '600px'}} className={styles.illustration} />
       </div>
     </div>
